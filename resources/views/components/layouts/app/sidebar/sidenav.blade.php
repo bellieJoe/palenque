@@ -21,9 +21,9 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                         aria-expanded="false">
-                        <i class="fas fa-users"></i>
+                        <i class="mdi mdi-account-settings"></i>
                         <span class="hide-menu">User Maintenance </span>
-                        <span class="badge badge-pill badge-info ml-auto m-r-15">3</span>
+                        {{-- <span class="badge badge-pill badge-info ml-auto m-r-15">3</span> --}}
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level">
                         {{-- <li class="sidebar-item">

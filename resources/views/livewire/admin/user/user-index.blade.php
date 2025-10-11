@@ -1,4 +1,5 @@
 <div>
+    @livewire('admin.user.edit-role')
     <x-page-header title="Users" />
     <div class="d-flex justify-content-end mb-2">
         @livewire('admin.user.user-create')
@@ -12,6 +13,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -21,8 +23,11 @@
                                 <td> <img src="https://api.dicebear.com/9.x/identicon/svg?seed={{ $user->name }}" class="rounded-circle mr-2" width="25px" alt="" >{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
+                                    <button class="btn btn-outline-primary btn-sm" title="Edit Role" wire:click="editRole({{$user}})"><i class="fas fa-edit"></i></button>
+                                    {{ $user->roles->first()->roleType->name }}
+                                </td>
+                                <td>
                                     <!-- Example actions -->
-                                    <button class="btn btn-sm btn-outline-primary" wire:click="editRole({{$user}})" >Roles</button>
                                     <button class="btn btn-sm btn-outline-danger" wire:click="deleteUser({{$user}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
                                 </td>
                             </tr>
@@ -43,7 +48,7 @@
     </div>
 
     {{-- @if($selectedUser) --}}
-    <div class="modal fade " id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true" wire:ignore.self >
+    {{-- <div class="modal fade " id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true" wire:ignore.self >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -92,10 +97,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- @endif --}}
 
-    @script
+    {{-- @script
     <script>
         document.addEventListener('livewire:initialized', () => {
             Livewire.on('show-edit-role-modal', () => {
@@ -107,10 +112,6 @@
             });
         });
 
-        $wire.on('show-toast', (message) => {
-            console.log(message);
-            showToast(message.type, message.message);
-        })
     </script>
-    @endscript
+    @endscript --}}
 </div>

@@ -16,7 +16,7 @@
                     {{ $slot }}
                 </div>
                 <footer class="footer text-center">
-                    All Rights Reserved by DENR-PENRO Marinduque.
+                    All Rights Reserved by PalenQUE.
                 </footer>
             </div>
         </div>

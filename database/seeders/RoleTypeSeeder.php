@@ -35,6 +35,10 @@ class RoleTypeSeeder extends Seeder
                 "name" => "Market Specialist(Collector)",
                 "id" => 5
             ],
+            [
+                "name" => "Vendor",
+                "id" => 6
+            ],
         ]);
     }
 }

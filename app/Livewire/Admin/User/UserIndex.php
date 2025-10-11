@@ -16,7 +16,7 @@ class UserIndex extends Component
 
     protected $paginationTheme = 'bootstrap';
     protected $listeners = [
-        'user-created'
+        'user-created',
     ];
 
     public $search = '';
@@ -26,10 +26,7 @@ class UserIndex extends Component
 
     public function editRole(User $user)
     {
-        Log::info('Editing role for user: ' . $user);
-        $this->editRoleModalVisibility = true;
-        $this->selectedUser = $user;
-        $this->dispatch('show-edit-role-modal');
+        $this->dispatch("edit-role", id: $user->id);
     }
 
     public function closeEditModal()
