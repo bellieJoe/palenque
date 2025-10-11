@@ -69,6 +69,92 @@ new class extends Component {
     }
 }; ?>
 
+<div class="container-fluid">
+    <section class="w-100">
+        @include('partials.settings-heading')
+        <br>
+        {{-- <div class="card">
+            <div class="card-body"> --}}
+        <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
+            <form wire:submit="updateProfileInformation" class="my-4 w-100">
+                
+                {{-- Name Input --}}
+                <div class="form-group">
+                    <label for="name">{{ __('Name') }}</label>
+                    <input 
+                        wire:model="name" 
+                        type="text" 
+                        class="form-control" 
+                        id="name" 
+                        required 
+                        autofocus 
+                        autocomplete="name"
+                    >
+                    @error('name')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+    
+                {{-- Email Input --}}
+                <div class="form-group">
+                    <label for="email">{{ __('Email') }}</label>
+                    <input 
+                        wire:model="email" 
+                        type="email" 
+                        class="form-control" 
+                        id="email" 
+                        required 
+                        autocomplete="email"
+                    >
+                    @error('email')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+    
+                    @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
+                        <div class="mt-3">
+                            <p class="text-muted mb-1">{{ __('Your email address is unverified.') }}</p>
+                            <a 
+                                href="#" 
+                                class="text-sm text-primary" 
+                                wire:click.prevent="resendVerificationNotification"
+                            >
+                                {{ __('Click here to re-send the verification email.') }}
+                            </a>
+    
+                            @if (session('status') === 'verification-link-sent')
+                                <p class="mt-2 text-success font-weight-bold">
+                                    {{ __('A new verification link has been sent to your email address.') }}
+                                </p>
+                            @endif
+                        </div>
+                    @endif
+                </div>
+    
+                {{-- Submit Button --}}
+                <div class="d-flex align-items-center mt-4">
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary" 
+                        data-test="update-profile-button"
+                    >
+                        {{ __('Save') }}
+                    </button>
+    
+                    <x-action-message class="ml-3" on="profile-updated">
+                        {{ __('Saved.') }}
+                    </x-action-message>
+                </div>
+            </form>
+    
+            {{-- Delete User Form --}}
+            <livewire:settings.delete-user-form />
+        </x-settings.layout>
+            {{-- </div>
+        </div> --}}
+    </section>
+</div>
+
+
 {{-- <section class="w-full">
     @include('partials.settings-heading')
 
@@ -114,65 +200,3 @@ new class extends Component {
         <livewire:settings.delete-user-form />
     </x-settings.layout>
 </section> --}}
-
-<section class="container mt-4">
-    @include('partials.settings-heading')
-
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title mb-0">{{ __('Profile') }}</h5>
-            <small class="text-muted">{{ __('Update your name and email address') }}</small>
-        </div>
-
-        <div class="card-body">
-            <form wire:submit.prevent="updateProfileInformation">
-                <div class="form-group">
-                    <label for="name">{{ __('Name') }}</label>
-                    <input type="text" id="name" class="form-control" wire:model="name" required autofocus autocomplete="name">
-                    @error('name') 
-                        <small class="text-danger">{{ $message }}</small> 
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="email">{{ __('Email') }}</label>
-                    <input type="email" id="email" class="form-control" wire:model="email" required autocomplete="email">
-                    @error('email') 
-                        <small class="text-danger">{{ $message }}</small> 
-                    @enderror
-
-                    @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
-                        <div class="mt-2">
-                            <p class="text-muted mb-1">
-                                {{ __('Your email address is unverified.') }}
-                                <a href="#" class="text-primary" wire:click.prevent="resendVerificationNotification">
-                                    {{ __('Click here to re-send the verification email.') }}
-                                </a>
-                            </p>
-
-                            @if (session('status') === 'verification-link-sent')
-                                <div class="alert alert-success py-2 mt-2 mb-0">
-                                    {{ __('A new verification link has been sent to your email address.') }}
-                                </div>
-                            @endif
-                        </div>
-                    @endif
-                </div>
-
-                <div class="form-group d-flex align-items-center justify-content-between mt-4">
-                    <button type="submit" class="btn btn-primary" data-test="update-profile-button">
-                        {{ __('Save Changes') }}
-                    </button>
-
-                    <x-action-message class="text-success ml-3" on="profile-updated">
-                        {{ __('Saved.') }}
-                    </x-action-message>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <livewire:settings.delete-user-form />
-</section>
-
-

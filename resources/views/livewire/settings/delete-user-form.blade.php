@@ -22,6 +22,86 @@ new class extends Component {
     }
 }; ?>
 
+<section class="mt-5">
+    <div class="mb-4">
+        <h4 class="mb-1">{{ __('Delete Account') }}</h4>
+        <p class="text-muted">{{ __('Delete your account and all of its resources.') }}</p>
+    </div>
+
+    <!-- Delete Account Button -->
+    <button
+        type="button"
+        class="btn btn-danger"
+        data-toggle="modal"
+        data-target="#confirmUserDeletionModal"
+        data-test="delete-user-button"
+    >
+        {{ __('Delete Account') }}
+    </button>
+
+    <!-- Confirm Delete Modal -->
+    <div
+        wire:ignore.self
+        class="modal fade"
+        id="confirmUserDeletionModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="confirmUserDeletionLabel"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmUserDeletionLabel">
+                        {{ __('Confirm Account Deletion') }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <form method="POST" wire:submit.prevent="deleteUser">
+                    @csrf
+                    <div class="modal-body">
+                        <p class="mb-3 font-weight-bold text-danger">
+                            {{ __('Are you sure you want to delete your account?') }}
+                        </p>
+                        <p class="text-muted">
+                            {{ __('Once your account is deleted, all of its resources and data will be permanently removed. Please enter your password to confirm deletion.') }}
+                        </p>
+
+                        <!-- Password Input -->
+                        <div class="form-group mt-3">
+                            <label for="password">{{ __('Password') }}</label>
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                wire:model="password"
+                                placeholder="{{ __('Enter your password') }}"
+                                required
+                            >
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            {{ __('Cancel') }}
+                        </button>
+                        <button type="submit" class="btn btn-danger" data-test="confirm-delete-user-button">
+                            {{ __('Delete Account') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 {{-- <section class="mt-10 space-y-6">
     <div class="relative mb-5">
         <flux:heading>{{ __('Delete account') }}</flux:heading>
@@ -58,55 +138,3 @@ new class extends Component {
         </form>
     </flux:modal>
 </section> --}}
-
-<section class="mt-4">
-    <div class="mb-4">
-        <h5 class="card-title mb-1">{{ __('Delete Account') }}</h5>
-        <p class="text-muted mb-0">{{ __('Delete your account and all of its resources.') }}</p>
-    </div>
-
-    <!-- Delete Account Button -->
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmUserDeletionModal" data-test="delete-user-button">
-        {{ __('Delete Account') }}
-    </button>
-
-    <!-- Confirm Deletion Modal -->
-    <div wire:ignore.self class="modal fade" id="confirmUserDeletionModal" tabindex="-1" role="dialog" aria-labelledby="confirmUserDeletionLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form wire:submit.prevent="deleteUser">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmUserDeletionLabel">{{ __('Are you sure you want to delete your account?') }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <p class="mb-3">
-                            {{ __('Once your account is deleted, all of its resources and data will be permanently removed. Please enter your password to confirm you would like to permanently delete your account.') }}
-                        </p>
-
-                        <div class="form-group">
-                            <label for="delete-password">{{ __('Password') }}</label>
-                            <input type="password" id="delete-password" class="form-control" wire:model="password" required>
-                            @error('password') 
-                                <small class="text-danger">{{ $message }}</small> 
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            {{ __('Cancel') }}
-                        </button>
-                        <button type="submit" class="btn btn-danger" data-test="confirm-delete-user-button">
-                            {{ __('Delete Account') }}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
