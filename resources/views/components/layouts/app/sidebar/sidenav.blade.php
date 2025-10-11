@@ -7,17 +7,17 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="nav-small-cap">
-                    <i class="mdi mdi-dots-horizontal"></i>
-                    <span class="hide-menu">Admin</span>
-                </li>
                 <li class="sidebar-item">
                     <a href="{{ route('dashboard') }}"  class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" wire:navigate>
                         <i class="mdi mdi-view-dashboard"></i>
                         <span class="hide-menu"> Dashboard </span>
                     </a>
                 </li>
-                
+                @if (auth()->user()->isAdmin())
+                <li class="nav-small-cap">
+                    <i class="mdi mdi-dots-horizontal"></i>
+                    <span class="hide-menu">Admin</span>
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                         aria-expanded="false">
@@ -40,6 +40,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

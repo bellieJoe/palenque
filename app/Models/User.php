@@ -68,18 +68,6 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         $roles = $this->roles;
-        return $roles->contains('id', 1);
-    }
-
-    public function isEncoder(): bool
-    {
-        $roles = $this->roles;
-        return $roles->contains('id', 2);
-    }
-
-    public function isViewer(): bool
-    {
-        $roles = $this->roles;
-        return $roles->contains('id', 3);
+        return $roles->contains('role_type_id', 1);
     }
 }
