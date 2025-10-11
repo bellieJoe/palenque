@@ -151,7 +151,6 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
           @if (Route::has('password.request'))
               <a href="{{ route('password.request') }}"
-                 wire:navigate
                  class="small position-absolute"
                  style="top: 0; right: 0;">
                  {{ __('Forgot your password?') }}
@@ -175,7 +174,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
   @if (Route::has('register'))
       <div class="text-center mt-3">
           <span class="text-muted small">{{ __('Don\'t have an account?') }}</span>
-          <a href="{{ route('register') }}" wire:navigate>{{ __('Sign up') }}</a>
+          <a href="{{ route('register') }}" >{{ __('Sign up') }}</a>
       </div>
   @endif
 </div>

@@ -5,7 +5,6 @@
     </head>
     <body >
         <x-preloader />
-
         <div id="main-wrapper">
             <x-layouts.app.sidebar.topbar />
             <x-layouts.app.sidebar.sidenav />
