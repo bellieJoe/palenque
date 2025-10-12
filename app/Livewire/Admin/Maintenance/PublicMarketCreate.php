@@ -3,7 +3,9 @@
 namespace App\Livewire\Admin\Maintenance;
 
 use App\Models\MunicipalMarket;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -27,6 +29,7 @@ class PublicMarketCreate extends Component
     }
 
     public function savePublicMarket(){
+        Gate::authorize('create', MunicipalMarket::class);
         $this->validate();
         DB::transaction(function () {
             MunicipalMarket::create([

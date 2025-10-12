@@ -70,4 +70,22 @@ class User extends Authenticatable
         $roles = $this->roles;
         return $roles->contains('role_type_id', 1);
     }
+
+    public function isMarketSupervisor(): bool
+    {
+        $roles = $this->roles;
+        return $roles->contains('role_type_id', 2);
+    }
+
+    public function isAdminAide(): bool
+    {
+        $roles = $this->roles;
+        return $roles->contains('role_type_id', 4);
+    }
+
+    public function marketDesignation()
+    {
+        $roles = $this->roles;
+        return $roles->first()->municipalMarket;
+    }
 }

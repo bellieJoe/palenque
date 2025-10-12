@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Maintenance;
 
 use App\Models\MunicipalMarket;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -25,6 +26,7 @@ class PublicMarketEdit extends Component
     }
 
     public function updateMarket() {
+        Gate::authorize('update', $this->market);
         $this->validate();
         $this->market->name = $this->name;
         $this->market->address = $this->address;

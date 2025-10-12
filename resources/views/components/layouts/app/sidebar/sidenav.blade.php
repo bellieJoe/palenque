@@ -63,6 +63,14 @@
                     </ul>
                 </li>
                 @endif
+                @if (auth()->user()->isMarketSupervisor() || auth()->user()->isAdminAide())
+                <li class="sidebar-item">
+                    <a href="{{ route('main.suppliers.index') }}" class="sidebar-link {{ request()->routeIs('main.suppliers.*') ? 'active' : '' }}" wire:navigate>
+                        <i class="mdi mdi-truck-delivery"></i>
+                        <span class="hide-menu"> Suppliers </span>
+                    </a>
+                </li>
+                @endif
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

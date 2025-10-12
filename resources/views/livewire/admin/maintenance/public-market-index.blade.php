@@ -1,11 +1,12 @@
 <div>
+    <x-page-header title="Municipal Public Markets" />
     @livewire('admin.maintenance.public-market-edit')
     <div class="d-flex justify-content-end mb-2">
         @livewire('admin.maintenance.public-market-create')
     </div>
     <div class="card">
         <div class="card-body">
-            <input type="text" class="form-control" wire:model.live.debounce.300ms="search" placeholder="Search...">
+            <input type="text" class="form-control mb-3" wire:model.live.debounce.300ms="search" placeholder="Search...">
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <thead>

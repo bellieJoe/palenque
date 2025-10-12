@@ -4,17 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Supplier extends Model
 {
     //
     protected $guarded = [];
 
-    public function roleType()
-    {
-        return $this->belongsTo(RoleType::class);
-    }
-
-    public function municipalMarket()
+    public function municipalMarker()
     {
         return $this->belongsTo(MunicipalMarket::class);
     }

@@ -8,4 +8,5 @@ class MunicipalMarket extends Model
 {
     //
     protected $guarded = [];
+    
 }
