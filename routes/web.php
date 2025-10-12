@@ -2,6 +2,7 @@
 
 use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
+use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -31,6 +32,9 @@ Route::group(["prefix" => "admin", "as" => "admin."], function () {
 Route::group(["prefix" => "main", "as" => "main."], function () {
     Route::group(["prefix" => "suppliers", "as" => "suppliers."], function () {
         Route::get('/', SupplierIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+    Route::group(["prefix" => "stalls", "as" => "stalls."], function () {
+        Route::get('/', StallIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
 });
 
