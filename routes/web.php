@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -20,6 +21,9 @@ Route::view('dashboard', 'dashboard')
 Route::group(["prefix" => "admin", "as" => "admin."], function () {
     Route::group(["prefix" => "users", "as" => "users."], function () {
         Route::get('/', UserIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+    Route::group(["prefix" => "municipal-markets", "as" => "municipal-markets."], function () {
+        Route::get('/', PublicMarketIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
 });
 

@@ -40,6 +40,28 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                        aria-expanded="false">
+                        <i class="fas fa-sliders-h"></i>
+                        <span class="hide-menu">Maintenance </span>
+                        {{-- <span class="badge badge-pill badge-info ml-auto m-r-15">3</span> --}}
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        {{-- <li class="sidebar-item">
+                            <a href="index.html" class="sidebar-link">
+                                <i class="mdi mdi-adjust"></i>
+                                <span class="hide-menu"> Classic </span>
+                            </a>
+                        </li> --}}
+                        <li class="sidebar-item">
+                            <a href="{{ route('admin.municipal-markets.index') }}" class="sidebar-link {{ request()->routeIs('admin.municipal-markets.*') ? 'active' : '' }}" wire:navigate>
+                                <i class="fas fa-store-alt"></i>
+                                <span class="hide-menu"> Public Markets </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 @endif
             </ul>
         </nav>

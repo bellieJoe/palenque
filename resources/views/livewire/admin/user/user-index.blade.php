@@ -23,12 +23,12 @@
                                 <td> <img src="https://api.dicebear.com/9.x/identicon/svg?seed={{ $user->name }}" class="rounded-circle mr-2" width="25px" alt="" >{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <button class="btn btn-outline-primary btn-sm" title="Edit Role" wire:click="editRole({{$user}})"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-outline-primary " title="Edit Role" wire:click="editRole({{$user}})"><i class="fas fa-edit"></i></button>
                                     {{ $user->roles->first()->roleType->name }}
                                 </td>
                                 <td>
                                     <!-- Example actions -->
-                                    <button class="btn btn-sm btn-outline-danger" wire:click="deleteUser({{$user}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
+                                    <button class="btn btn-outline-danger" wire:click="deleteUser({{$user}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
                                 </td>
                             </tr>
                         @empty
