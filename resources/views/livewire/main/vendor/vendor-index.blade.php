@@ -24,7 +24,7 @@
                                 <td>{{ $vendor->user->email }}</td>
                                 <td>
                                     <button class="btn btn-outline-danger" wire:click="deleteVendor({{$vendor->id}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
-                                    <button class="btn btn-outline-primary" wire:click="editVendor({{$vendor->id}})">Edit</button>
+                                    {{-- <button class="btn btn-outline-primary" wire:click="editVendor({{$vendor->id}})">Edit</button> --}}
                                 </td>
                             </tr>
                         @empty

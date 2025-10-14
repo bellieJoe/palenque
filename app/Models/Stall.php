@@ -13,4 +13,15 @@ class Stall extends Model
     {
         return $this->belongsTo(MunicipalMarket::class);
     }
+
+    public function stallOccupants()
+    {
+        return $this->hasMany(StallOccupant::class);
+    }
+
+    public function getActiveOccupantAttribute()
+    {
+        return $this->stallOccupants()->where('status', true)->first();
+    }
+
 }

@@ -3,6 +3,8 @@
 <!-- ============================================================== -->
 
 <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+{{-- select2 --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Bootstrap tether Core JavaScript -->
 <script src="{{ asset('assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
 <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
@@ -31,6 +33,12 @@
 {{-- <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script> --}}
 
 <script>
+    $(document).ready(function() {
+        console.log("ready!");
+        $('.select2').select2({
+            theme: 'bootstrap4'
+        });
+    })
     function togglePasswordVisibility(fieldId, event) {
         event.preventDefault();
         const passwordField = document.getElementById(fieldId);

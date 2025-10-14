@@ -32,6 +32,11 @@ class StallIndex extends Component
         $this->dispatch('editStall', $id);
     }
 
+    public function setOccupant($id)
+    {
+        $this->dispatch('setOccupant', $id);
+    }
+
     public function render()
     {
         $stalls = Stall::query()->where('name', 'like', '%' . $this->search . '%')->where('municipal_market_id', auth()->user()->marketDesignation()->id)->paginate(10);

@@ -13,4 +13,9 @@ class Vendor extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function stallOccupants()
+    {
+        return $this->hasMany(StallOccupant::class);
+    }
 }
