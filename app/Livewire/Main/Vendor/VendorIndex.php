@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Livewire\Main\Vendor;
+
+use App\Models\Role;
+use App\Models\Vendor;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Livewire\Component;
+use Livewire\Features\SupportPagination\WithoutUrlPagination;
+use Livewire\WithPagination;
+
+class VendorIndex extends Component
+{
+    use WithPagination, WithoutUrlPagination;
+
+    protected $listeners = [
+        "refresh-vendors"
+    ];
+
+    public $search;
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function editVendor($id){
+        $this->dispatch("editVendor", $id);
+    }
+
+    public function deleteVendor($id){
+        try {
+            DB::transaction(function () use ($id) {
+                $vendor = Vendor::with('user')->findOrFail($id);
+                $user = $vendor->user;
+                // Delete related roles first
+                Role::where("user_id", $user->id)->delete();
+                // Delete user and vendor
+                $user->delete();
+                $vendor->delete();
+            });
+
+            notyf()->position('y', 'top')->success('Vendor deleted successfully!');
+        } catch (\Throwable $th) {
+            Log::error($th);
+            notyf()->position('y', 'top')->error('Failed to delete vendor!');
+        }
+    }
+
+    public function render()
+    {
+        $vendors = Vendor::query()
+        ->where("name", "like", "%{$this->search}%")
+        ->where("municipal_market_id", auth()->user()->marketDesignation()->id)
+        ->with("user")
+        ->paginate(10);
+        return view('livewire.main.vendor.vendor-index', ["vendors" => $vendors]);
+    }
+}

@@ -73,6 +73,10 @@
                         <i class="mdi mdi-store"></i>
                         <span class="hide-menu"> Stalls </span>
                     </a>
+                    <a href="{{ route('main.vendors.index') }}" class="sidebar-link {{ request()->routeIs('main.vendors.*') ? 'active' : '' }}" wire:navigate>
+                        <i class="mdi mdi-store"></i>
+                        <span class="hide-menu"> Vendors/Stall Holders </span>
+                    </a>
                 </li>
                 @endif
             </ul>
