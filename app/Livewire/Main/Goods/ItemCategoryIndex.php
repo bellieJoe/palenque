@@ -25,7 +25,7 @@ class ItemCategoryIndex extends Component
     {
         $category = ItemCategory::find($id);
         if(Item::where('item_category_id', $category->id)->count() > 0){
-            notyf()->position('y', 'top')->error('Item Category is in use and cannot be deleted!');
+            notyf()->position('y', 'top')->warning('Item Category is in use and cannot be deleted!');
             return;
         }
         $category->delete();

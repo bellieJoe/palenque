@@ -94,7 +94,7 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="{{ route('main.item-categories.index') }}" class="sidebar-link {{ request()->routeIs('main.item-categories.*') ? 'active' : '' }}" wire:navigate>
-                                <i class="fa fa-list" aria-hidden="true"></i>
+                                <i class="mdi mdi-format-list-bulleted-type"></i>
                                 <span class="hide-menu"> Item Categories </span>
                             </a>
                         </li>

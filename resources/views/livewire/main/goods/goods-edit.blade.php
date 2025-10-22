@@ -1,10 +1,9 @@
 <div class="" >
-    <button class="btn btn-primary" wire:click="showCreateGoodsModal">Add Item</button>
-    <div class="modal fade " id="createGoodsModal" wire:ignore.self>
+    <div class="modal fade " id="editGoodsModal" wire:ignore.self>
         <div class="modal-dialog modal-lg">
             <form class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createGoodsModalLabel">Add Item</h5>
+                    <h5 class="modal-title" id="editGoodsModalLabel">Edit Item</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -27,7 +26,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" wire:loading.attr="disabled" wire:click="saveItem">Save</button>
+                    <button class="btn btn-primary" type="button" wire:loading.attr="disabled" wire:click="updateItem">Save</button>
                 </div>
             </form>
         </div>
@@ -35,11 +34,11 @@
 </div>
 @script
 <script>
-    $wire.on('show-create-goods-modal', () => {
-        $('#createGoodsModal').modal('show');
+    $wire.on('show-edit-goods-modal', () => {
+        $('#editGoodsModal').modal('show');
     });
-    $wire.on('hide-create-goods-modal', () => {
-        $('#createGoodsModal').modal('hide');
+    $wire.on('hide-edit-goods-modal', () => {
+        $('#editGoodsModal').modal('hide');
     });
 </script>
 @endscript
