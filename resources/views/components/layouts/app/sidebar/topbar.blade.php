@@ -81,11 +81,13 @@
             <!-- Right side toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav float-right">
+                @if (!auth()->user()->isAdmin())
                 <li class="nav-item dropdown">
                     <a class="nav-link  waves-effect waves-dark" href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mdi mdi-shopping"></span> {{ auth()->user()->marketDesignation()->name }}
                     </a>
                 </li>
+                @endif
                 {{-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->foreignId('item_category_id');
+            $table->foreignId('municipal_market_id');
             $table->timestamps();
         });
     }
