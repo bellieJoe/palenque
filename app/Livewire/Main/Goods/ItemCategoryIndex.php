@@ -46,6 +46,4 @@ class ItemCategoryIndex extends Component
             'categories' => $categories
         ]);
     }
-
-
 }
