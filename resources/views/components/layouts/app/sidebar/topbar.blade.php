@@ -1,3 +1,6 @@
+@php
+    $marketDesignation = auth()->user()->marketDesignation();
+@endphp
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="navbar-header">
@@ -81,11 +84,14 @@
             <!-- Right side toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav float-right">
+                
+                @if ($marketDesignation)
                 <li class="nav-item dropdown">
                     <a class="nav-link  waves-effect waves-dark" href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mdi mdi-shopping"></span> {{ auth()->user()->marketDesignation()->name }}
                     </a>
                 </li>
+                @endif
                 {{-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -256,7 +262,7 @@
                 <!-- ============================================================== -->
                 <!-- User profile and search -->
                 <!-- ============================================================== -->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" wire:ignore.self>
                     <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="https://api.dicebear.com/9.x/identicon/svg?seed={{ auth()->user()->name }}" alt="user" class="rounded-circle" width="40">
                         <span class="m-l-5 font-medium d-none d-sm-inline-block">{{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i></span>
