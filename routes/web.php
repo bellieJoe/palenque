@@ -3,9 +3,11 @@
 use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
 use App\Livewire\Main\Goods\GoodsIndex;
+use App\Livewire\Main\Goods\ItemCategoryIndex;
 use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
 use App\Livewire\Main\Vendor\VendorIndex;
+use App\Models\ItemCategory;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -43,6 +45,9 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     });
     Route::group(["prefix" => "goods", "as" => "goods."], function () {
         Route::get('/', GoodsIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+    Route::group(["prefix" => "item-categories", "as" => "item-categories."], function () {
+        Route::get('/', ItemCategoryIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
 });
 
