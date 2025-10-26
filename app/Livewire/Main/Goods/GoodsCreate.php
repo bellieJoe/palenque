@@ -17,6 +17,7 @@ class GoodsCreate extends Component
 
     public function showCreateGoodsModal()
     {
+        $this->reset(['name', 'category']);
         $this->dispatch('show-create-goods-modal');
     }
 

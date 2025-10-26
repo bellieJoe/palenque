@@ -13,6 +13,7 @@ class ItemCategoryCreate extends Component
 
     public function showCreateItemCategoryModal()
     {
+        $this->reset(['name']);
         $this->dispatch('show-create-item-category-modal');
     }
 

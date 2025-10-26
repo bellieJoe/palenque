@@ -7,6 +7,7 @@ use App\Livewire\Main\Goods\ItemCategoryIndex;
 use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
 use App\Livewire\Main\Vendor\VendorIndex;
+use App\Livewire\Settings\Profile\ProfileIndex;
 use App\Models\ItemCategory;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -49,6 +50,10 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     Route::group(["prefix" => "item-categories", "as" => "item-categories."], function () {
         Route::get('/', ItemCategoryIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
+});
+
+Route::group(["prefix" => "settings", "as" => "settings."], function () {
+    Route::get('account-profile', ProfileIndex::class)->name('profile');
 });
 
 Route::middleware(['auth'])->group(function () {

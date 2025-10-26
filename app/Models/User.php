@@ -88,4 +88,15 @@ class User extends Authenticatable
         $roles = $this->roles;
         return $roles->first()->municipalMarket;
     }
+
+    public function isVendor(): bool
+    {
+        $roles = $this->roles;
+        return $roles->contains('role_type_id', 6);
+    }
+
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class);
+    }
 }
