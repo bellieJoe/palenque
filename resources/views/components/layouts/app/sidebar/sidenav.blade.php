@@ -75,7 +75,7 @@
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item">
                                 <a href="{{ route('main.stall-rates.index') }}" class="sidebar-link {{ request()->routeIs('main.stall-rates.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="mdi mdi-store"></i>
+                                    <i class="mdi mdi-cash"></i>
                                     <span class="hide-menu"> Stall Rates </span>
                                 </a>
                             </li>
@@ -110,6 +110,25 @@
                                     <span class="hide-menu"> Item Categories </span>
                                 </a>
                             </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <span class="hide-menu"> Violation Monitoring </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('main.violations.types.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.types.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                    <span class="hide-menu"> Violation  Types </span>
+                                </a>
+                            </li>
+                            {{-- <li class="sidebar-item">
+                                <a href=#" class="sidebar-link " >
+                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                    <span class="hide-menu"> Violations </span>
+                                </a>
+                            </li> --}}
                         </ul>
                     </li>
                 @endif

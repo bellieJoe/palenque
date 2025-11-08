@@ -9,6 +9,7 @@ use App\Livewire\Main\Stall\StallRateIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
 use App\Livewire\Main\Vendor\VendorIndex;
 use App\Livewire\Main\Vendor\VendorView;
+use App\Livewire\Main\Violation\ViolationTypeIndex;
 use App\Livewire\Settings\Profile\ProfileIndex;
 use App\Models\ItemCategory;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,11 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     });
     Route::group(["prefix" => "stall-rates", "as" => "stall-rates."], function () {
         Route::get('/', StallRateIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+    Route::group(["prefix" => "violations", "as" => "violations."], function () {
+        Route::group(["prefix" => "types", "as" => "types."], function () {
+            Route::get('/', ViolationTypeIndex::class)->middleware(['auth', 'verified'])->name('index');
+        });
     });
 });
 
