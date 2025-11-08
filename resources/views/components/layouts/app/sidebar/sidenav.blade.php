@@ -74,6 +74,12 @@
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item">
+                                <a href="{{ route('main.stall-rates.index') }}" class="sidebar-link {{ request()->routeIs('main.stall-rates.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="mdi mdi-store"></i>
+                                    <span class="hide-menu"> Stall Rates </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a href="{{ route('main.stalls.index') }}" class="sidebar-link {{ request()->routeIs('main.stalls.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="mdi mdi-store"></i>
                                     <span class="hide-menu"> Stalls </span>

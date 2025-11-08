@@ -84,7 +84,6 @@
             <!-- Right side toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav float-right">
-                
                 @if ($marketDesignation)
                 <li class="nav-item dropdown">
                     <a class="nav-link  waves-effect waves-dark" href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -295,7 +294,6 @@
                                 @csrf
                                 <button class="dropdown-item"type="submit"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</button>
                             </form>
-                            
                             <div class="dropdown-divider"></div>
                         </div>
                     </div>
