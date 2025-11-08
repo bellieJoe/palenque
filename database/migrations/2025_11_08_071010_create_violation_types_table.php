@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->enum('penalty_type', ['MONETARY', 'SERVICE']);
-            $table->double('monetary_penalty');
-            $table->string('service_penalty', 5000);
+            $table->double('monetary_penalty')->nullable();
+            $table->string('service_penalty', 5000)->nullable();
+            $table->foreignId('municipal_market_id');
             $table->timestamps();
         });
     }
