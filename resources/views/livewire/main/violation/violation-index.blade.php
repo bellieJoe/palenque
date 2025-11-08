@@ -1,5 +1,5 @@
 <div>
-    <x-page-header title="Violation Types" />
+    <x-page-header title="Violations" />
     <div class="d-flex justify-content-end mb-3">
         <a class="btn btn-primary" href="{{ route('main.violations.types.create') }}">Add Violation Type</a>
     </div>
@@ -21,6 +21,7 @@
                                 <td class="align-middle text-danger" title="View Violations">{{ number_format($vendor->unresolvedViolations->count(), 0, '.', ',') }}</td>
                                 <td class="align-middle text-success" title="View Violations">{{ number_format($vendor->resolvedViolations->count(), 0, '.', ',') }}</td>
                                 <td class="align-middle">
+                                    <a class="btn btn-outline-primary" href="{{ route('main.violations.view', $vendor->id) }}" wire:navigate>View Violations</a>
                                     <a class="btn btn-outline-primary" href="{{ route('main.violations.create', $vendor->id) }}" wire:navigate>Add Violation</a>
                                 </td>
                             </tr>

@@ -8,4 +8,9 @@ class Violation extends Model
 {
     //
     protected $guarded = [];
+
+    public function violationType()
+    {
+        return $this->belongsTo(ViolationType::class);
+    }
 }

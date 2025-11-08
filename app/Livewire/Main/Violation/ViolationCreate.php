@@ -36,7 +36,7 @@ class ViolationCreate extends Component
     public function mount($vendor_id)
     {
         $this->vendor = Vendor::find($vendor_id);
-        $this->stalls = $this->vendor->stallOccupants;
+        $this->stalls = $this->vendor->stallOccupants->where('status', true);
         $this->violationTypes = ViolationType::where('municipal_market_id', auth()->user()->marketDesignation()->id)->get();
     }
 

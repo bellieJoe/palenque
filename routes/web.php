@@ -15,6 +15,7 @@ use App\Livewire\Main\Violation\ViolationTypeCreate;
 use App\Livewire\Main\Violation\ViolationTypeEdit;
 use App\Livewire\Main\Violation\ViolationTypeIndex;
 use App\Livewire\Main\Violation\ViolationTypeView;
+use App\Livewire\Main\Violation\ViolationView;
 use App\Livewire\Settings\Profile\ProfileIndex;
 use App\Models\ItemCategory;
 use Illuminate\Support\Facades\Route;
@@ -71,6 +72,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         });
         Route::get('', ViolationIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create/{vendor_id}', ViolationCreate::class)->middleware(['auth', 'verified'])->name('create');
+        Route::get('/view/{vendor_id}', ViolationView::class)->middleware(['auth', 'verified'])->name('view');
     });
 });
 
