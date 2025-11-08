@@ -2,6 +2,8 @@
 
 use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
+use App\Livewire\Main\Fee\FeesCreate;
+use App\Livewire\Main\Fee\FeesIndex;
 use App\Livewire\Main\Goods\GoodsIndex;
 use App\Livewire\Main\Goods\ItemCategoryIndex;
 use App\Livewire\Main\Stall\StallIndex;
@@ -73,6 +75,10 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         Route::get('', ViolationIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create/{vendor_id}', ViolationCreate::class)->middleware(['auth', 'verified'])->name('create');
         Route::get('/view/{vendor_id}', ViolationView::class)->middleware(['auth', 'verified'])->name('view');
+    });
+    Route::group(["prefix" => "fees", "as" => "fees."], function () {
+        Route::get('/', FeesIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create', FeesCreate::class)->middleware(['auth', 'verified'])->name('create');
     });
 });
 

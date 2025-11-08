@@ -131,6 +131,19 @@
                             </li>   
                         </ul>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <span class="hide-menu"> Fees Collection </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('main.fees.index') }}" class="sidebar-link {{ request()->routeIs('main.fees.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="mdi mdi-ticket-percent" aria-hidden="true"></i>
+                                    <span class="hide-menu"> Fees </span>
+                                </a>
+                            </li>  
+                        </ul>
+                    </li>
                 @endif
                 @if (auth()->user()->isAdminAide())
                     <li class="sidebar-item">
