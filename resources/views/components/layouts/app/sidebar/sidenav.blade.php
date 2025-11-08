@@ -86,7 +86,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ route('main.vendors.index') }}" class="sidebar-link {{ request()->routeIs('main.vendors.*') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('main.vendors.index') }}" class="sidebar-link {{ request()->routeIs('main.vendors.*') || request()->routeIs('main.vendors.view.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="mdi mdi-store"></i>
                                     <span class="hide-menu"> Vendors/Stall Holders </span>
                                 </a>

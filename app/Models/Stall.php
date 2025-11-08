@@ -19,6 +19,11 @@ class Stall extends Model
         return $this->hasMany(StallOccupant::class);
     }
 
+    public function stallRate()
+    {
+        return $this->belongsTo(StallRate::class);
+    }
+
     public function getActiveOccupantAttribute()
     {
         return $this->stallOccupants()->where('status', true)->first();

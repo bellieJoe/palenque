@@ -24,3 +24,4 @@
 @vite(['resources/js/app.js']) 
 {{-- @fluxAppearance --}}
 @livewireStyles
+

@@ -7,9 +7,10 @@
         <div class="card-body">
             <input type="text" class="form-control mb-3" wire:model.live.debounce.300ms="search" placeholder="Search Vendors...">
             <div class="table-responsive">
-                <table class="table table-hovered">
+                <table class="table table-hovered" style="min-width: 1000px">
                     <thead>
                         <th>Name</th>
+                        <th>Stalls Occupied</th>
                         <th>Representative</th>
                         <th>Contact Number</th>
                         <th>Email</th>
@@ -18,11 +19,13 @@
                     <tbody>
                         @forelse ($vendors as $vendor)
                             <tr>
-                                <td>{{ $vendor->name }}</td>
-                                <td>{{ $vendor->representative_name }}</td>
-                                <td>{{ $vendor->contact_number }}</td>
-                                <td>{{ $vendor->user->email }}</td>
-                                <td>
+                                <td class="align-middle">{{ $vendor->name }}</td>
+                                <td class="align-middle"><a href="#">{{ $vendor->stallOccupants->count() }}  stall/s</a> </td>
+                                <td class="align-middle">{{ $vendor->representative_name }}</td>
+                                <td class="align-middle">{{ $vendor->contact_number }}</td>
+                                <td class="align-middle">{{ $vendor->user->email }}</td>
+                                <td class="align-middle">
+                                    <a class="btn btn-outline-primary" href="{{ route('main.vendors.view', $vendor->id)}}" wire:navigate>View</a>
                                     <button class="btn btn-outline-danger" wire:click="deleteVendor({{$vendor->id}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
                                     {{-- <button class="btn btn-outline-primary" wire:click="editVendor({{$vendor->id}})">Edit</button> --}}
                                 </td>

@@ -8,6 +8,7 @@ use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Stall\StallRateIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
 use App\Livewire\Main\Vendor\VendorIndex;
+use App\Livewire\Main\Vendor\VendorView;
 use App\Livewire\Settings\Profile\ProfileIndex;
 use App\Models\ItemCategory;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     });
     Route::group(["prefix" => "vendors", "as" => "vendors."], function () {
         Route::get('/', VendorIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('view/{id}', VendorView::class)->middleware(['auth', 'verified'])->name('view');
     });
     Route::group(["prefix" => "goods", "as" => "goods."], function () {
         Route::get('/', GoodsIndex::class)->middleware(['auth', 'verified'])->name('index');
