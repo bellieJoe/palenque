@@ -6,6 +6,7 @@ use App\Models\MunicipalMarket;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +24,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RoleTypeSeeder::class,
-            MunicipalMarketSeeder::class
+            MunicipalMarketSeeder::class,
+            AppSettingsSeeder::class
         ]);
     }
 }

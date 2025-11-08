@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('app_settings', function (Blueprint $table) {
             $table->id();
+            $table->boolean('enable_violations')->default(true);
+            $table->boolean('enable_fee_collection')->default(true);
+            $table->integer('max_violations')->default(5);
+            $table->foreignId('municipal_market_id');
             $table->timestamps();
         });
     }

@@ -14,8 +14,28 @@ class Vendor extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function violations()
+    {
+        return $this->hasMany(Violation::class);
+    }
+
     public function stallOccupants()
     {
         return $this->hasMany(StallOccupant::class);
+    }
+
+    public function getUnresolvedViolationsAttribute()
+    {
+        return $this->violations()->where('status', "PENDING");
+    }
+
+    public function getResolvedViolationsAttribute()
+    {
+        return $this->violations()->where('status', "RESOLVED");
+    }
+
+    public function getWaivedViolationsAttribute()
+    {
+        return $this->violations()->where('status', "WAIVED");
     }
 }

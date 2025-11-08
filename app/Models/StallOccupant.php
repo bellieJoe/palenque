@@ -26,6 +26,6 @@ class StallOccupant extends Model
 
     public function getActiveContractAttribute()
     {
-        return $this->stallContracts()->where('to', '>=', now())->first();
+        return $this->stallContracts()->where('to', '>=', now())->where('status', 'ACTIVE')->first();
     }
 }

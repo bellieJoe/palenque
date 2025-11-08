@@ -118,17 +118,17 @@
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item">
+                                <a href="{{ route('main.violations.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                    <span class="hide-menu"> Violations </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a href="{{ route('main.violations.types.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.types.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="fa fa-list" aria-hidden="true"></i>
                                     <span class="hide-menu"> Violation  Types </span>
                                 </a>
-                            </li>
-                            {{-- <li class="sidebar-item">
-                                <a href=#" class="sidebar-link " >
-                                    <i class="fa fa-list" aria-hidden="true"></i>
-                                    <span class="hide-menu"> Violations </span>
-                                </a>
-                            </li> --}}
+                            </li>   
                         </ul>
                     </li>
                 @endif

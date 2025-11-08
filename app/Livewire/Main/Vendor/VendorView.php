@@ -5,6 +5,7 @@ namespace App\Livewire\Main\Vendor;
 use App\Models\StallContract;
 use App\Models\StallOccupant;
 use App\Models\Vendor;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class VendorView extends Component
@@ -39,6 +40,26 @@ class VendorView extends Component
         StallContract::where('stall_occupant_id', $id)->delete();
         $this->dispatch('refresh-vendor');
         notyf()->position('y', 'top')->success('Stall deleted successfully!');
+    }
+
+    public function terminateContract($stallOccupantId)
+    {
+        DB::transaction(function () use ($stallOccupantId) {
+            try {
+                $stallOccupant = StallOccupant::find($stallOccupantId);
+                $stallOccupant->status = 0;
+                $stallOccupant->save();
+                StallContract::where([
+                    'stall_occupant_id' => $stallOccupantId,
+                ])->update([
+                    'status' => 'TERMINATED'
+                ]);
+                notyf()->position('y', 'top')->success('Contract terminated successfully!');
+                $this->refresh();
+            } catch (\Throwable $th) {
+                notyf()->position('y', 'top')->error('Something went wrong while terminating the contract!');
+            }
+        });
     }
     
     public function render()

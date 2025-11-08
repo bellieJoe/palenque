@@ -46,9 +46,17 @@
                             <tr>
                                 <td>{{ $stall->stall->name }}</td>
                                 <td><span class="badge badge-{{ $stall->active_contract ? 'info' : 'danger' }}">{{ $stall->active_contract ? 'Active' : 'Expired' }}</span></td>
-                                <td>Php {{ number_format($stall->active_contract->rate->rate, 2, '.', ',') }}</td>
                                 <td>
-                                {{-- <button class="btn btn-outline-primary" >Create Contract</button> --}}
+                                    @if ($stall->active_contract)
+                                        Php {{ number_format($stall->active_contract->rate->rate, 2, '.', ',') }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($stall->active_contract)
+                                        <button class="btn btn-outline-primary" wire:confirm="Are you sure you want to terminate this contract?" wire:click="terminateContract({{$stall->id}})">Terminate Contract</button>
+                                    @endif
                                     <button class="btn btn-outline-danger" wire:click="deleteStall({{$stall->id}})" wire:confirm="Are you sure you want to remove this stall?">Remove</button>
                                 </td>
                             </tr>

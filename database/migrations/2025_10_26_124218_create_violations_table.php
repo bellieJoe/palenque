@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('stall_occupant_id');
             $table->foreignId('vendor_id');
             $table->foreignId('violation_type_id');
-            $table->enum('status', ['COMPLETED', 'PENDING', 'WAIVED'])->default('pending');
+            $table->enum('status', ['RESOLVED', 'PENDING', 'WAIVED'])->default('PENDING');
             $table->foreignId('municipal_market_id');
             $table->timestamps();
         });

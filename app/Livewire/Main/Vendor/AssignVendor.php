@@ -50,7 +50,7 @@ class AssignVendor extends Component
                         'vendor_id' => $this->vendor->id,
                         'stall_id' => $this->stall,
                         'date_occupied' => now(),
-                        'status' => 0
+                        'status' => 1
                     ]
                 );
                 StallContract::create([

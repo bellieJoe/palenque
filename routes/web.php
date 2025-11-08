@@ -9,6 +9,8 @@ use App\Livewire\Main\Stall\StallRateIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
 use App\Livewire\Main\Vendor\VendorIndex;
 use App\Livewire\Main\Vendor\VendorView;
+use App\Livewire\Main\Violation\ViolationCreate;
+use App\Livewire\Main\Violation\ViolationIndex;
 use App\Livewire\Main\Violation\ViolationTypeCreate;
 use App\Livewire\Main\Violation\ViolationTypeEdit;
 use App\Livewire\Main\Violation\ViolationTypeIndex;
@@ -67,6 +69,8 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
             Route::get('/view/{id}', ViolationTypeView::class)->middleware(['auth', 'verified'])->name('view');
             Route::get('/edit/{id}', ViolationTypeEdit::class)->middleware(['auth', 'verified'])->name('edit');
         });
+        Route::get('', ViolationIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create/{vendor_id}', ViolationCreate::class)->middleware(['auth', 'verified'])->name('create');
     });
 });
 
