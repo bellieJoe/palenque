@@ -110,6 +110,12 @@
                                     <span class="hide-menu"> Item Categories </span>
                                 </a>
                             </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('main.units.index') }}" class="sidebar-link {{ request()->routeIs('main.units.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="mdi mdi-ruler"></i>
+                                    <span class="hide-menu"> Units </span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="sidebar-item">
