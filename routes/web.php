@@ -6,6 +6,7 @@ use App\Livewire\Main\Fee\FeesCreate;
 use App\Livewire\Main\Fee\FeesIndex;
 use App\Livewire\Main\Goods\DeliveryCreate;
 use App\Livewire\Main\Goods\DeliveryIndex;
+use App\Livewire\Main\Goods\DeliveryView;
 use App\Livewire\Main\Goods\GoodsIndex;
 use App\Livewire\Main\Goods\ItemCategoryIndex;
 use App\Livewire\Main\Goods\UnitCreate;
@@ -93,6 +94,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     Route::group(["prefix" => "deliveries", "as" => "deliveries."], function () {
         Route::get('/', DeliveryIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create', DeliveryCreate::class)->middleware(['auth', 'verified'])->name('create');
+        Route::get('/view/{delivery_id}', DeliveryView::class)->middleware(['auth', 'verified'])->name('view');
     });
 });
 

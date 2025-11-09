@@ -74,29 +74,56 @@ class DeliveryCreate extends Component
         ]);
 
         DB::transaction(function () {
-            $delivery = Delivery::create([
-                'supplier_id' => $this->supplier,
-                'delivery_date' => $this->date_delivered,  
-                'municipal_market_id' => auth()->user()->marketDesignation()->id
-            ]);
-
-            foreach ($this->items as $item) {
-                $deliveryItem = DeliveryItem::create([
-                    'delivery_id' => $delivery->id,
-                    'item_id' => $item['item_id'],
-                    'amount' => $item['amount'],
-                    'unit_id' => $item['unit_id'],
-                ]);
-                DeliveryTicket::create([
-                    'delivery_ticket_id' => $deliveryItem->id,
+            try {
+                $delivery = Delivery::create([
+                    'supplier_id' => $this->supplier,
+                    'delivery_date' => $this->date_delivered,
                     'municipal_market_id' => auth()->user()->marketDesignation()->id,
-                    'amount' => $item['tax'],
-                    'ticket_no' => $item['ticket_no'],
-                    'status' => $item['ticket_status'],
-                    'receipt_no' => $item['receipt_no'],
-                    'date_issued' => now(),
-                    'date_paid' => $item['ticket_status'] == 'PAID' ? now() : null
                 ]);
+
+                $deliveryItemsData = [];
+                $deliveryTicketsData = [];
+
+                foreach ($this->items as $item) {
+                    $deliveryItemsData[] = [
+                        'delivery_id' => $delivery->id,
+                        'item_id' => $item['item_id'],
+                        'amount' => $item['amount'],
+                        'unit_id' => $item['unit_id'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+
+                $insertedItems = DeliveryItem::insert($deliveryItemsData);
+                $deliveryItems = DeliveryItem::where('delivery_id', $delivery->id)->get();
+                foreach ($deliveryItems as $index => $deliveryItem) {
+                    $item = $this->items[$index];
+
+                    $deliveryTicketsData[] = [
+                        'delivery_item_id' => $deliveryItem->id,
+                        'municipal_market_id' => auth()->user()->marketDesignation()->id,
+                        'amount' => $item['tax'] ?? 0,
+                        'ticket_no' => $item['ticket_no'] ?? null,
+                        'status' => $item['ticket_status'] ?? 'UNPAID',
+                        'receipt_no' => $item['receipt_no'] ?? null,
+                        'date_issued' => now(),
+                        'date_paid' => isset($item['ticket_status']) && $item['ticket_status'] === 'PAID'
+                            ? now()
+                            : null,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+
+                // 4️⃣ Insert all tickets at once
+                DeliveryTicket::insert($deliveryTicketsData);
+                notyf()->position('y', 'top')->success('Delivery saved successfully!');
+                $this->redirectRoute('main.deliveries.index', navigate: true);
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                Log::error($th);
+                notyf()->position('y', 'top')->error('Something went wrong while saving the delivery!');
             }
         });
     }

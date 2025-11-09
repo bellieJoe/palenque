@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum("status", ["PAID", "UNPAID", "WAIVED"])->default("UNPAID");
             $table->string("receipt_no")->nullable();
             $table->date("date_issued");
-            $table->date("date_paid");
+            $table->date("date_paid")->nullable();
             $table->string("ticket_no");
             $table->timestamps();
         });
