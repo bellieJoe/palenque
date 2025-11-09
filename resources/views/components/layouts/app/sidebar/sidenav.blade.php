@@ -99,6 +99,12 @@
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item">
+                                <a href="{{ route('main.deliveries.index') }}" class="sidebar-link {{ request()->routeIs('main.deliveries.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa fa-truck" aria-hidden="true"></i>
+                                    <span class="hide-menu"> Wet & Dry Goods Deliveries </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a href="{{ route('main.goods.index') }}" class="sidebar-link {{ request()->routeIs('main.goods.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="fa fa-list" aria-hidden="true"></i>
                                     <span class="hide-menu"> Items </span>

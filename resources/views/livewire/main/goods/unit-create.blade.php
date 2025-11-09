@@ -1,5 +1,5 @@
 <div>
-    <x-page-header title="Violations" />
+    <x-page-header title="Units" />
     <div class="card" style="max-width: 500px">
         <div class="card-header">
             <h6 class="card-title">Add Unit</h6>

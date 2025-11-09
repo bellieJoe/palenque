@@ -4,6 +4,8 @@ use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
 use App\Livewire\Main\Fee\FeesCreate;
 use App\Livewire\Main\Fee\FeesIndex;
+use App\Livewire\Main\Goods\DeliveryCreate;
+use App\Livewire\Main\Goods\DeliveryIndex;
 use App\Livewire\Main\Goods\GoodsIndex;
 use App\Livewire\Main\Goods\ItemCategoryIndex;
 use App\Livewire\Main\Goods\UnitCreate;
@@ -87,6 +89,10 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         Route::get('/', UnitIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create', UnitCreate::class)->middleware(['auth', 'verified'])->name('create');
         Route::get('/edit/{id}', UnitEdit::class)->middleware(['auth', 'verified'])->name('edit');
+    });
+    Route::group(["prefix" => "deliveries", "as" => "deliveries."], function () {
+        Route::get('/', DeliveryIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create', DeliveryCreate::class)->middleware(['auth', 'verified'])->name('create');
     });
 });
 
