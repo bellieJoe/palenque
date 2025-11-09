@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("receipt_no")->nullable();
             $table->date("date_issued");
             $table->date("date_paid");
+            $table->string("ticket_no");
             $table->timestamps();
         });
     }
