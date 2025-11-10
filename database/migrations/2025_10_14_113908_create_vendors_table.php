@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('representative_name');
             $table->string('contact_number');
             $table->foreignId('municipal_market_id');
-            $table->foreignId('vendor_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
