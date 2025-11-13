@@ -1,7 +1,7 @@
 <div>
     <x-page-header title="Ambulant Stalls" />
     <div class="d-flex justify-content-end mb-3">
-        {{-- <a class="btn btn-primary" href="{{ route('main.units.create') }}">Add Unit</a> --}}
+        <a class="btn btn-primary" href="{{ route('main.ambulant-stalls.create') }}">Add Ambulant Stall</a>
     </div>
     <div class="card">
         <div class="card-body">
@@ -22,12 +22,12 @@
                                 <td class="align-middle">{{ $ambulantStall->name }}</td>
                                 <td class="align-middle">{{ $ambulantStall->vendor->name }}</td>
                                 <td class="align-middle">
-                                    <span class="badge badge-{{ $ambulantStall->vendor->status == 1 ? 'success' : 'secondary' }}">
-                                        {{ $ambulantStall->vendor->status == 1 ? 'Active' : 'Inactive' }}
+                                    <span class="badge badge-{{ $ambulantStall->status == 1 ? 'success' : 'secondary' }}">
+                                        {{ $ambulantStall->status == 1 ? 'Active' : 'Inactive' }}
                                     </span>
                                 </td>
                                 <td class="align-middle">
-                                    <button class="btn btn-outline-danger"  wire:confirm="Are you sure you want to delete this Ambulant Stall? This action is irreversible.">Delete Stall</button>
+                                    <button class="btn btn-outline-danger" wire:click="deleteAmbulantStall({{$ambulantStall->id}})"  wire:confirm="Are you sure you want to delete this Ambulant Stall? This action is irreversible.">Delete Stall</button>
                                     <a class="btn btn-outline-primary" href="#" wire:navigate>Edit Stall</a>
                                     <a class="btn btn-outline-warning" href="#" wire:navigate>Issue Ticket</a>
                                 </td>
@@ -37,7 +37,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{ $ambulantStall->links() }}
+                {{ $ambulantStalls->links() }}
             </div>
         </div>
     </div>

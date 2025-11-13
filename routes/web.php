@@ -12,6 +12,7 @@ use App\Livewire\Main\Goods\ItemCategoryIndex;
 use App\Livewire\Main\Goods\UnitCreate;
 use App\Livewire\Main\Goods\UnitEdit;
 use App\Livewire\Main\Goods\UnitIndex;
+use App\Livewire\Main\Stall\AmbulantStallCreate;
 use App\Livewire\Main\Stall\AmbulantStallIndex;
 use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Stall\StallRateIndex;
@@ -100,6 +101,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
 
     Route::group(["prefix" => "ambulant-stalls", "as" => "ambulant-stalls."], function () {
         Route::get('/', AmbulantStallIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create', AmbulantStallCreate::class)->middleware(['auth', 'verified'])->name('create');
     });
 });
 
