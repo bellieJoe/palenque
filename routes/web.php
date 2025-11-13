@@ -2,11 +2,29 @@
 
 use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
+use App\Livewire\Main\Fee\FeesCreate;
+use App\Livewire\Main\Fee\FeesIndex;
+use App\Livewire\Main\Goods\DeliveryCreate;
+use App\Livewire\Main\Goods\DeliveryIndex;
+use App\Livewire\Main\Goods\DeliveryView;
 use App\Livewire\Main\Goods\GoodsIndex;
 use App\Livewire\Main\Goods\ItemCategoryIndex;
+use App\Livewire\Main\Goods\UnitCreate;
+use App\Livewire\Main\Goods\UnitEdit;
+use App\Livewire\Main\Goods\UnitIndex;
 use App\Livewire\Main\Stall\StallIndex;
+use App\Livewire\Main\Stall\StallRateIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
 use App\Livewire\Main\Vendor\VendorIndex;
+use App\Livewire\Main\Vendor\VendorView;
+use App\Livewire\Main\Violation\ViolationCreate;
+use App\Livewire\Main\Violation\ViolationIndex;
+use App\Livewire\Main\Violation\ViolationTypeCreate;
+use App\Livewire\Main\Violation\ViolationTypeEdit;
+use App\Livewire\Main\Violation\ViolationTypeIndex;
+use App\Livewire\Main\Violation\ViolationTypeView;
+use App\Livewire\Main\Violation\ViolationView;
+use App\Livewire\Settings\Profile\ProfileIndex;
 use App\Models\ItemCategory;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -42,6 +60,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     });
     Route::group(["prefix" => "vendors", "as" => "vendors."], function () {
         Route::get('/', VendorIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('view/{id}', VendorView::class)->middleware(['auth', 'verified'])->name('view');
     });
     Route::group(["prefix" => "goods", "as" => "goods."], function () {
         Route::get('/', GoodsIndex::class)->middleware(['auth', 'verified'])->name('index');
@@ -49,6 +68,38 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     Route::group(["prefix" => "item-categories", "as" => "item-categories."], function () {
         Route::get('/', ItemCategoryIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
+    Route::group(["prefix" => "stall-rates", "as" => "stall-rates."], function () {
+        Route::get('/', StallRateIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+    Route::group(["prefix" => "violations", "as" => "violations."], function () {
+        Route::group(["prefix" => "types", "as" => "types."], function () {
+            Route::get('/', ViolationTypeIndex::class)->middleware(['auth', 'verified'])->name('index');
+            Route::get('/create', ViolationTypeCreate::class)->middleware(['auth', 'verified'])->name('create');
+            Route::get('/view/{id}', ViolationTypeView::class)->middleware(['auth', 'verified'])->name('view');
+            Route::get('/edit/{id}', ViolationTypeEdit::class)->middleware(['auth', 'verified'])->name('edit');
+        });
+        Route::get('', ViolationIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create/{vendor_id}', ViolationCreate::class)->middleware(['auth', 'verified'])->name('create');
+        Route::get('/view/{vendor_id}', ViolationView::class)->middleware(['auth', 'verified'])->name('view');
+    });
+    Route::group(["prefix" => "fees", "as" => "fees."], function () {
+        Route::get('/', FeesIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create', FeesCreate::class)->middleware(['auth', 'verified'])->name('create');
+    });
+    Route::group(["prefix" => "units", "as" => "units."], function () {
+        Route::get('/', UnitIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create', UnitCreate::class)->middleware(['auth', 'verified'])->name('create');
+        Route::get('/edit/{id}', UnitEdit::class)->middleware(['auth', 'verified'])->name('edit');
+    });
+    Route::group(["prefix" => "deliveries", "as" => "deliveries."], function () {
+        Route::get('/', DeliveryIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create', DeliveryCreate::class)->middleware(['auth', 'verified'])->name('create');
+        Route::get('/view/{delivery_id}', DeliveryView::class)->middleware(['auth', 'verified'])->name('view');
+    });
+});
+
+Route::group(["prefix" => "settings", "as" => "settings."], function () {
+    Route::get('account-profile', ProfileIndex::class)->name('profile');
 });
 
 Route::middleware(['auth'])->group(function () {

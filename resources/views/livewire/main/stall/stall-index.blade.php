@@ -12,6 +12,8 @@
                 <table class="table">
                     <thead>
                         <th>Name</th>
+                        <th>Area</th>
+                        <th>Rate</th>
                         <th>Occupancy Status</th>
                         <th>Actions</th>
                     </thead>
@@ -19,11 +21,14 @@
                         @forelse ($stalls as $stall)
                             <tr>
                                 <td>{{ $stall->name }}</td>
+                                <td>{{ $stall->area }} sqm</td>
+                                <td>Php {{ number_format($stall->stallRate->rate, 2, '.', ',')}}</td>
                                 <td>
                                     @if ($stall->activeOccupant)
-                                        Occupied by {{ $stall->activeOccupant->vendor->name }}
+                                        <span class="badge badge-success">Occupied</span> by {{ $stall->activeOccupant->vendor->name }}
                                     @else
-                                        <button class="btn btn-outline-success" wire:click="setOccupant({{$stall->id}})">Set Occupant</button>
+                                        {{-- <button class="btn btn-outline-success" wire:click="setOccupant({{$stall->id}})">Set Occupant</button> --}}
+                                        <span class="badge badge-secondary">Vacant</span>
                                     @endif
                                 </td>
                                 <td>

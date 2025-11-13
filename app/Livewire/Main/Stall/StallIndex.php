@@ -39,7 +39,11 @@ class StallIndex extends Component
 
     public function render()
     {
-        $stalls = Stall::query()->where('name', 'like', '%' . $this->search . '%')->where('municipal_market_id', auth()->user()->marketDesignation()->id)->paginate(10);
+        $stalls = Stall::query()
+        ->with('stallRate')
+        ->where('name', 'like', '%' . $this->search . '%')
+        ->where('municipal_market_id', auth()->user()->marketDesignation()->id)
+        ->paginate(10);
         return view('livewire.main.stall.stall-index', [
             'stalls' => $stalls
         ]);

@@ -3,6 +3,7 @@
 namespace App\Livewire\Main\Vendor;
 
 use App\Models\Role;
+use App\Models\StallOccupant;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -33,15 +34,18 @@ class VendorIndex extends Component
         try {
             DB::transaction(function () use ($id) {
                 $vendor = Vendor::with('user')->findOrFail($id);
+                if(StallOccupant::where("vendor_id", $vendor->id)->exists()){
+                    notyf()->position('y', 'top')->error('Vendor is an occupant and cannot be deleted!');
+                    return;
+                }
                 $user = $vendor->user;
                 // Delete related roles first
                 Role::where("user_id", $user->id)->delete();
                 // Delete user and vendor
                 $user->delete();
                 $vendor->delete();
+                notyf()->position('y', 'top')->success('Vendor deleted successfully!');
             });
-
-            notyf()->position('y', 'top')->success('Vendor deleted successfully!');
         } catch (\Throwable $th) {
             Log::error($th);
             notyf()->position('y', 'top')->error('Failed to delete vendor!');

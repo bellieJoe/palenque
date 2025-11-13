@@ -49,6 +49,7 @@
                 @this.set('vendor', $(this).val());
             })
             .next('.select2-container').addClass('form-control');
+            
         })
     </script>
 @endsection()
