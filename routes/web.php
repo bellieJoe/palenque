@@ -12,6 +12,7 @@ use App\Livewire\Main\Goods\ItemCategoryIndex;
 use App\Livewire\Main\Goods\UnitCreate;
 use App\Livewire\Main\Goods\UnitEdit;
 use App\Livewire\Main\Goods\UnitIndex;
+use App\Livewire\Main\Stall\AmbulantStallIndex;
 use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Stall\StallRateIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
@@ -95,6 +96,10 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         Route::get('/', DeliveryIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create', DeliveryCreate::class)->middleware(['auth', 'verified'])->name('create');
         Route::get('/view/{delivery_id}', DeliveryView::class)->middleware(['auth', 'verified'])->name('view');
+    });
+
+    Route::group(["prefix" => "ambulant-stalls", "as" => "ambulant-stalls."], function () {
+        Route::get('/', AmbulantStallIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
 });
 

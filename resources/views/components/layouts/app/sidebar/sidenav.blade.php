@@ -74,9 +74,9 @@
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item">
-                                <a href="{{ route('main.stall-rates.index') }}" class="sidebar-link {{ request()->routeIs('main.stall-rates.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="mdi mdi-cash"></i>
-                                    <span class="hide-menu"> Stall Rates </span>
+                                <a href="{{ route('main.vendors.index') }}" class="sidebar-link {{ request()->routeIs('main.vendors.*') || request()->routeIs('main.vendors.view.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="mdi mdi-store"></i>
+                                    <span class="hide-menu"> Vendors/Stall Holders </span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
@@ -86,9 +86,15 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ route('main.vendors.index') }}" class="sidebar-link {{ request()->routeIs('main.vendors.*') || request()->routeIs('main.vendors.view.*') ? 'active' : '' }}" wire:navigate>
+                                <a href="{{ route('main.ambulant-stalls.index') }}" class="sidebar-link {{ request()->routeIs('main.ambulant-stalls.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="mdi mdi-store"></i>
-                                    <span class="hide-menu"> Vendors/Stall Holders </span>
+                                    <span class="hide-menu"> Ambulant Stalls </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('main.stall-rates.index') }}" class="sidebar-link {{ request()->routeIs('main.stall-rates.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="mdi mdi-cash"></i>
+                                    <span class="hide-menu"> Stall Rates </span>
                                 </a>
                             </li>
                         </ul>
