@@ -17,7 +17,7 @@
                     @error('vendor') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-2 col col-lg-4 col-md-6">
-                    <label for="name" class="form-label">Stall Name <span class="text-danger">*</span></label>
+                    <label for="name" class="form-label"    >Stall Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="name" wire:model.live.debounce.300ms="name">
                     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>

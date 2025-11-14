@@ -1,8 +1,8 @@
 <div>
-    <x-page-header title="Units" />
+    <x-page-header title="Ambulant Stalls" />
     <div class="card" style="max-width: 500px">
         <div class="card-header">
-            <h6 class="card-title">Edit Unit</h6>
+            <h6 class="card-title">Edit Ambulant Stall</h6>
         </div>
         <div class="card-body">
             <div class="row">
@@ -13,8 +13,8 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end ">
-                <a type="button" class="btn btn-secondary" href="{{ route('main.units.index') }}" wire:navigate>Cancel</a>
-                <button type="button" class="btn btn-primary ml-2" wire:click="updateUnit" wire:loading.attr="disabled">Save Unit</button>
+                <a type="button" class="btn btn-secondary" href="{{ route('main.ambulant-stalls.index') }}" wire:navigate>Cancel</a>
+                <button type="button" class="btn btn-primary ml-2" wire:click="updateAmbulantStall" wire:loading.attr="disabled">Save Ambulant Stall</button>
             </div>
         </div>
     </div>

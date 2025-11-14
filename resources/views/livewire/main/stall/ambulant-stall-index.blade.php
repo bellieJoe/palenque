@@ -28,7 +28,7 @@
                                 </td>
                                 <td class="align-middle">
                                     <button class="btn btn-outline-danger" wire:click="deleteAmbulantStall({{$ambulantStall->id}})"  wire:confirm="Are you sure you want to delete this Ambulant Stall? This action is irreversible.">Delete Stall</button>
-                                    <a class="btn btn-outline-primary" href="#" wire:navigate>Edit Stall</a>
+                                    <a class="btn btn-outline-primary" href="{{ route('main.ambulant-stalls.edit', $ambulantStall->id) }}" wire:navigate>Edit Stall</a>
                                     <a class="btn btn-outline-warning" href="#" wire:navigate>Issue Ticket</a>
                                 </td>
                             </tr>
