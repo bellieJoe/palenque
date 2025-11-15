@@ -1,6 +1,26 @@
 <div>
     @livewire('main.supplier.supplier-edit')
     <x-page-header title="Suppliers" />
+    {{-- <div class="">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-12 p-1">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="p-2">
+                                <h5 class="font-weight-bold">Total Suppliers</h5>
+                                <h5 class="font-weight-bold">0</h5>
+                            </div>
+                            <div class="p-2">
+                                <h5 class="font-weight-bold">Total Items</h5>
+                                <h5 class="font-weight-bold">0</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
     <div class="d-flex justify-content-end mb-2">
         @livewire('main.supplier.supplier-create')
     </div>

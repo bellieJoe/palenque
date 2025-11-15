@@ -15,6 +15,7 @@ use App\Livewire\Main\Goods\UnitIndex;
 use App\Livewire\Main\Stall\AmbulantStallCreate;
 use App\Livewire\Main\Stall\AmbulantStallEdit;
 use App\Livewire\Main\Stall\AmbulantStallIndex;
+use App\Livewire\Main\Stall\DailyCollectionFeeCreate;
 use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Stall\StallRateIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
@@ -88,6 +89,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     Route::group(["prefix" => "fees", "as" => "fees."], function () {
         Route::get('/', FeesIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create', FeesCreate::class)->middleware(['auth', 'verified'])->name('create');
+        Route::get('/issue-daily-fee/{ambulant_stall_id}', DailyCollectionFeeCreate::class)->middleware(['auth', 'verified'])->name('issue-daily-fee');
     });
     Route::group(["prefix" => "units", "as" => "units."], function () {
         Route::get('/', UnitIndex::class)->middleware(['auth', 'verified'])->name('index');
