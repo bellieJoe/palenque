@@ -19,9 +19,15 @@ class DailyCollectionFeeCreate extends Component
     public $amount;
     #[Validate('required|in:PAID,UNPAID,WAIVED')]
     public $status;
+    #[Validate('required_if:status,PAID|date|before:tomorrow')]
+    public $date_paid;
+    #[Validate('required_if:status,PAID')]
+    public $receipt_no;
+    public $remarks;
 
     public function mount($ambulant_stall_id)
     {
+        $this->date_paid = now();
         $this->ambulantStall = AmbulantStall::find($ambulant_stall_id);
         $this->vendor = $this->ambulantStall->vendor;
     }
@@ -41,9 +47,11 @@ class DailyCollectionFeeCreate extends Component
                     "municipal_market_id" => auth()->user()->marketDesignation()->id,
                     "fee_type" => "STALL",
                     "amount" => $this->amount,
-                    "date_paid" => $this->status == "PAID" ? now() : null,
+                    "date_paid" => $this->status == "PAID" ? $this->date_paid : null,
                     "status" => $this->status,
-                    "date_issued" => now()
+                    "date_issued" => now(),
+                    "receipt_no" => $this->status == "PAID" ? $this->receipt_no : null,
+                    "remarks" => $this->remarks
                 ]);
                 notyf()->position('y', 'top')->success('Daily Collection fee issued successfully!');
                 $this->redirectRoute('main.ambulant-stalls.index', navigate :true);

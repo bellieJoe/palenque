@@ -157,7 +157,7 @@
                             <li class="sidebar-item">
                                 <a href="{{ route('main.fees.index') }}" class="sidebar-link {{ request()->routeIs('main.fees.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="mdi mdi-ticket-percent" aria-hidden="true"></i>
-                                    <span class="hide-menu"> Fees </span>
+                                    <span class="hide-menu"> Daily Collection Fees </span>
                                 </a>
                             </li>  
                         </ul>

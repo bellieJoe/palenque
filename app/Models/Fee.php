@@ -8,6 +8,9 @@ class Fee extends Model
 {
     //
     protected $guarded = [];
+    protected $casts = [
+        "date_issued" => "date"
+    ];
 
     public function stallOccupant()
     {
@@ -18,4 +21,10 @@ class Fee extends Model
     {
         return $this->belongsTo(Supplier::class, "owner_id", "id");
     }
+
+    public function ambulantStall()
+    {
+        return $this->belongsTo(AmbulantStall::class, "owner_id", "id");
+    }
+
 }

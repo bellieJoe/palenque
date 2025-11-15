@@ -27,25 +27,13 @@
                         <label class="small mb-0 text-muted">Stall Name</label>
                         <div>{{ $ambulantStall->name }}</div>
                     </div>
+                    <div class="col-lg-4 mb-2">
+                        <label class="small mb-0 text-muted">Ticket No.</label>
+                        <div>{{ $fee->ticket_no }}</div>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="mb-2 col-lg-4 col-md-6 col-12">
-                    <label for="amount" class="form-label">Amount (Php) <span class="text-danger">*</span></label>
-                    <input type="number" class="form-control" id="name" wire:model.live.debounce.300ms="amount">
-                    @error('amount') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
-                <div class="mb-2 col-lg-4 col-md-6 col-12">
-                    <label for="amount" class="form-label">Status <span class="text-danger">*</span></label>
-                    <select name="status" id="status" class="form-control" wire:model.live.debounce.300ms="status">
-                        <option value="-Select Status-"></option>
-                        <option value="PAID">PAID</option>
-                        <option value="UNPAID">UNPAID</option>
-                        {{-- <option value="WAIVED">WAIVED</option> --}}
-                    </select>
-                    @error('status') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
-                @if ($status == "PAID")
                 <div class="mb-2 col-lg-4 col-md-6 col-12">
                     <label for="receipt_no" class="form-label">Receipt No. <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="receipt_no" wire:model.live.debounce.300ms="receipt_no">
@@ -56,7 +44,6 @@
                     <input type="date" class="form-control" id="date_paid" wire:model.live.debounce.300ms="date_paid">
                     @error('date_paid') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-                @endif
                 <div class="mb-2 col-lg-4 col-md-6 col-12">
                     <label for="remarks" class="form-label">Remarks <span class="text-danger">*</span></label>
                     <textarea  class="form-control" id="remarks" wire:model.live.debounce.300ms="remarks"></textarea>
@@ -64,8 +51,8 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end ">
-                <a type="button" class="btn btn-secondary" href="{{ route('main.ambulant-stalls.index') }}" wire:navigate>Cancel</a>
-                <button type="button" class="btn btn-primary ml-2" wire:click="storeDailyCollectionFee" wire:loading.attr="disabled">Save Ticket</button>
+                <a type="button" class="btn btn-secondary" href="{{ route('main.fees.index') }}" wire:navigate>Cancel</a>
+                <button type="button" class="btn btn-primary ml-2" wire:click="submit" wire:loading.attr="disabled">Update Payment</button>
             </div>
         </div>
     </div>

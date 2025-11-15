@@ -20,11 +20,21 @@ class FeesIndex extends Component
         $this->resetPage();
     }
 
+    public function waive($id)
+    {
+        $fee = Fee::find($id);
+        $fee->update([
+            "status" => "WAIVED"
+        ]);
+        notyf()->position('y', 'top')->success('Ticket waived successfully!');
+    }
+
     public function render()
     {
         $marketId = auth()->user()->marketDesignation()->id;
         $fees = Fee::query()
             ->where("municipal_market_id", $marketId)
+            ->where('fee_type', "stall")
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
                     $q->whereHas("stallOccupant.vendor", fn($v) =>
