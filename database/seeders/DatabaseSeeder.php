@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            UserSeeder::class,
             RoleTypeSeeder::class,
             MunicipalMarketSeeder::class,
             AppSettingsSeeder::class

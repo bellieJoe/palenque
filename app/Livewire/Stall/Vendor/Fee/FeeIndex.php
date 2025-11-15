@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Livewire\Main\Fee;
+namespace App\Livewire\Stall\Vendor\Fee;
 
 use App\Models\Fee;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
-class FeesIndex extends Component
+class FeeIndex extends Component
 {
     use WithPagination, WithoutUrlPagination;
+    
     protected $listeners = [
         "refresh-fees"
     ];
@@ -28,12 +29,13 @@ class FeesIndex extends Component
         ]);
         notyf()->position('y', 'top')->success('Ticket waived successfully!');
     }
-
+    
     public function render()
     {
-        $marketId = auth()->user()->marketDesignation()->id;
         $fees = Fee::query()
-            ->where("municipal_market_id", $marketId)
+            ->whereHas("ambulantStall.vendor", fn($v) =>
+                $v->where("name", "like", "%{$this->search}%")->where('id', auth()->user()->vendor->id)
+            )
             ->where('fee_type', "stall")
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
@@ -47,7 +49,7 @@ class FeesIndex extends Component
             })
             ->orderBy('created_at', 'desc')
             ->paginate(20);
-        return view('livewire.main.fee.fees-index', [
+        return view('livewire.stall.vendor.fee.fee-index', [
             'fees' => $fees
         ]);
     }

@@ -30,6 +30,8 @@ use App\Livewire\Main\Violation\ViolationTypeIndex;
 use App\Livewire\Main\Violation\ViolationTypeView;
 use App\Livewire\Main\Violation\ViolationView;
 use App\Livewire\Settings\Profile\ProfileIndex;
+use App\Livewire\Stall\Vendor\Fee\FeeIndex;
+use App\Livewire\Vendor\Stall\AmbulantStallIndex as VendorAmbulantStallIndex;
 use App\Models\ItemCategory;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -108,6 +110,15 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         Route::get('/', AmbulantStallIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create', AmbulantStallCreate::class)->middleware(['auth', 'verified'])->name('create');
         Route::get('/edit/{id}', AmbulantStallEdit::class)->middleware(['auth', 'verified'])->name('edit');
+    });
+});
+
+Route::group(["prefix" => "vendor", "as" => "vendor."], function () {
+    Route::group(["prefix" => "ambulant-stalls", "as" => "ambulant-stalls."], function () {
+        Route::get('/', VendorAmbulantStallIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+    Route::group(["prefix" => "fees", "as" => "fees."], function () {
+        Route::get('/', FeeIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
 });
 

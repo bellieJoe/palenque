@@ -178,6 +178,29 @@
                         </ul>
                     </li>
                 @endif
+                @if (auth()->user()->isVendor())
+                    <li class="sidebar-item">
+                        <a href="{{ route('vendor.ambulant-stalls.index') }}" class="sidebar-link {{ request()->routeIs('vendor.ambulant-stalls..*') ? 'active' : '' }}" wire:navigate>
+                            <i class="mdi mdi-store"></i>
+                            <span class="hide-menu"> Ambulant Stalls </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-cash-multiple"></i>
+                            <span class="hide-menu"> Fees </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('vendor.fees.index') }}" class="sidebar-link {{ request()->routeIs('vendor.fees.*') ? 'active' : '' }}" wire:navigate>
+                                    {{-- <i class="fa fa-ticket"></i> --}}
+                                    <i class="mdi mdi-calendar-today"></i>
+                                    <span class="hide-menu"> Daily Collection Fees</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
