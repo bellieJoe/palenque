@@ -2,6 +2,45 @@
     <x-page-header title="Monthly Rents" />
     <div class="card">
         <div class="card-body">
+            <div class="d-flex flex-wrap align-items-center mb-3">
+                <label for="" class="mb-0 p-1">Sort By </label>
+                <select name="" id="" class="form-control ml-2 p-1" style="width: 200px;" wire:model.live.debounce.300ms="sortColumn">
+                    <option value="">-Select Column-</option>
+                    <option value="due_date">Due Date</option>
+                    <option value="status">Status</option>
+                </select>
+                <select name="" id="" class="form-control ml-2 p-1" style="width: 200px;" wire:model.live.debounce.300ms="sortOrder">
+                    <option value="">-Select Order-</option>
+                    <option value="desc">Descending</option>
+                    <option value="asc">Ascending</option>
+                </select>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-3">
+                <label for="" class="mb-0 p-1">Filter By </label>
+                <div class="input-group p-1" style="max-width: 300px">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Start Date</span>
+                    </div>
+                    <input type="date" class="form-control" wire:model.live.debounce.300ms="filterDueDateStart" placeholder="Start Date"/>
+                </div>
+                <div class="input-group p-1" style="max-width: 300px">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">End Date</span>
+                    </div>
+                    <input type="date" class="form-control" wire:model.live.debounce.300ms="filterDueDateEnd" placeholder="End Date"/>
+                </div>
+                <div class="input-group p-1" style="max-width: 300px">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Status</span>
+                    </div>
+                    <select name="" id="" class="form-control" style="width: 200px;" wire:model.live.debounce.300ms="filterStatus">
+                        <option value="">-Select Status-</option>
+                        <option value="PAID">Paid</option>
+                        <option value="WAIVED">Waived</option>
+                        <option value="UNPAID">Unpaid</option>
+                    </select>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>

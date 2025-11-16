@@ -12,6 +12,19 @@ use Livewire\WithPagination;
 class MonthlyRentIndex extends Component
 {
     use WithPagination, WithoutUrlPagination;
+    public $sortColumn = 'due_date';
+    public $sortOrder = 'asc';
+    public $filterDueDateStart;
+    public $filterDueDateEnd;
+    public $filterStatus;
+
+    public function updating($name, $value)
+    {
+        $filters = ['sortColumn', 'sortOrder', 'filterDueDateStart', 'filterDueDateEnd', 'filterStatus']; // list of properties
+        if (in_array($name, $filters)) {
+            $this->resetPage();
+        }
+    }
 
     private function auth()
     {
@@ -134,6 +147,17 @@ class MonthlyRentIndex extends Component
             })
             ->whereNotIn('status', ['CANCELLED', 'TERMINATED']);
         })
+        ->orderBy($this->sortColumn, $this->sortOrder)
+        ->when($this->filterDueDateStart, function ($query) {
+            $query->where('due_date', '>=', $this->filterDueDateStart);
+        })
+        ->when($this->filterDueDateEnd, function ($query) {
+            $query->where('due_date', '<=', $this->filterDueDateEnd);
+        })
+        ->when($this->filterStatus, function ($query) {
+            $query->where('status', $this->filterStatus);
+        })
+        ->where('due_date', '<', now()->addMonth(1))
         ->paginate(20);
         return view('livewire.vendor.fee.monthly-rent-index', [
             'monthlyRents' => $monthlyRents

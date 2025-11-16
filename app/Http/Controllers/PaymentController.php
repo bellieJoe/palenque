@@ -55,7 +55,7 @@ class PaymentController extends Controller
         $status = $statusResponse->json()['data']['attributes']['status'];
 
         if ($status === 'succeeded') {
-            $monthlyRent->update(['status' => 'PAID', 'payment_date' => now()]);
+            $monthlyRent->update(['status' => 'PAID', 'payment_date' => now(), 'amount_paid' => $intentData->data->attributes->amount / 100, 'payment_method' => "ONLINE"]);
         }
         else {
             notyf()->position('y', 'top')->error('Payment failed.');
