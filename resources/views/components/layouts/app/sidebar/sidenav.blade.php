@@ -222,6 +222,13 @@
                                     <span class="hide-menu"> Daily Collection Fees</span>
                                 </a>
                             </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('vendor.monthly-rents.index') }}" class="sidebar-link {{ request()->routeIs('vendor.monthly-rents.*') ? 'active' : '' }}" wire:navigate>
+                                    {{-- <i class="fa fa-ticket"></i> --}}
+                                    <i class="mdi mdi-calendar-multiple"></i>
+                                    <span class="hide-menu"> Monthly Rents</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif

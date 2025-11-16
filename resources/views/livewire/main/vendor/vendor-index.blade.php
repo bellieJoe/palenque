@@ -25,6 +25,7 @@
                                 <td class="align-middle">{{ $vendor->contact_number }}</td>
                                 <td class="align-middle">{{ $vendor->user->email }}</td>
                                 <td class="align-middle">
+                                    
                                     <a class="btn btn-outline-primary" href="{{ route('main.vendors.view', $vendor->id)}}" wire:navigate>View</a>
                                     <button class="btn btn-outline-danger" wire:click="deleteVendor({{$vendor->id}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
                                     {{-- <button class="btn btn-outline-primary" wire:click="editVendor({{$vendor->id}})">Edit</button> --}}

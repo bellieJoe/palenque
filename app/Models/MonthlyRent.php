@@ -22,13 +22,13 @@ class MonthlyRent extends Model
 
     public function getPenaltyAttribute()
     {
-        $appSettings = auth()->user()->appSettings();
+        $appSettings = auth()->user()->isVendor() ? auth()->user()->vendor->appSettings() : auth()->user()->appSettings();
         if(now()->lt($this->due_date)) {
             return 0;
         }
         $penalty = 0;
         $days = $this->due_date->diffInDays(now());
-        $penalty = ($days / $appSettings->rent_surcharge_frequency ) * ($appSettings->rent_surcharge_rate / 100) * $this->amount;
+        $penalty = floor($days / $appSettings->rent_surcharge_frequency) * ($appSettings->rent_surcharge_rate / 100) * $this->amount;
         return $penalty;
     }
 }

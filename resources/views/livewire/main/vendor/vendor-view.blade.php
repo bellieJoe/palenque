@@ -90,10 +90,18 @@
                                     <td>{{ $monthlyRent->stallContract->stallOccupant->stall->name }}</td>
                                     <td>Php {{ number_format($monthlyRent->amount, 2, '.', ',') }}</td>
                                     <td>{{ $monthlyRent->due_date->format('F d, Y') }}</td>
-                                    <td>{{ $monthlyRent->penalty ? 'Php ' . number_format($monthlyRent->penalty, 2, '.', ',') : 'N/A' }}</td>
+                                    <td>
+                                        @if ($monthlyRent->status == "PAID")
+                                            Php {{ number_format($monthlyRent->amount_paid - $monthlyRent->amount, 2, '.', ',') }}
+                                        @elseif ($monthlyRent->status == "UNPAID" && $monthlyRent->due_date->isPast())
+                                            {{ $monthlyRent->penalty ? 'Php ' . number_format($monthlyRent->penalty, 2, '.', ',') : 'N/A' }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
                                     <td><span class="badge badge-{{ $monthlyRent->status == 'PAID' ? 'success' : ($monthlyRent->status == 'UNPAID' && $monthlyRent->due_date->isPast() ? 'danger' : 'secondary') }}">{{ $monthlyRent->status }}</span></td>
                                     <td>
-                                        @if ($monthlyRent->status == 'UNPAID' || $monthlyRent->due_date->isPast())
+                                        @if ($monthlyRent->status == 'UNPAID' )
                                             <button class="btn btn-outline-warning" wire:confirm="Are you sure you want to waive this rent?" wire:click="rentPaymentWaive({{$monthlyRent->id}})">Waive</button>
                                             <button class="btn btn-outline-success" wire:confirm="Are you sure you want this payment to be paid?" wire:click="rentPaymentPaid({{$monthlyRent->id}})">Paid</button>
                                         @endif

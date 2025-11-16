@@ -33,6 +33,7 @@ use App\Livewire\Main\Violation\ViolationTypeView;
 use App\Livewire\Main\Violation\ViolationView;
 use App\Livewire\Settings\Profile\ProfileIndex;
 use App\Livewire\Stall\Vendor\Fee\FeeIndex;
+use App\Livewire\Vendor\Fee\MonthlyRentIndex;
 use App\Livewire\Vendor\Stall\AmbulantStallIndex as VendorAmbulantStallIndex;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
@@ -128,6 +129,9 @@ Route::group(["prefix" => "vendor", "as" => "vendor."], function () {
     Route::group(["prefix" => "fees", "as" => "fees."], function () {
         Route::get('/', FeeIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
+    Route::group(["prefix" => "monthly-rents", "as" => "monthly-rents."], function () {
+        Route::get('/', MonthlyRentIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
 });
 
 Route::group(["prefix" => "settings", "as" => "settings."], function () {
@@ -155,5 +159,6 @@ Route::middleware(['auth'])->group(function () {
 
 Route::group(["prefix" => "payments", "as" => "payments."], function () {
    Route::get('check-daily-collection-payment/{fee_id}', [PaymentController::class, 'checkDailyCollectionPayment'])->middleware(['auth', 'verified'])->name('check-daily-collection-payment');
+   Route::get('check-monthly-rent-payment/{monthly_rent_id}', [PaymentController::class, 'checkMonthlyRentPayment'])->middleware(['auth', 'verified'])->name('check-monthly-rent-payment');
 });
 require __DIR__.'/auth.php';
