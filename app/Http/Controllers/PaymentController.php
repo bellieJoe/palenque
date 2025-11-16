@@ -12,7 +12,7 @@ class PaymentController extends Controller
 {
     private function auth()
     {
-        return base64_encode(env('PAYMONGO_SECRET_KEY') . ":");
+        return base64_encode(auth()->user()->vendor->appSettings()->paymongo_secret_key . ":");
     }
     //
     public function checkDailyCollectionPayment(Request $request, $fee_id) {

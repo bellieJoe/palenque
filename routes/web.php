@@ -13,6 +13,7 @@ use App\Livewire\Main\Goods\ItemCategoryIndex;
 use App\Livewire\Main\Goods\UnitCreate;
 use App\Livewire\Main\Goods\UnitEdit;
 use App\Livewire\Main\Goods\UnitIndex;
+use App\Livewire\Main\Settings\AppSettingsIndex;
 use App\Livewire\Main\Stall\AmbulantStallCreate;
 use App\Livewire\Main\Stall\AmbulantStallEdit;
 use App\Livewire\Main\Stall\AmbulantStallIndex;
@@ -113,6 +114,10 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         Route::get('/', AmbulantStallIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create', AmbulantStallCreate::class)->middleware(['auth', 'verified'])->name('create');
         Route::get('/edit/{id}', AmbulantStallEdit::class)->middleware(['auth', 'verified'])->name('edit');
+    });
+
+    Route::group(["prefix" => "settings", "as" => "settings."], function () {
+        Route::get('/', AppSettingsIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
 });
 

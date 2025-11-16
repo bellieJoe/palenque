@@ -9,6 +9,8 @@ use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
+use function Flasher\Notyf\Prime\notyf;
+
 class FeeIndex extends Component
 {
     use WithPagination, WithoutUrlPagination;
@@ -34,11 +36,15 @@ class FeeIndex extends Component
 
     private function auth()
     {
-        return base64_encode(env('PAYMONGO_SECRET_KEY') . ":");
+        return base64_encode(auth()->user()->vendor->appSettings()->paymongo_secret_key . ":");
     }
 
     public function payOnline($id, $type)
     {
+        if(auth()->user()->vendor->appSettings()->enable_online_payment == false) {
+            notyf()->position('y', 'top')->error('Online payment is not enabled.');
+            return;
+        }
         try {
             $fee = Fee::findOrFail($id);
 

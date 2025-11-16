@@ -38,4 +38,14 @@ class Vendor extends Model
     {
         return $this->violations()->where('status', "WAIVED");
     }
+
+    public function marketDesignation()
+    {
+        return MunicipalMarket::find($this->municipal_market_id);
+    }
+
+    public function appSettings()
+    {
+        return AppSettings::where('municipal_market_id', $this->municipal_market_id)->first();
+    }
 }

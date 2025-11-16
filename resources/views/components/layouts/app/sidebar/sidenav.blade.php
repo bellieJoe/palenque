@@ -70,6 +70,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-store"></i>
                             <span class="hide-menu"> Stall Mananagement </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
@@ -101,6 +102,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-food-variant" aria-hidden="true"></i>
                             <span class="hide-menu"> Wet & Dry Goods Mangement </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
@@ -132,6 +134,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-account-alert" aria-hidden="true"></i>
                             <span class="hide-menu"> Violation Monitoring </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
@@ -151,6 +154,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-ticket-percent" aria-hidden="true"></i>
                             <span class="hide-menu"> Fees Collection </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
@@ -161,6 +165,26 @@
                                 </a>
                             </li>  
                         </ul>
+                    </li>
+                    <li class="nav-small-cap">
+                        <i class="mdi mdi-dots-horizontal"></i>
+                        <span class="hide-menu">Settings</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('main.settings.index') }}" class="sidebar-link {{ request()->routeIs('main.settings.*') ? 'active' : '' }}" wire:navigate>
+                            <i class="mdi mdi-wrench"></i>
+                            <span class="hide-menu"> Application Settings </span>
+                        </a>
+                    </li>
+                    <li class="nav-small-cap">
+                        <i class="mdi mdi-dots-horizontal"></i>
+                        <span class="hide-menu">Reports</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('main.settings.index') }}" class="sidebar-link {{ request()->routeIs('main.settings.*') ? 'active' : '' }}" wire:navigate>
+                            <i class="mdi mdi-chart-pie"></i>
+                            <span class="hide-menu"> Reports </span>
+                        </a>
                     </li>
                 @endif
                 @if (auth()->user()->isAdminAide())
