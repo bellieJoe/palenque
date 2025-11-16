@@ -1,8 +1,8 @@
 <div>
     <x-page-header title="Fees" />
-    <div class="d-flex justify-content-end mb-3">
+    {{-- <div class="d-flex justify-content-end mb-3">
         <a class="btn btn-primary" href="{{ route('main.fees.create') }}">Create Ticket/Fee</a>
-    </div>
+    </div> --}}
     <div class="card">
         <div class="card-body">
             <input type="text" class="form-control mb-3" wire:model.live.debounce.300ms="search" placeholder="Search Ticket No...">
@@ -27,7 +27,8 @@
                                 <td class="align-middle">
                                     @if ($fee->status == 'UNPAID')
                                         {{-- <button class="btn btn-outline-warning" wire:click="waive({{ $fee->id }})" wire:confirm="Are you sure you want to waive this fee?">Waive</button> --}}
-                                        <a class="btn btn-outline-primary" href="{{  route('main.fees.update-daily-fee', $fee->id) }}" wire:navigate>Pay Php {{ number_format($fee->amount, 2, '.', ',') }}</a>
+                                        <button class="btn btn-outline-primary" wire:click="payOnline({{ $fee->id }}, 'gcash')">Pay via Gcash</button>
+                                        <button class="btn btn-outline-primary" wire:click="payOnline({{ $fee->id }}, 'paymaya')">Pay via Paymaya</button>
                                     @endif
                                     {{-- <a class="btn btn-outline-primary" href="{{ route('main.violations.view', $vendor->id) }}" wire:navigate>View Violations</a> --}}
                                 </td>

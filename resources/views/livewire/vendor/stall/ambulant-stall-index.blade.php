@@ -1,8 +1,8 @@
 <div>
     <x-page-header title="Ambulant Stalls" />
-    <div class="d-flex justify-content-end mb-3">
+    {{-- <div class="d-flex justify-content-end mb-3">
         <a class="btn btn-primary" href="{{ route('main.ambulant-stalls.create') }}">Add Ambulant Stall</a>
-    </div>
+    </div> --}}
     <div class="card">
         <div class="card-body">
             <input type="text" class="form-control mb-3" wire:model.live.debounce.300ms="search" placeholder="Search Ambulant Stalls...">

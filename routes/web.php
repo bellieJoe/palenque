@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
 use App\Livewire\Main\Fee\FeesCreate;
@@ -33,6 +34,8 @@ use App\Livewire\Settings\Profile\ProfileIndex;
 use App\Livewire\Stall\Vendor\Fee\FeeIndex;
 use App\Livewire\Vendor\Stall\AmbulantStallIndex as VendorAmbulantStallIndex;
 use App\Models\ItemCategory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -145,4 +148,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('two-factor.show');
 });
 
+Route::group(["prefix" => "payments", "as" => "payments."], function () {
+   Route::get('check-daily-collection-payment/{fee_id}', [PaymentController::class, 'checkDailyCollectionPayment'])->middleware(['auth', 'verified'])->name('check-daily-collection-payment');
+});
 require __DIR__.'/auth.php';
