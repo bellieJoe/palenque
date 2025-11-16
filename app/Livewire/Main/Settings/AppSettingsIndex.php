@@ -10,8 +10,11 @@ class AppSettingsIndex extends Component
 {
     public $app_settings;
     public $enable_online_payment;
-    #[Validate('required_if:enable_online_payment,1')]
     public $paymongo_secret_key;
+    public $rent_surcharge_rate;
+    public $rent_surcharge_frequency;
+    public $rent_grace_period;
+
 
     public function updatedEnableOnlinePayment($value)
     {
@@ -32,12 +35,31 @@ class AppSettingsIndex extends Component
         notyf()->position('y', 'top')->success('Application Settings updated successfully!');
     }
 
+    public function updateMonthlyRentSettings()
+    {
+        $this->validate([
+            'rent_surcharge_rate' => 'required|numeric|min:0',
+            'rent_surcharge_frequency' => 'required|numeric|min:0',
+            'rent_grace_period' => 'required|numeric|min:0',
+        ]);
+
+        $this->app_settings->update([
+            'rent_surcharge_rate' => $this->rent_surcharge_rate,
+            'rent_surcharge_frequency' => $this->rent_surcharge_frequency,
+            'rent_grace_period' => $this->rent_grace_period,
+        ]);
+        notyf()->position('y', 'top')->success('Application Settings updated successfully!');
+    }
+
 
     public function mount()
     {
         $this->app_settings = AppSettings::where('municipal_market_id', auth()->user()->marketDesignation()->id)->first();
         $this->enable_online_payment = $this->app_settings->enable_online_payment;
         $this->paymongo_secret_key = $this->app_settings->paymongo_secret_key;
+        $this->rent_surcharge_rate = $this->app_settings->rent_surcharge_rate;
+        $this->rent_surcharge_frequency = $this->app_settings->rent_surcharge_frequency;
+        $this->rent_grace_period = $this->app_settings->rent_grace_period;
     }
 
     public function render()

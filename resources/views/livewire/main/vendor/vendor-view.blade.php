@@ -37,6 +37,7 @@
                         <tr>
                             <th>Stall</th>
                             <th>Contract Status</th>
+                            <th>Contract Duration</th>
                             <th>Monthly Rent</th>
                             <th>Actions</th>
                         </tr>
@@ -46,6 +47,7 @@
                             <tr>
                                 <td>{{ $stall->stall->name }}</td>
                                 <td><span class="badge badge-{{ $stall->active_contract ? 'info' : 'danger' }}">{{ $stall->active_contract ? 'Active' : 'Expired' }}</span></td>
+                                <td>{{ $stall->active_contract ? $stall->active_contract->from->format('F d, Y') . ' to ' . $stall->active_contract->to->format('F d, Y') : 'N/A' }} </td>
                                 <td>
                                     @if ($stall->active_contract)
                                         Php {{ number_format($stall->active_contract->rate->rate, 2, '.', ',') }}
@@ -61,16 +63,48 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="3" class="text-center">No Stalls Found</td></tr>
+                            <tr><td colspan="5" class="text-center">No Stalls Found</td></tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
             <hr>
-            <div class="d-flex justify-content-between">
-                <h5 class="font-weight-bold">Monthly Rent</h5>
-                {{-- <button class="btn btn-primary" wire:click="showAssignStallModal">Assign Stall</button> --}}
+            <div class="">
+                <h5 class="font-weight-bold">Unpaid Rents</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Stall</th>
+                                <th>Amount</th>
+                                <th>Due Date</th>
+                                <th>Penalty</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($monthlyRents as $monthlyRent)
+                                <tr>
+                                    <td>{{ $monthlyRent->stallContract->stallOccupant->stall->name }}</td>
+                                    <td>Php {{ number_format($monthlyRent->amount, 2, '.', ',') }}</td>
+                                    <td>{{ $monthlyRent->due_date->format('F d, Y') }}</td>
+                                    <td>{{ $monthlyRent->penalty ? 'Php ' . number_format($monthlyRent->penalty, 2, '.', ',') : 'N/A' }}</td>
+                                    <td><span class="badge badge-{{ $monthlyRent->status == 'PAID' ? 'success' : ($monthlyRent->status == 'UNPAID' && $monthlyRent->due_date->isPast() ? 'danger' : 'secondary') }}">{{ $monthlyRent->status }}</span></td>
+                                    <td>
+                                        @if ($monthlyRent->status == 'UNPAID' || $monthlyRent->due_date->isPast())
+                                            <button class="btn btn-outline-warning" wire:confirm="Are you sure you want to waive this rent?" wire:click="rentPaymentWaive({{$monthlyRent->id}})">Waive</button>
+                                            <button class="btn btn-outline-success" wire:confirm="Are you sure you want this payment to be paid?" wire:click="rentPaymentPaid({{$monthlyRent->id}})">Paid</button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="5" class="text-center">No Unpaid Rents Found</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

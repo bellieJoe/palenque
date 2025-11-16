@@ -99,4 +99,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Vendor::class);
     }
+
+    public function appSettings()
+    {
+        return AppSettings::where('municipal_market_id', $this->marketDesignation()->id)->first();
+    }
 }
