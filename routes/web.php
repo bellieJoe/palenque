@@ -13,6 +13,7 @@ use App\Livewire\Main\Goods\ItemCategoryIndex;
 use App\Livewire\Main\Goods\UnitCreate;
 use App\Livewire\Main\Goods\UnitEdit;
 use App\Livewire\Main\Goods\UnitIndex;
+use App\Livewire\Main\Reports\VendorsList;
 use App\Livewire\Main\Settings\AppSettingsIndex;
 use App\Livewire\Main\Stall\AmbulantStallCreate;
 use App\Livewire\Main\Stall\AmbulantStallEdit;
@@ -119,6 +120,10 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
 
     Route::group(["prefix" => "settings", "as" => "settings."], function () {
         Route::get('/', AppSettingsIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+
+    Route::group(["prefix" => "reports", "as" => "reports."], function () {
+        Route::get('vendors-list', VendorsList::class)->middleware(['auth', 'verified'])->name('vendors-list');
     });
 });
 

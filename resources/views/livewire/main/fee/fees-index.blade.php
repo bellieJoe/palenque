@@ -1,7 +1,9 @@
 <div>
     <x-page-header title="Fees" />
     <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-primary" href="{{ route('main.fees.create') }}">Create Ticket/Fee</a>
+        @can('create', \App\Models\Main\Fee::class)
+            <a class="btn btn-primary" href="{{ route('main.fees.create') }}">Create Ticket/Fee</a>
+        @endcan
     </div>
     <div class="card">
         <div class="card-body">
@@ -25,7 +27,7 @@
                                     <span class="badge badge-{{ $fee->status == 'PAID' ? 'success' : ($fee->status == 'UNPAID' ? 'secondary' : 'warning') }}">{{ $fee->status }}</span>
                                 </td>
                                 <td class="align-middle">
-                                    @if ($fee->status == 'UNPAID')
+                                    @if ($fee->status == 'UNPAID' && auth()->user()->can('update', $fee))
                                         <button class="btn btn-outline-warning" wire:click="waive({{ $fee->id }})" wire:confirm="Are you sure you want to waive this fee?">Waive</button>
                                         <a class="btn btn-outline-primary" href="{{  route('main.fees.update-daily-fee', $fee->id) }}" wire:navigate>Update Payment</a>
                                     @endif

@@ -14,54 +14,20 @@
                     </a>
                 </li>
                 @if (auth()->user()->isAdmin())
-                    {{-- <li class="nav-small-cap">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                        <span class="hide-menu">Admin</span>
-                    </li> --}}
                     <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"aria-expanded="false">
-                            {{-- <i class="mdi mdi-account-settings"></i> --}}
-                            <span class="hide-menu">User Management </span>
-                            {{-- <span class="badge badge-pill badge-info ml-auto m-r-15">3</span> --}}
+                        <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" wire:navigate>
+                            <i class="fas fa-users"></i>
+                            <span class="hide-menu"> Users </span>
                         </a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            {{-- <li class="sidebar-item">
-                                <a href="index.html" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu"> Classic </span>
-                                </a>
-                            </li> --}}
-                            <li class="sidebar-item">
-                                <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fas fa-users"></i>
-                                    <span class="hide-menu"> Users </span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            {{-- <i class="fas fa-sliders-h"></i> --}}
-                            <span class="hide-menu">Others </span>
-                            {{-- <span class="badge badge-pill badge-info ml-auto m-r-15">3</span> --}}
+                        <a href="{{ route('admin.municipal-markets.index') }}" class="sidebar-link {{ request()->routeIs('admin.municipal-markets.*') ? 'active' : '' }}" wire:navigate>
+                            <i class="mdi mdi-domain"></i>
+                            <span class="hide-menu"> Public Markets </span>
                         </a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            {{-- <li class="sidebar-item">
-                                <a href="index.html" class="sidebar-link">
-                                    <i class="mdi mdi-adjust"></i>
-                                    <span class="hide-menu"> Classic </span>
-                                </a>
-                            </li> --}}
-                            <li class="sidebar-item">
-                                <a href="{{ route('admin.municipal-markets.index') }}" class="sidebar-link {{ request()->routeIs('admin.municipal-markets.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fas fa-store-alt"></i>
-                                    <span class="hide-menu"> Public Markets </span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 @endif
-                @if (auth()->user()->isMarketSupervisor())
+                @if (auth()->user()->isMarketSupervisor() || auth()->user()->isAdminAide() || auth()->user()->isMarketSpecialist() || auth()->user()->isMarketInspector())
                     <li class="sidebar-item">
                         <a href="{{ route('main.suppliers.index') }}" class="sidebar-link {{ request()->routeIs('main.suppliers.*') ? 'active' : '' }}" wire:navigate>
                             <i class="mdi mdi-truck-delivery"></i>
@@ -132,26 +98,33 @@
                             </li>
                         </ul>
                     </li>
+                    @if (auth()->user()->can('viewAny', [App\Models\Violation::class, App\Models\ViolationType::class]))
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="mdi mdi-account-alert" aria-hidden="true"></i>
                             <span class="hide-menu"> Violation Monitoring </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="{{ route('main.violations.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa fa-list" aria-hidden="true"></i>
-                                    <span class="hide-menu"> Violations </span>
-                                </a>
-                            </li>
+                            @if (auth()->user()->can("viewAny", App\Models\Violation::class))
+                                <li class="sidebar-item">
+                                    <a href="{{ route('main.violations.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.*') ? 'active' : '' }}" wire:navigate>
+                                        <i class="fa fa-list" aria-hidden="true"></i>
+                                        <span class="hide-menu"> Violations </span>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (auth()->user()->can("viewAny", App\Models\ViolationType::class))
                             <li class="sidebar-item">
                                 <a href="{{ route('main.violations.types.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.types.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="fa fa-list" aria-hidden="true"></i>
                                     <span class="hide-menu"> Violation  Types </span>
                                 </a>
                             </li>   
+                            @endif
                         </ul>
                     </li>
+                    @endif
+                    @can('viewAny', \App\Models\Main\Fee::class)
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="mdi mdi-ticket-percent" aria-hidden="true"></i>
@@ -166,40 +139,28 @@
                             </li>  
                         </ul>
                     </li>
-                    <li class="nav-small-cap">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                        <span class="hide-menu">Settings</span>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="{{ route('main.settings.index') }}" class="sidebar-link {{ request()->routeIs('main.settings.*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-wrench"></i>
-                            <span class="hide-menu"> Application Settings </span>
-                        </a>
-                    </li>
+                    @endcan
+                    @if (auth()->user()->isMarketSupervisor())
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Settings</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('main.settings.index') }}" class="sidebar-link {{ request()->routeIs('main.settings.*') ? 'active' : '' }}" wire:navigate>
+                                <i class="mdi mdi-wrench"></i>
+                                <span class="hide-menu"> Application Settings </span>
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-small-cap">
                         <i class="mdi mdi-dots-horizontal"></i>
                         <span class="hide-menu">Reports</span>
                     </li>
                     <li class="sidebar-item">
-                        <a href="{{ route('main.settings.index') }}" class="sidebar-link {{ request()->routeIs('main.settings.*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-chart-pie"></i>
-                            <span class="hide-menu"> Reports </span>
+                        <a href="{{ route('main.reports.vendors-list') }}" class="sidebar-link {{ request()->routeIs('main.reports.*') ? 'active' : '' }}" wire:navigate>
+                            <i class="mdi mdi-account-multiple"></i>
+                            <span class="hide-menu"> Vendor/Stallholders Masterlist </span>
                         </a>
-                    </li>
-                @endif
-                @if (auth()->user()->isAdminAide())
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <span class="hide-menu"> Stall Mananagement </span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="{{ route('main.vendors.index') }}" class="sidebar-link {{ request()->routeIs('main.vendors.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="mdi mdi-store"></i>
-                                    <span class="hide-menu"> Vendors/Stall Holders </span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 @endif
                 @if (auth()->user()->isVendor())

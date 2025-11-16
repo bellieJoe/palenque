@@ -83,6 +83,18 @@ class User extends Authenticatable
         return $roles->contains('role_type_id', 4);
     }
 
+    public function isMarketSpecialist(): bool
+    {
+        $roles = $this->roles;
+        return $roles->contains('role_type_id', 5);
+    }
+
+    public function isMarketInspector(): bool
+    {
+        $roles = $this->roles;
+        return $roles->contains('role_type_id', 3);
+    }
+
     public function marketDesignation()
     {
         $roles = $this->roles;
