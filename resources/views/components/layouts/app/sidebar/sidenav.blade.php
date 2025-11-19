@@ -158,14 +158,20 @@
                     </li>
                     <li class="sidebar-item">
                         <a href="{{ route('main.reports.vendors-list') }}" class="sidebar-link {{ request()->routeIs('main.reports.vendors-list.*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-account-multiple"></i>
-                            <span class="hide-menu"> Vendor/Stallholders Masterlist </span>
+                            <i class="mdi mdi-file-chart"></i>
+                            <span class="hide-menu"> Vendor/Stallholders Masterlist</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="{{ route('main.reports.rental-collection') }}" class="sidebar-link {{ request()->routeIs('main.reports.rental-collection.*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-account-multiple"></i>
+                            <i class="mdi mdi-file-chart"></i>
                             <span class="hide-menu"> Stall Rental Collections </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('main.reports.market-fee-collection') }}" class="sidebar-link {{ request()->routeIs('main.reports.market-fee-collection.*') ? 'active' : '' }}" wire:navigate>
+                            <i class="mdi mdi-file-chart"></i>
+                            <span class="hide-menu"> Market Fees Collections </span>
                         </a>
                     </li>
                 @endif
