@@ -1,5 +1,5 @@
 <div>
-    <x-page-header title="Market Fees Collection" />
+    <x-page-header title="Market Violation Report" />
     <div class="d-flex justify-content-end mb-3">
         {{-- @livewire('main.vendor.vendor-create') --}}
         <button class="btn btn-primary" onclick="printReport()">Print</button>
@@ -42,37 +42,35 @@
                     @elseif($reportType == "Yearly")
                         {{ $collectionYear }}&nbsp;
                     @endif
-                    Market Fee Collection Report
+                    Market Violation Report
                 </h3>
                 <div class="table-responsive">
                     <table class="table table-bordered table-sm" style="min-width: 1000px">
                         <thead>
-                            <th>Supplier</th>
-                            <th>Date</th>
-                            <th class="">Item</th>
-                            <th class="text-center">Amount</th>
-                            <th class="text-center">Unit</th>
-                            <th class="text-center">Collected Fee</th>
+                            <th>Vendor</th>
+                            <th class="">Violation</th>
+                            <th class="">Date Issued</th>
+                            <th class="text-center">Penalty</th>
+                            <th class="text-center">Status</th>
                         </thead>
                         <tbody>
-                            @forelse ($feeCollections as $fee)
+                            @forelse ($marketViolations as $violation)
                                 <tr>
-                                    <td class="align-middle">{{ $fee->deliveryItem->delivery->supplier->name }}</td>
-                                    <td class="align-middle">{{ $fee->date_paid->format('F d, Y') }}</td>
-                                    <td class="align-middle">{{ $fee->deliveryItem->item->name }}</td>
-                                    <td class="align-middle">{{ $fee->deliveryItem->amount }}</td>
-                                    <td class="align-middle">{{ $fee->deliveryItem->unit->name }}</td>
-                                    <td class="align-middle">{{ number_format($fee->amount, 2, ',', '.') }}</td>
+                                    <td class="align-middle">{{ $violation->vendor->name }}</td>
+                                    <td class="align-middle">{{ $violation->violationType->name }}</td>
+                                    <td class="align-middle">{{ $violation->created_at->format('F d, Y') }}</td>
+                                    <td class="align-middle">{{ $violation->violationType->penalty_type == 'MONETARY' ? $violation->violationType->monetary_penalty : $violation->violationType->service_penalty }}</td>
+                                    <td class="align-middle">{{ $violation->status }}</td>
                                 </tr>
                             @empty
-                                <tr><td colspan="6" class="text-center">No Market Fees Found</td></tr>
+                                <tr><td colspan="5" class="text-center">No Market Fees Found</td></tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <p class="text-end"><b>Total:</b> Php {{ number_format($feeCollections->sum('amount'), 2, ',', '.') }}</p>
+                        <p class="text-end"><b>Total:</b> Php {{ number_format($marketViolations->count('amount'), 2, ',') }}</p>
                     </div>
                 </div>
             </div>

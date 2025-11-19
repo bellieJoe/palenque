@@ -1,5 +1,5 @@
 <div>
-    <x-page-header title="Vendors/Stall Holders Masterlist" />
+    <x-page-header title="Rental Collection" />
     <div class="d-flex justify-content-end mb-3">
         {{-- @livewire('main.vendor.vendor-create') --}}
         <button class="btn btn-primary" onclick="printReport()">Print</button>

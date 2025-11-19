@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Livewire\Main\Reports;
+
+use App\Models\Violation;
+use Carbon\Carbon;
+use Livewire\Attributes\Validate;
+use Livewire\Component;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
+
+class MarketViolations extends Component
+{
+    use WithPagination, WithoutUrlPagination;
+    #[Validate('required|in:Daily,Monthly,Yearly')]
+    public $reportType = 'Daily';
+    public $collectionDate = null;
+    public $collectionMonth = null;
+    public $collectionYear = null;
+
+    public function mount()
+    {
+        $this->collectionDate = now()->format('Y-m-d');
+        $this->collectionMonth = now()->format('Y-m');
+        $this->collectionYear = now()->format('Y');
+    }
+
+    public function updating($name, $value)
+    {
+        $properties = ['collectionDate', 'collectionMonth', 'collectionYear'];
+
+        if (in_array($name, $properties)) {
+            foreach ($properties as $prop) {
+                if ($prop !== $name) {
+                    $this->$prop = null;
+                }
+            }
+        }
+
+        if ($name === 'reportType') {
+            foreach ($properties as $prop) {
+                $this->$prop = null;
+            }
+        }
+
+        $this->resetPage();
+    }
+    
+    public function render()
+    {
+        $marketViolations = Violation::query()
+        ->where('municipal_market_id', auth()->user()->marketDesignation()->id)
+        ->when($this->reportType == 'Daily', function ($query) {
+            $query->whereDate('created_at', $this->collectionDate);
+        })
+        ->when($this->reportType == 'Monthly', function ($query) {
+            $query
+                ->whereMonth('created_at', Carbon::parse($this->collectionMonth)->format('m'))
+                ->whereYear('created_at', Carbon::parse($this->collectionMonth)->format('Y')); //->whereMonth('created_at', $this->collectionMonth);
+        })
+        ->when($this->reportType == 'Yearly', function ($query) {
+            $query->whereYear('created_at', $this->collectionYear);
+        })
+        ->get();
+        return view('livewire.main.reports.market-violations', [
+            'marketViolations' => $marketViolations
+        ]);
+    }
+}
