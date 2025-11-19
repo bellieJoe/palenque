@@ -157,9 +157,15 @@
                         <span class="hide-menu">Reports</span>
                     </li>
                     <li class="sidebar-item">
-                        <a href="{{ route('main.reports.vendors-list') }}" class="sidebar-link {{ request()->routeIs('main.reports.*') ? 'active' : '' }}" wire:navigate>
+                        <a href="{{ route('main.reports.vendors-list') }}" class="sidebar-link {{ request()->routeIs('main.reports.vendors-list.*') ? 'active' : '' }}" wire:navigate>
                             <i class="mdi mdi-account-multiple"></i>
                             <span class="hide-menu"> Vendor/Stallholders Masterlist </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('main.reports.rental-collection') }}" class="sidebar-link {{ request()->routeIs('main.reports.rental-collection.*') ? 'active' : '' }}" wire:navigate>
+                            <i class="mdi mdi-account-multiple"></i>
+                            <span class="hide-menu"> Stall Rental Collections </span>
                         </a>
                     </li>
                 @endif
