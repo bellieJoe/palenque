@@ -88,7 +88,6 @@ class AdminDashboard extends Component
 
     private function init()
     {
-        notyf()->position('y', 'top')->success($this->startFilter.' - '.$this->endFilter);
         $this->supplierCount = Supplier::query()->count();
         $this->vendorCount = Vendor::query()->count();
         $this->marketCount = MunicipalMarket::query()->count();

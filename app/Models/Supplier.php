@@ -13,4 +13,9 @@ class Supplier extends Model
     {
         return $this->belongsTo(MunicipalMarket::class);
     }
+
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class);
+    }
 }

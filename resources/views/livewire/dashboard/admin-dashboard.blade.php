@@ -115,31 +115,31 @@
                 <div class="card-body">
                     <h5 class="text-center">Users per Public Market</h5>
                     <div 
-                    class="" 
-                    wire:ignore
-                    x-data
-                    x-init="
-                        let options = {
-                            chart: {
-                                type: 'bar'
-                            },
-                            plotOptions: {
-                                bar: {
-                                    horizontal: true
-                                }
-                            },
-                            series: [{
-                                data: @js($publicMarketUsersData)
-                            }]
-                        }
-                        let chart = new ApexCharts($refs.chart, options);
-                        chart.render();
-                        Livewire.on('updatePublicMarketUserChart', (payload) => {
-                            chart.updateSeries([{ data: payload[0].data }]);
-                        });
-                    "
-                    >
-                        <div x-ref="chart"></div>
+                        class="" 
+                        wire:ignore
+                        x-data
+                        x-init="
+                            let options = {
+                                chart: {
+                                    type: 'bar'
+                                },
+                                plotOptions: {
+                                    bar: {
+                                        horizontal: true
+                                    }
+                                },
+                                series: [{
+                                    data: @js($publicMarketUsersData)
+                                }]
+                            }
+                            let chart = new ApexCharts($refs.chart, options);
+                            chart.render();
+                            Livewire.on('updatePublicMarketUserChart', (payload) => {
+                                chart.updateSeries([{ data: payload[0].data }]);
+                            });
+                        "
+                        >
+                            <div x-ref="chart"></div>
                     </div>
                 </div>
             </div>
