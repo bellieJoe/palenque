@@ -37,6 +37,7 @@ class AdminDashboard extends Component
     public $userDistributionCategories = [];
 
     public $publicMarketUsersData = [];
+    public $publicMarketStallsData = [];
 
     public function updatingStartFilter()
     {
@@ -114,13 +115,23 @@ class AdminDashboard extends Component
             return (object)[
                 "x" => $market->name,
                 "y" => collect([
-                    Vendor::where("municipal_market_id", $market->id)->count(),
-                    Role::where("municipal_market_id", $market->id)->count()
-                ])->sum()
+                        Vendor::where("municipal_market_id", $market->id)->count(),
+                        Role::where("municipal_market_id", $market->id)->count()
+                    ])->sum()
                 ];
         });
         $this->dispatch('updatePublicMarketUserChart', [
             'data' => $this->publicMarketUsersData,
+        ]);
+
+        $this->publicMarketStallsData = MunicipalMarket::query()->get()->map(function($market) {
+            return (object)[
+                "x" => $market->name,
+                "y" => Stall::where("municipal_market_id", $market->id)->count()
+            ];
+        });
+        $this->dispatch('updatePublicMarketStallChart', [
+            'data' => $this->publicMarketStallsData,
         ]);
     }
 

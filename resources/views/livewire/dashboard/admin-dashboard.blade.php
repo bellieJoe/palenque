@@ -175,7 +175,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="text-center">User Role Distribution</h5>
+                    <h5 class="text-center">Stalls per Public Market</h5>
                     <div 
                     class="" 
                     wire:ignore
@@ -183,13 +183,22 @@
                     x-init="
                         let options = {
                             chart: {
-                                type: 'donut'
+                                type: 'bar'
                             },
-                            series: [44, 55, 13, 33],
-                            labels: ['Apple', 'Mango', 'Orange', 'Watermelon']
+                            plotOptions: {
+                                bar: {
+                                    horizontal: true
+                                }
+                            },
+                            series: [{
+                                data: @js($publicMarketStallsData)
+                            }]
                         }
                         let chart = new ApexCharts($refs.chart, options);
                         chart.render();
+                        Livewire.on('updatePublicMarketStallChart', (payload) => {
+                            chart.updateSeries([{ data: payload[0].data }]);
+                        });
                     "
                     >
                         <div x-ref="chart"></div>
