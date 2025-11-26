@@ -48,4 +48,27 @@
             @endif
         </div>
     </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="font-weight-bold">Violation Monitoring</h5>
+            <div class="mb-3 form-check">
+                <input class="form-check-input form-check-input-lg" type="checkbox" value="" id="violationMonitoring" {{ $enable_violation_monitoring ? 'checked' : '' }} wire:model.lazy="enable_violation_monitoring">
+                <label class="form-check-label" for="violationMonitoring">
+                    Enable Violation Monitoring
+                </label>
+            </div>
+            @if ($enable_online_payment)
+            <div class="mb-3">
+                <label for="">Maximum Violation Warning</label>
+                <input type="number" step="1" class="form-control" wire:model.debounce.300ms="max_violation_warning">
+                @error('max_violation_warning') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
+            @endif
+            @if ($app_settings->max_violation_warning != $max_violation_warning || $app_settings->enable_violations != $enable_violation_monitoring)
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" wire:click="updateViolationMonitoring" wire:loading.attr="disabled">Update</button>
+            </div>
+            @endif
+        </div>
+    </div>
 </div>

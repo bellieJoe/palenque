@@ -13,7 +13,7 @@ class ViolationPolicy
      */
     public function viewAny(User $user): bool
     {
-        return auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector();
+        return (auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -21,7 +21,7 @@ class ViolationPolicy
      */
     public function view(User $user, Violation $violation): bool
     {
-        return auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector();
+        return (auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector())  && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -29,7 +29,7 @@ class ViolationPolicy
      */
     public function create(User $user): bool
     {
-        return auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector();
+        return (auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector())  && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -37,7 +37,7 @@ class ViolationPolicy
      */
     public function update(User $user, Violation $violation): bool
     {
-        return auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector();
+        return (auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -45,7 +45,7 @@ class ViolationPolicy
      */
     public function delete(User $user, Violation $violation): bool
     {
-        return auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector();
+        return (auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -53,7 +53,7 @@ class ViolationPolicy
      */
     public function restore(User $user, Violation $violation): bool
     {
-        return auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector();
+        return (auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -61,6 +61,6 @@ class ViolationPolicy
      */
     public function forceDelete(User $user, Violation $violation): bool
     {
-        return auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector();
+        return (auth()->user()->isMarketSupervisor() ||  auth()->user()->isMarketInspector()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 }

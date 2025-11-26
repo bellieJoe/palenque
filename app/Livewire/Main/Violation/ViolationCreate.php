@@ -23,14 +23,24 @@ class ViolationCreate extends Component
     {
         $this->validate();
         $stallOccupant = StallOccupant::where("vendor_id", $this->vendor->id)->where("stall_id", $this->stall)->first();
+        $latestViolation = Violation::where([
+            "vendor_id" => $this->vendor->id,
+            "stall_occupant_id" => $stallOccupant->id,
+            "violation_type_id" => $this->violation
+        ])
+        ->orderBy('violation_count', 'desc')
+        ->first();
+        $violationCount = $latestViolation ? $latestViolation->violation_count + 1 : 1;
         Violation::create([
             "vendor_id" => $this->vendor->id,
             "violation_type_id" => $this->violation,
             "stall_occupant_id" => $stallOccupant->id,
-            "municipal_market_id" => auth()->user()->marketDesignation()->id
+            "municipal_market_id" => auth()->user()->marketDesignation()->id,
+            "violation_count" => $violationCount,
+            "status" => $violationCount > auth()->user()->appSettings()->max_violation_warning ? "PENDING" : "WAIVED"
         ]);
         notyf()->position('y', 'top')->success('Violation created successfully!');
-        $this->redirectRoute('main.violations.index');
+        $this->redirectRoute('main.violations.index', navigate: true);
     }
 
     public function mount($vendor_id)
