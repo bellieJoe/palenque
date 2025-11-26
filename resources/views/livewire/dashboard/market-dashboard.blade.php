@@ -92,6 +92,7 @@
                                     }
                                 },
                                 series: [{
+                                    name: 'Total',
                                     data: @js($mostViolatedVendorData)
                                 }]
                             }
@@ -126,6 +127,7 @@
                                     }
                                 },
                                 series: [{
+                                    name: 'Total',
                                     data: @js($topSuppliersData)
                                 }]
                             }
@@ -146,7 +148,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="text-center">Market Fee Collection</h5>
+                    <h5 class="text-center">Market Fees Collection</h5>
                     <div 
                         class="" 
                         wire:ignore
@@ -157,23 +159,59 @@
                                     type: 'line'
                                 },
                                 stroke: {
-                                curve: 'smooth',
+                                    curve: 'smooth',
+                                },
+                                xaxis: {
+                                    type: 'datetime',
+                                    categories: @js($marketFeesCollectionCategories)
+                                },
+                                yaxis: {
+                                    labels: {
+                                        formatter: function (value) {
+                                            return '₱' + value.toLocaleString();
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    y: {
+                                        formatter: function (value) {
+                                            return '₱' + value.toLocaleString();
+                                        }
+                                    }
                                 },
                                 series: [
                                     {
-                                    name: 'Series A',
-                                    data: [1.4, 2, 2.5, 1.5, 2.5, 2.8, 3.8, 4.6]
+                                        name: 'Ambulant Stalls',
+                                        data: @js($ambulantStallCollectionData)
                                     },
                                     {
-                                    name: 'Series B',
-                                    data: [20, 29, 37, 36, 44, 45, 50, 58]
+                                        name: 'Stall Rents',
+                                        data: @js($stallRentCollectionData)
+                                    },
+                                    {
+                                        name: 'Delivery Ticket Fees',
+                                        data: @js($supplierCollectionData)
                                     }
                                 ],
                             }
                             let chart = new ApexCharts($refs.chart, options);
                             chart.render();
-                            Livewire.on('updatePublicMarketUserChart', (payload) => {
-                                chart.updateSeries([{ data: payload[0].data }]);
+                            Livewire.on('updateMarketFeesChart', (payload) => {
+                                chart.updateSeries([
+                                    {
+                                        name: 'Ambulant Stalls',
+                                        data: payload[0].ambulantStallCollectionData
+                                    },
+                                    {
+                                        name: 'Stall Rents',
+                                        data: payload[0].stallRentCollectionData
+                                    },
+                                    {
+                                        name: 'Delivery Ticket Fees',
+                                        data: payload[0].supplierCollectionData
+                                    }
+                                ]);
+                                chart.updateXaxis({ categories: payload[0].categories });
                             });
                         "
                         >
