@@ -76,6 +76,7 @@
         <div class="col col-lg-6">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="text-center">Users</h5>
                     <div 
                         class="" 
                         wire:ignore
@@ -110,10 +111,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col col-lg-6">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="text-center">Users per Public Market</h5>
                     <div 
                     class="" 
                     wire:ignore
@@ -121,15 +121,72 @@
                     x-init="
                         let options = {
                             chart: {
-                                type: 'line'
+                                type: 'bar'
+                            },
+                            plotOptions: {
+                                bar: {
+                                    horizontal: true
+                                }
                             },
                             series: [{
-                                name: 'sales',
-                                data: [30,40,35,50,49,60,70,91,125]
-                            }],
-                            xaxis: {
-                                categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
-                            }
+                                data: @js($publicMarketUsersData)
+                            }]
+                        }
+                        let chart = new ApexCharts($refs.chart, options);
+                        chart.render();
+                        Livewire.on('updatePublicMarketUserChart', (payload) => {
+                            chart.updateSeries([{ data: payload[0].data }]);
+                        });
+                    "
+                    >
+                        <div x-ref="chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-center">User Role Distribution</h5>
+                    <div 
+                    class="" 
+                    wire:ignore
+                    x-data
+                    x-init="
+                        let options = {
+                            chart: {
+                                type: 'donut'
+                            },
+                            series: @js($userDistributionData),
+                            labels: @js($userDistributionCategories)
+                        }
+                        let chart = new ApexCharts($refs.chart, options);
+                        chart.render();
+
+                        Livewire.on('updateUserDistributionChart', (payload) => {
+                            chart.updateSeries([{ data: payload[0].data }]);
+                            chart.updateLabels([{ data: payload[0].categories }]);
+                        });
+                    "
+                    >
+                        <div x-ref="chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-center">User Role Distribution</h5>
+                    <div 
+                    class="" 
+                    wire:ignore
+                    x-data
+                    x-init="
+                        let options = {
+                            chart: {
+                                type: 'donut'
+                            },
+                            series: [44, 55, 13, 33],
+                            labels: ['Apple', 'Mango', 'Orange', 'Watermelon']
                         }
                         let chart = new ApexCharts($refs.chart, options);
                         chart.render();

@@ -4,6 +4,8 @@ namespace App\Livewire\Dashboard;
 
 use App\Models\AmbulantStall;
 use App\Models\MunicipalMarket;
+use App\Models\Role;
+use App\Models\RoleType;
 use App\Models\Stall;
 use App\Models\Supplier;
 use App\Models\User;
@@ -26,17 +28,15 @@ class AdminDashboard extends Component
     public $supplierCount;
     public $vendorCount;
     public $marketCount;
+    // public 
 
     public $userTrendData = [];
     public $userTrendCategories = [];
 
-    // public function updating($name, $value)
-    // {
-    //     $filters = ['startFilter', 'endFilter']; 
-    //     if (in_array($name, $filters)) {
-    //         $this->resetPage();
-    //     }
-    // }
+    public $userDistributionData = [];
+    public $userDistributionCategories = [];
+
+    public $publicMarketUsersData = [];
 
     public function updatingStartFilter()
     {
@@ -98,8 +98,30 @@ class AdminDashboard extends Component
             'categories' => $this->userTrendCategories,
             'data' => $this->userTrendData,
         ]);
-        Log::info('User Trend Categories: ' . json_encode($this->userTrendCategories));
-        Log::info('User Trend Data: ' . json_encode($this->userTrendData));
+
+        RoleType::query()->get()->each(function($roleType) {
+            $this->userDistributionCategories[] = $roleType->name;
+            $this->userDistributionData[] = User::whereHas('roles', function ($query) use ($roleType) {
+                $query->where('role_type_id', $roleType->id);
+            })->count();
+        });
+        $this->dispatch('updateUserDistributionChart', [
+            'categories' => $this->userDistributionCategories,
+            'data' => $this->userDistributionData,
+        ]);
+
+        $this->publicMarketUsersData = MunicipalMarket::query()->get()->map(function($market) {
+            return (object)[
+                "x" => $market->name,
+                "y" => collect([
+                    Vendor::where("municipal_market_id", $market->id)->count(),
+                    Role::where("municipal_market_id", $market->id)->count()
+                ])->sum()
+                ];
+        });
+        $this->dispatch('updatePublicMarketUserChart', [
+            'data' => $this->publicMarketUsersData,
+        ]);
     }
 
     public function render()
