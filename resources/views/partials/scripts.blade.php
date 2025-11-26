@@ -33,6 +33,7 @@
 {{-- <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
     $(document).ready(function() {
         console.log("ready!");

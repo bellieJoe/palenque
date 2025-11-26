@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.bootstrap5.min.css">
 <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+<script src="https://kit.fontawesome.com/48b9baa16e.js" crossorigin="anonymous"></script>
 
 @vite(['resources/js/app.js']) 
 {{-- @fluxAppearance --}}

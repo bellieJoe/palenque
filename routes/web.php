@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PaymentController;
 use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
@@ -50,9 +51,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::view('test', 'test.test')
         ->middleware(['auth', 'verified'])

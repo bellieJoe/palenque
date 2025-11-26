@@ -13,7 +13,7 @@ class ViolationTypePolicy
      */
     public function viewAny(User $user): bool
     {
-        return auth()->user()->isMarketSupervisor();
+        return (auth()->user()->isMarketSupervisor()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -21,7 +21,7 @@ class ViolationTypePolicy
      */
     public function view(User $user, ViolationType $violationType): bool
     {
-        return auth()->user()->isMarketSupervisor();
+        return (auth()->user()->isMarketSupervisor()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -29,7 +29,7 @@ class ViolationTypePolicy
      */
     public function create(User $user): bool
     {
-        return auth()->user()->isMarketSupervisor();
+        return (auth()->user()->isMarketSupervisor()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -37,7 +37,7 @@ class ViolationTypePolicy
      */
     public function update(User $user, ViolationType $violationType): bool
     {
-        return auth()->user()->isMarketSupervisor();
+        return (auth()->user()->isMarketSupervisor()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -45,7 +45,7 @@ class ViolationTypePolicy
      */
     public function delete(User $user, ViolationType $violationType): bool
     {
-        return auth()->user()->isMarketSupervisor();
+        return (auth()->user()->isMarketSupervisor()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -53,7 +53,7 @@ class ViolationTypePolicy
      */
     public function restore(User $user, ViolationType $violationType): bool
     {
-        return auth()->user()->isMarketSupervisor();
+        return (auth()->user()->isMarketSupervisor()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 
     /**
@@ -61,6 +61,6 @@ class ViolationTypePolicy
      */
     public function forceDelete(User $user, ViolationType $violationType): bool
     {
-       return auth()->user()->isMarketSupervisor();
+       return (auth()->user()->isMarketSupervisor()) && auth()->user()->appSettings()->enable_violations == 1;
     }
 }

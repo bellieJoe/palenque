@@ -34,6 +34,7 @@
                     <thead>
                         <th>Violation</th>
                         <th>Penalty</th>
+                        <th>Warning</th>
                         <th>Date Issued</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -43,10 +44,11 @@
                             <tr>
                                 <td class="align-middle">{{ $violation->violationType->name }}</td>
                                 <td class="align-middle">{{ $violation->violationType->penalty_type == 'MONETARY' ? 'Php ' . number_format($violation->violationType->monetary_penalty, 2, '.', ',') : $violation->violationType->service_penalty }}</td>
+                                <td class="align-middle">{{ $violation->violation_count > auth()->user()->appSettings()->max_violation_warning ? 'YES' : 'NO' }}</td>
                                 <td class="align-middle">{{ $violation->created_at->format('M d, Y') }}</td>
                                 <td class="align-middle"><span class="badge badge-{{ $violation->status == 'RESOLVED' ? 'success' : ($violation->status == 'WAIVED' ? 'warning' : 'secondary') }}">{{ $violation->status }}</span></td>
                                 <td class="align-middle">
-                                    @if ($violation->status == "PENDING")
+                                    @if ($violation->status == "PENDING" && $vaiolation->violation_count > auth()->user()->appSettings()->max_violation_warning )
                                         <button class="btn btn-outline-primary" wire:click="waiveViolation({{$violation->id}})" wire:confirm="Are you sure you want to waive this violation?">Waive</button>
                                         <button class="btn btn-outline-primary" wire:click="resolveViolation({{$violation->id}})" wire:confirm="Are you sure you want to resolve this violation?">Resolve</button>
                                     @endif
