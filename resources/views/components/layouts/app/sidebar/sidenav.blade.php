@@ -1,7 +1,7 @@
 <!-- ============================================================== -->
 <!-- Left Sidebar - style you can find in sidebar.scss  -->
 <!-- ============================================================== -->
-<aside class="left-sidebar">
+<aside class="left-sidebar" >
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
         <!-- Sidebar navigation-->
@@ -54,13 +54,13 @@
                             </li>
                             <li class="sidebar-item">
                                 <a href="{{ route('main.stalls.index') }}" class="sidebar-link {{ request()->routeIs('main.stalls.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="mdi mdi-store"></i>
+                                    <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Stalls </span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="{{ route('main.stall-rates.index') }}" class="sidebar-link {{ request()->routeIs('main.stall-rates.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="mdi mdi-cash"></i>
+                                    <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Stall Rates </span>
                                 </a>
                             </li>
@@ -79,20 +79,26 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
+                                <a href="{{ route('main.deliveries.index') }}" class="sidebar-link {{ request()->routeIs('main.deliveries.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa fa-truck" aria-hidden="true"></i>
+                                    <span class="hide-menu"> Price Montoring </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a href="{{ route('main.goods.index') }}" class="sidebar-link {{ request()->routeIs('main.goods.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Items </span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="{{ route('main.item-categories.index') }}" class="sidebar-link {{ request()->routeIs('main.item-categories.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="mdi mdi-format-list-bulleted-type"></i>
+                                    <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Item Categories </span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="{{ route('main.units.index') }}" class="sidebar-link {{ request()->routeIs('main.units.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="mdi mdi-ruler"></i>
+                                    <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Units </span>
                                 </a>
                             </li>
@@ -116,7 +122,7 @@
                             @if (auth()->user()->can("viewAny", App\Models\ViolationType::class))
                             <li class="sidebar-item">
                                 <a href="{{ route('main.violations.types.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.types.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Violation  Types </span>
                                 </a>
                             </li>   
@@ -140,22 +146,12 @@
                         </ul>
                     </li>
                     @endcan
-                    @if (auth()->user()->isMarketSupervisor())
-                        <li class="nav-small-cap">
-                            <i class="mdi mdi-dots-horizontal"></i>
-                            <span class="hide-menu">Settings</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('main.settings.index') }}" class="sidebar-link {{ request()->routeIs('main.settings.*') ? 'active' : '' }}" wire:navigate>
-                                <i class="mdi mdi-wrench"></i>
-                                <span class="hide-menu"> Application Settings </span>
-                            </a>
-                        </li>
-                    @endif
+
                     <li class="nav-small-cap">
                         <i class="mdi mdi-dots-horizontal"></i>
                         <span class="hide-menu">Reports</span>
                     </li>
+
                     <li class="sidebar-item">
                         <a href="{{ route('main.reports.vendors-list') }}" class="sidebar-link {{ request()->routeIs('main.reports.vendors-list.*') ? 'active' : '' }}" wire:navigate>
                             <i class="mdi mdi-file-chart"></i>
@@ -174,12 +170,28 @@
                             <span class="hide-menu"> Market Fees Collections </span>
                         </a>
                     </li>
+                    @if (auth()->user()->appSettings()->enable_violations)
                     <li class="sidebar-item">
                         <a href="{{ route('main.reports.market-violations') }}" class="sidebar-link {{ request()->routeIs('main.reports.market-violations.*') ? 'active' : '' }}" wire:navigate>
                             <i class="mdi mdi-file-chart"></i>
                             <span class="hide-menu"> Market Violations </span>
                         </a>
                     </li>
+                    @endif
+
+                    @if (auth()->user()->isMarketSupervisor())
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Settings</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('main.settings.index') }}" class="sidebar-link {{ request()->routeIs('main.settings.*') ? 'active' : '' }}" wire:navigate>
+                                <i class="mdi mdi-wrench"></i>
+                                <span class="hide-menu"> Application Settings </span>
+                            </a>
+                        </li>
+                    @endif
+                    
                 @endif
                 @if (auth()->user()->isVendor())
                     <li class="sidebar-item">

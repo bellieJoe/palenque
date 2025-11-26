@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Maintenance;
 
 use App\Models\MunicipalMarket;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -33,6 +34,7 @@ class PublicMarketIndex extends Component
 
     public function render()
     {
+        Gate::authorize('viewAny', MunicipalMarket::class);
         $publicMarkets = MunicipalMarket::query()->where('name', 'like', '%' . $this->search . '%')->paginate(10);
         return view('livewire.admin.maintenance.public-market-index', [
             'publicMarkets' => $publicMarkets

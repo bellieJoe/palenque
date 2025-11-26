@@ -70,7 +70,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <p class="text-end"><b>Total:</b> Php {{ number_format($marketViolations->count('amount'), 2, ',') }}</p>
+                        {{-- <p>{{ $marketViolations->where("violation_count", > 3)->where("status", "PAID") }}</p> --}}
+                        <p class="text-end"><b>Total Violations Issued:</b> {{ number_format($marketViolations->count(), 0, '.', ',') }}</p>
                     </div>
                 </div>
             </div>
