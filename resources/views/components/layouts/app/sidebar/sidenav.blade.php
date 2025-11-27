@@ -79,8 +79,8 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ route('main.deliveries.index') }}" class="sidebar-link {{ request()->routeIs('main.deliveries.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa fa-truck" aria-hidden="true"></i>
+                                <a href="{{ route('main.price-monitoring.index') }}" class="sidebar-link {{ request()->routeIs('main.price-monitoring.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa-solid fa-hand-holding-dollar"></i>
                                     <span class="hide-menu"> Price Montoring </span>
                                 </a>
                             </li>

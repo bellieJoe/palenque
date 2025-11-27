@@ -11,6 +11,9 @@ use App\Livewire\Main\Goods\DeliveryIndex;
 use App\Livewire\Main\Goods\DeliveryView;
 use App\Livewire\Main\Goods\GoodsIndex;
 use App\Livewire\Main\Goods\ItemCategoryIndex;
+use App\Livewire\Main\Goods\PriceMonitoringCreate;
+use App\Livewire\Main\Goods\PriceMonitoringEdit;
+use App\Livewire\Main\Goods\PriceMonitoringIndex;
 use App\Livewire\Main\Goods\UnitCreate;
 use App\Livewire\Main\Goods\UnitEdit;
 use App\Livewire\Main\Goods\UnitIndex;
@@ -129,6 +132,12 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         Route::get('rental-collection', RentalCollection::class)->middleware(['auth', 'verified'])->name('rental-collection');
         Route::get('market-fee-collection', MarketFeesCollection::class)->middleware(['auth', 'verified'])->name('market-fee-collection');
         Route::get('market-violations', MarketViolations::class)->middleware(['auth', 'verified'])->name('market-violations');
+    });
+
+    Route::group(["prefix" => "price-monitoring", "as" => "price-monitoring."], function () {
+        Route::get('/', PriceMonitoringIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create', PriceMonitoringCreate::class)->middleware(['auth', 'verified'])->name('create');
+        Route::get('/edit/{id}', PriceMonitoringEdit::class)->middleware(['auth', 'verified'])->name('edit');
     });
 });
 
