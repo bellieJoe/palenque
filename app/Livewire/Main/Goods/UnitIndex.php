@@ -4,6 +4,7 @@ namespace App\Livewire\Main\Goods;
 
 use App\Models\DeliveryItem;
 use App\Models\Unit;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -38,6 +39,7 @@ class UnitIndex extends Component
 
     public function render()
     {
+        Gate::authorize('viewAny', Unit::class);
         $units = Unit::query()->where("name", "like", "%{$this->search}%")->where("municipal_market_id", auth()->user()->marketDesignation()->id)->paginate(10);
         return view('livewire.main.goods.unit-index', [
             'units' => $units

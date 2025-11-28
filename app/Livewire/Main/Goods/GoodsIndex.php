@@ -3,6 +3,7 @@
 namespace App\Livewire\Main\Goods;
 
 use App\Models\Item;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 
 class GoodsIndex extends Component
@@ -27,6 +28,7 @@ class GoodsIndex extends Component
 
     public function render()
     {
+        Gate::authorize('viewAny', Item::class);
         $items = Item::where('municipal_market_id', auth()->user()->marketDesignation()->id)
         ->where('name', 'like', '%' . $this->search . '%')
         ->paginate(10);

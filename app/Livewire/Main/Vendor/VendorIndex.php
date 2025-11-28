@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\StallOccupant;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
@@ -54,6 +55,7 @@ class VendorIndex extends Component
 
     public function render()
     {
+        Gate::authorize('viewAny', Vendor::class);
         $vendors = Vendor::query()
         ->where("name", "like", "%{$this->search}%")
         ->where("municipal_market_id", auth()->user()->marketDesignation()->id)

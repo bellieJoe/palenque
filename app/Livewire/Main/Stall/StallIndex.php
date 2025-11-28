@@ -3,6 +3,7 @@
 namespace App\Livewire\Main\Stall;
 
 use App\Models\Stall;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -39,6 +40,7 @@ class StallIndex extends Component
 
     public function render()
     {
+        Gate::authorize('viewAny', Stall::class);
         $stalls = Stall::query()
         ->with('stallRate')
         ->where('name', 'like', '%' . $this->search . '%')

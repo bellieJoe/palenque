@@ -3,6 +3,7 @@
 namespace App\Livewire\Main\Stall;
 
 use App\Models\AmbulantStall;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -27,6 +28,7 @@ class AmbulantStallIndex extends Component
 
     public function render()
     { 
+        Gate::authorize('viewAny', AmbulantStall::class);
         $ambulantStalls = AmbulantStall::where('name', 'like', '%' . $this->search . '%')
         ->where('municipal_market_id', auth()->user()->marketDesignation()->id)
         ->paginate(20);
