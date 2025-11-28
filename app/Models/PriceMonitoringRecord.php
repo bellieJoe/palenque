@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class PriceMonitoringRecord extends Model
 {
     protected $guarded = [];
-    //
+    protected $casts = [
+        "date" => "date"
+    ];
+    
     public function unit()
     {
         return $this->belongsTo(Unit::class);

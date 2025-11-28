@@ -19,6 +19,7 @@ use App\Livewire\Main\Goods\UnitEdit;
 use App\Livewire\Main\Goods\UnitIndex;
 use App\Livewire\Main\Reports\MarketFeesCollection;
 use App\Livewire\Main\Reports\MarketViolations;
+use App\Livewire\Main\Reports\PriceMonitoring;
 use App\Livewire\Main\Reports\RentalCollection;
 use App\Livewire\Main\Reports\VendorsList;
 use App\Livewire\Main\Settings\AppSettingsIndex;
@@ -132,6 +133,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         Route::get('rental-collection', RentalCollection::class)->middleware(['auth', 'verified'])->name('rental-collection');
         Route::get('market-fee-collection', MarketFeesCollection::class)->middleware(['auth', 'verified'])->name('market-fee-collection');
         Route::get('market-violations', MarketViolations::class)->middleware(['auth', 'verified'])->name('market-violations');
+        Route::get('price-monitoring', PriceMonitoring::class)->middleware(['auth', 'verified'])->name('price-monitoring');
     });
 
     Route::group(["prefix" => "price-monitoring", "as" => "price-monitoring."], function () {

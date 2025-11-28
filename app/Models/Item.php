@@ -18,8 +18,11 @@ class Item extends Model
     }
 
     public function getUpdatedPricesAttribute(){
-        return PriceMonitoringRecord::where('item_id', $this->id)
-        ->distinct(['unit_id', 'item_id'])
-        ->latest()->get();
+        return $this->hasMany(PriceMonitoringRecord::class)
+        ->orderBy('unit_id')
+        ->orderByDesc('date')
+        ->get()
+        ->unique('unit_id')
+        ->values();
     }
 }

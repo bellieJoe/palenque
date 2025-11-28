@@ -24,6 +24,34 @@ class PriceMonitoringEdit extends Component
     #[Validate('required|exists:units,id')]
     public $unit;
 
+    public function updatedUnit()
+    {
+        $price = PriceMonitoringRecord::where(
+            [
+                'item_id' => $this->item->id,
+                'unit_id' => $this->unit,
+                'date' => $this->date,
+                "municipal_market_id" => auth()->user()->marketDesignation()->id
+            ]
+        )
+        ->first();
+        $this->price = $price ? $price->price : 0;
+    }
+
+    public function updatedDate()
+    {
+        $price = PriceMonitoringRecord::where(
+            [
+                'item_id' => $this->item->id,
+                'unit_id' => $this->unit,
+                'date' => $this->date,
+                "municipal_market_id" => auth()->user()->marketDesignation()->id
+            ]
+        )
+        ->first();
+        $this->price = $price ? $price->price : 0;
+    }
+
     public function store()
     {
         $this->validate();
