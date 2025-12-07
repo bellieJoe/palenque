@@ -51,5 +51,20 @@ class FeeController extends Controller
         ]);
     }
 
+    public function apiUpdateAmbulantStallFee(Request $request, $id){
+        $request->validate([
+            'date_paid' => 'required_if:status,PAID',
+            'receipt_no' => 'required_if:status,PAID',
+            'remarks' => 'nullable|max:255',
+        ]);
+
+        Fee::find($id)->update([
+            'date_paid' => $request->date_paid,
+            'receipt_no' =>  $request->receipt_no,
+            'status' => 'PAID',
+            'remarks' => $request->remarks
+        ]);
+    }
+
 
 }

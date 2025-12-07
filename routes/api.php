@@ -38,6 +38,7 @@ Route::prefix('stall-occupants')->group(function () {
 Route::prefix('fees')->group(function () {
     Route::get('/', [FeeController::class, 'apiIndex']);
     Route::post('/create-ambulant-stall-fee', [FeeController::class, 'apiCreateAmbulantStallFee']);
+    Route::post('/update-ambulant-stall-fee/{id}', [FeeController::class, 'apiUpdateAmbulantStallFee']);
 })->middleware('auth:sanctum');
 
 Route::prefix('ambulant-stalls')->group(function () {
