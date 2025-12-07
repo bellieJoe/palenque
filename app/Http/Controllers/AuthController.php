@@ -24,4 +24,21 @@ class AuthController extends Controller
             'error' => 'The provided credentials are incorrect.'
         ], 401);
     }
+
+    public function apiIsAuth() {
+        return response()->json(Auth::check());
+    }
+
+    public function apiLogout() {
+        Auth::logout();
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function user(){
+        // return auth()->user();
+        if(!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        return response()->json(User::with('roles', 'roles.roleType')->find(Auth::user()->id));
+    }
 }

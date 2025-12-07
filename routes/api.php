@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AmbulantStallController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FeeController;
 use App\Http\Controllers\MonthlyRentController;
 use App\Http\Controllers\StallOccupantController;
+use App\Models\AmbulantStall;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +15,15 @@ Route::get('/user', function (Request $request) {
 
 Route::post('login', [AuthController::class, 'apiLogin']);
 
+Route::prefix("auth")->group(function () {
+    Route::get("is-auth", [AuthController::class, "apiIsAuth"]);
+    Route::get("user", [AuthController::class, "apiUser"]);
+});
+
+Route::prefix("auth")->group(function () {
+    Route::get("user", [AuthController::class, "apiUser"]);
+    Route::post("logout", [AuthController::class, "apiLogout"]);
+})->middleware("auth:sanctum");
 
 Route::prefix('monthly-rents')->group(function () {
     Route::get('/', [MonthlyRentController::class, 'apiIndex']);
@@ -21,4 +33,13 @@ Route::prefix('monthly-rents')->group(function () {
 
 Route::prefix('stall-occupants')->group(function () {
     Route::get('/', [StallOccupantController::class, 'apiIndex']);
+})->middleware('auth:sanctum');
+
+Route::prefix('fees')->group(function () {
+    Route::get('/', [FeeController::class, 'apiIndex']);
+    Route::post('/create-ambulant-stall-fee', [FeeController::class, 'apiCreateAmbulantStallFee']);
+})->middleware('auth:sanctum');
+
+Route::prefix('ambulant-stalls')->group(function () {
+    Route::get('/', [AmbulantStallController::class, 'apiIndex']);
 })->middleware('auth:sanctum');
