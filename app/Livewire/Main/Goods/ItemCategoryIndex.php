@@ -4,6 +4,7 @@ namespace App\Livewire\Main\Goods;
 
 use App\Models\Item;
 use App\Models\ItemCategory;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -39,6 +40,7 @@ class ItemCategoryIndex extends Component
 
     public function render()
     {
+        Gate::authorize('viewAny', ItemCategory::class);
         $categories = ItemCategory::where('municipal_market_id', auth()->user()->marketDesignation()->id)
         ->where('name', 'like', '%' . $this->search . '%')
         ->paginate(10);

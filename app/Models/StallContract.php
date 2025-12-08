@@ -12,7 +12,7 @@ class StallContract extends Model
         'from' => 'date',
         'to' => 'date',
     ];
-    
+
     public function rate()
     {
         return $this->belongsTo(StallRate::class, 'stall_rate_id', 'id');
@@ -25,6 +25,6 @@ class StallContract extends Model
 
     public function stall()
     {
-        return $this->belongsTo(Stall::class);
+        return $this->belongsTo(Stall::class);  
     }
 }

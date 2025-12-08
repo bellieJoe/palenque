@@ -14,6 +14,7 @@ class MonthlyRent extends Model
         'payment_date' => 'datetime',
         'bill_date' => 'datetime'
     ];
+    protected $appends = ['penalty'];
     
     public function stallContract()
     {

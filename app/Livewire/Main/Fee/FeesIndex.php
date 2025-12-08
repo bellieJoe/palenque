@@ -3,6 +3,7 @@
 namespace App\Livewire\Main\Fee;
 
 use App\Models\Fee;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -31,6 +32,7 @@ class FeesIndex extends Component
 
     public function render()
     {
+        Gate::authorize('viewAny', Fee::class);
         $marketId = auth()->user()->marketDesignation()->id;
         $fees = Fee::query()
             ->where("municipal_market_id", $marketId)

@@ -34,38 +34,48 @@
                             <span class="hide-menu"> Suppliers </span>
                         </a>
                     </li>
+                    @if(auth()->user()->can('viewAny', [App\Models\Vendor::class]) || auth()->user()->can('viewAny', [App\Models\AmbulantStall::class]))
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="mdi mdi-store"></i>
                             <span class="hide-menu"> Stall Mananagement </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
+                            @can('viewAny', \App\Models\Vendor::class)
                             <li class="sidebar-item">
                                 <a href="{{ route('main.vendors.index') }}" class="sidebar-link {{ request()->routeIs('main.vendors.*') || request()->routeIs('main.vendors.view.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="mdi mdi-store"></i>
                                     <span class="hide-menu"> Vendors/Stall Holders </span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('viewAny', \App\Models\AmbulantStall::class)
                             <li class="sidebar-item">
                                 <a href="{{ route('main.ambulant-stalls.index') }}" class="sidebar-link {{ request()->routeIs('main.ambulant-stalls.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="mdi mdi-store"></i>
                                     <span class="hide-menu"> Ambulant Stalls </span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('viewAny', \App\Models\Stall::class)
                             <li class="sidebar-item">
                                 <a href="{{ route('main.stalls.index') }}" class="sidebar-link {{ request()->routeIs('main.stalls.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Stalls </span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('viewAny', \App\Models\StallRate::class)
                             <li class="sidebar-item">
                                 <a href="{{ route('main.stall-rates.index') }}" class="sidebar-link {{ request()->routeIs('main.stall-rates.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Stall Rates </span>
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
+                    @endif
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="mdi mdi-food-variant" aria-hidden="true"></i>
@@ -84,24 +94,30 @@
                                     <span class="hide-menu"> Price Montoring </span>
                                 </a>
                             </li>
+                            @can('viewAny', \App\Models\Item::class)
                             <li class="sidebar-item">
                                 <a href="{{ route('main.goods.index') }}" class="sidebar-link {{ request()->routeIs('main.goods.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Items </span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('viewAny', \App\Models\ItemCategory::class)
                             <li class="sidebar-item">
                                 <a href="{{ route('main.item-categories.index') }}" class="sidebar-link {{ request()->routeIs('main.item-categories.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Item Categories </span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('viewAny', \App\Models\Init::class)
                             <li class="sidebar-item">
                                 <a href="{{ route('main.units.index') }}" class="sidebar-link {{ request()->routeIs('main.units.*') ? 'active' : '' }}" wire:navigate>
                                     <i class="fa-solid fa-sliders"></i>
                                     <span class="hide-menu"> Units </span>
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
                     @if (auth()->user()->can('viewAny', [App\Models\Violation::class, App\Models\ViolationType::class]))
@@ -130,7 +146,7 @@
                         </ul>
                     </li>
                     @endif
-                    @can('viewAny', \App\Models\Main\Fee::class)
+                    @can('viewAny', \App\Models\Fee::class)
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="mdi mdi-ticket-percent" aria-hidden="true"></i>
