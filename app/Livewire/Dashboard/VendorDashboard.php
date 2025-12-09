@@ -13,6 +13,9 @@ class VendorDashboard extends Component
     public $startFilter;
     public $endFilter;
 
+    public $stallsCount = 0;
+    public $ambulantStallsCount = 0;
+
     public function updatingStartFilter()
     {
         $this->resetPage();

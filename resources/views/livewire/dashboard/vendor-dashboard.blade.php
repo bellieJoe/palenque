@@ -17,10 +17,10 @@
                         <div class="row align-items-center">
                             <div class="col-7">
                                 <i class="fa-solid fa-users font-20 text-purple"></i>
-                                <p class="font-16 m-b-5">Stalls</p>
+                                <p class="font-16 m-b-5">Rented Stalls</p>
                             </div>
                             <div class="col-5">
-                                <h1 class="font-light text-right mb-0">0</h1>
+                                <h1 class="font-light text-right mb-0">{{ number_format($stallsCount, 0, '.', ',') }}</h1>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                 <p class="font-16 m-b-5">Ambulant Stalls</p>
                             </div>
                             <div class="col-5">
-                                <h1 class="font-light text-right mb-0">0</h1>
+                                <h1 class="font-light text-right mb-0">{{ number_format($ambulantStallsCount, 0, '.', ',') }}</h1>
                             </div>
                         </div>
                     </div>
