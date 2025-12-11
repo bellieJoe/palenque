@@ -42,12 +42,13 @@ class VendorDashboard extends Component
 
     public function getDailyCollectionData()
     {
+        $ambulantStallIds = AmbulantStall::where("vendor_id", auth()->user()->vendor->id)->pluck("id")->toArray();
         $this->dailyFeesCollectionCategories = $this->getMonthsArray($this->startFilter, $this->endFilter);
-        $this->dailyCollectionData = collect($this->marketFeesCollectionCategories)->map(function($monthYear) {
+        $this->dailyCollectionData = collect($this->dailyFeesCollectionCategories)->map(function($monthYear) use ($ambulantStallIds) {
             return round(Fee::where("municipal_market_id", auth()->user()->marketDesignation()->id)
             ->where("status", "PAID")
             ->where("fee_type", "STALL")
-            ->where("owner_id", auth()->user()->vendor->id)
+            ->whereIn("owner_id", $ambulantStallIds)
             ->whereMonth("date_paid", Carbon::parse($monthYear)->format('m'))
             ->whereYear("date_paid", Carbon::parse($monthYear)->format('Y'))
             ->pluck("amount")
@@ -55,7 +56,7 @@ class VendorDashboard extends Component
         });
         $this->dispatch('updateMarketFeesChart', [
             'categories' => $this->dailyFeesCollectionCategories,
-            'dailyCollectionData' => $this->ambulantStallCollectionData,
+            'dailyCollectionData' => $this->dailyCollectionData,
         ]);
     }
 
@@ -96,6 +97,8 @@ class VendorDashboard extends Component
         $this->violationsCount = Violation::where('vendor_id', auth()->user()->vendor->id)
             ->whereBetween('created_at', [$this->startFilter, Carbon::parse($this->endFilter)->endOfDay()])
             ->count();
+
+        $this->getDailyCollectionData();
 
     }
     
