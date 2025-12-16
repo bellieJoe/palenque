@@ -1,10 +1,10 @@
 <div>
     <x-page-header title="Violations" />
-    <div class="d-flex justify-content-end mb-3">
+    {{-- <div class="d-flex justify-content-end mb-3">
         @can('create', \App\Models\Main\Violation::class)
-        <a class="btn btn-primary" href="{{ route('main.violations.types.create') }}">Add Violation Type</a>
+        <a class="btn btn-primary" href="{{ route('main.violations.create') }}">Add Violation</a>
         @endcan
-    </div>
+    </div> --}}
     <div class="card">
         <div class="card-body">
             <input type="text" class="form-control mb-3" wire:model.live.debounce.300ms="search" placeholder="Search Stall or Vendor...">

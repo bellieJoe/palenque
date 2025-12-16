@@ -24,6 +24,25 @@
                         </select>
                         @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
+                    <div class="mb-2">
+                        <label for="name" class="form-label">Type <span class="text-danger">*</span></label>
+                        <select name="type" id="type" class="form-control" wire:model.lazy="type">
+                            <option value="">-Select Type-</option>
+                            <option value="WET">Wet Goods</option>
+                            <option value="DRY">Dry Goods</option>
+                        </select>
+                        @error('type') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-2">
+                        <label for="name" class="form-label">Default Unit <span class="text-danger">*</span></label>
+                        <select name="defaultUnit" id="type" class="form-control" wire:model.lazy="defaultUnit">
+                            <option value="">-Select Unit-</option>
+                            @foreach ($units as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('defaultUnit') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" wire:loading.attr="disabled" wire:click="updateItem">Save</button>

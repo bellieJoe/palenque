@@ -1,5 +1,11 @@
 <x-layouts.app :title="__('Dashboard')">
-    @livewire('dashboard.admin-dashboard')
-    @livewire('dashboard.market-dashboard')
-    @livewire('dashboard.vendor-dashboard')
+    @if (auth()->user()->isAdmin())
+        @livewire('dashboard.admin-dashboard')
+    @endif
+    @if (auth()->user()->isMarketInspector() || auth()->user()->isMarketSupervisor() || auth()->user()->isAdminAide() || auth()->user()->isMarketSpecialist() || auth()->user()->isMarketInspector())
+        @livewire('dashboard.market-dashboard')
+    @endif
+    @if (auth()->user()->isVendor())
+        @livewire('dashboard.vendor-dashboard')
+    @endif
 </x-layouts.app>

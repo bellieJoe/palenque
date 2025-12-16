@@ -16,12 +16,26 @@
                         @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-2">
+                        <label for="name" class="form-label">Location <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" wire:model.lazy="location">
+                        @error('location') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-2">
+                        <label for="name" class="form-label">Type of Goods Sold <span class="text-danger">*</span></label>
+                        <select name="productType" id="" class="form-control" wire:model.lazy="productType">
+                            <option value="">-Select Type-</option>
+                            <option value="WET">Wet Goods</option>
+                            <option value="DRY">Dry Goods</option>
+                        </select>
+                        @error('productType') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-2">
                         <label for="area" class="form-label">Area(sqm) <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="area" wire:model.lazy="area">
                         @error('area') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-2">
-                        <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                        <label for="name" class="form-label">Stall Rate <span class="text-danger">*</span></label>
                         <select name="" class="form-control select2" wire:model.lazy="stall_rate">
                             <option value="">-Select Rate-</option>
                             @foreach ($stallRates as $stallRate)

@@ -27,7 +27,90 @@
                         </a>
                     </li>
                 @endif
+
                 @if (auth()->user()->isMarketSupervisor() || auth()->user()->isAdminAide() || auth()->user()->isMarketSpecialist() || auth()->user()->isMarketInspector())
+                    <li class="nav-small-cap">
+                        <i class="mdi mdi-dots-horizontal"></i>
+                        <span class="hide-menu">Data Entry</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-food-variant" aria-hidden="true"></i>
+                            <span class="hide-menu"> Wet & Dry Goods </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('main.deliveries.index') }}" class="sidebar-link {{ request()->routeIs('main.deliveries.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa fa-truck" aria-hidden="true"></i>
+                                    <span class="hide-menu"> Deliveries </span>
+                                </a>    
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('main.price-monitoring.index') }}" class="sidebar-link {{ request()->routeIs('main.price-monitoring.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                                    <span class="hide-menu"> Price Montoring </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @if (auth()->user()->can('viewAny', [App\Models\Violation::class]))
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-account-alert" aria-hidden="true"></i>
+                            <span class="hide-menu"> Violation Monitoring </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            @if (auth()->user()->can("viewAny", App\Models\Violation::class))
+                                <li class="sidebar-item">
+                                    <a href="{{ route('main.violations.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.*') ? 'active' : '' }}" wire:navigate>
+                                        <i class="fa fa-list" aria-hidden="true"></i>
+                                        <span class="hide-menu"> Violations </span>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
+
+
+
+                    <li class="nav-small-cap">
+                        <i class="mdi mdi-dots-horizontal"></i>
+                        <span class="hide-menu">Maintenance</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-food-variant" aria-hidden="true"></i>
+                            <span class="hide-menu"> Wet & Dry Goods </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            @can('viewAny', \App\Models\Item::class)
+                            <li class="sidebar-item">
+                                <a href="{{ route('main.goods.index') }}" class="sidebar-link {{ request()->routeIs('main.goods.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa-solid fa-sliders"></i>
+                                    <span class="hide-menu"> Items </span>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('viewAny', \App\Models\ItemCategory::class)
+                            <li class="sidebar-item">
+                                <a href="{{ route('main.item-categories.index') }}" class="sidebar-link {{ request()->routeIs('main.item-categories.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa-solid fa-sliders"></i>
+                                    <span class="hide-menu"> Item Categories </span>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('viewAny', \App\Models\Unit::class)
+                            <li class="sidebar-item">
+                                <a href="{{ route('main.units.index') }}" class="sidebar-link {{ request()->routeIs('main.units.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class="fa-solid fa-sliders"></i>
+                                    <span class="hide-menu"> Units </span>
+                                </a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+
                     <li class="sidebar-item">
                         <a href="{{ route('main.suppliers.index') }}" class="sidebar-link {{ request()->routeIs('main.suppliers.*') ? 'active' : '' }}" wire:navigate>
                             <i class="mdi mdi-truck-delivery"></i>
@@ -76,65 +159,13 @@
                         </ul>
                     </li>
                     @endif
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="mdi mdi-food-variant" aria-hidden="true"></i>
-                            <span class="hide-menu"> Wet & Dry Goods Mangement </span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="{{ route('main.deliveries.index') }}" class="sidebar-link {{ request()->routeIs('main.deliveries.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa fa-truck" aria-hidden="true"></i>
-                                    <span class="hide-menu"> Wet & Dry Goods Deliveries </span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{{ route('main.price-monitoring.index') }}" class="sidebar-link {{ request()->routeIs('main.price-monitoring.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa-solid fa-hand-holding-dollar"></i>
-                                    <span class="hide-menu"> Price Montoring </span>
-                                </a>
-                            </li>
-                            @can('viewAny', \App\Models\Item::class)
-                            <li class="sidebar-item">
-                                <a href="{{ route('main.goods.index') }}" class="sidebar-link {{ request()->routeIs('main.goods.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa-solid fa-sliders"></i>
-                                    <span class="hide-menu"> Items </span>
-                                </a>
-                            </li>
-                            @endcan
-                            @can('viewAny', \App\Models\ItemCategory::class)
-                            <li class="sidebar-item">
-                                <a href="{{ route('main.item-categories.index') }}" class="sidebar-link {{ request()->routeIs('main.item-categories.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa-solid fa-sliders"></i>
-                                    <span class="hide-menu"> Item Categories </span>
-                                </a>
-                            </li>
-                            @endcan
-                            @can('viewAny', \App\Models\Init::class)
-                            <li class="sidebar-item">
-                                <a href="{{ route('main.units.index') }}" class="sidebar-link {{ request()->routeIs('main.units.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa-solid fa-sliders"></i>
-                                    <span class="hide-menu"> Units </span>
-                                </a>
-                            </li>
-                            @endcan
-                        </ul>
-                    </li>
                     @if (auth()->user()->can('viewAny', [App\Models\Violation::class, App\Models\ViolationType::class]))
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="mdi mdi-account-alert" aria-hidden="true"></i>
-                            <span class="hide-menu"> Violation Monitoring </span>
+                            <span class="hide-menu"> Violations </span>
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                            @if (auth()->user()->can("viewAny", App\Models\Violation::class))
-                                <li class="sidebar-item">
-                                    <a href="{{ route('main.violations.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.*') ? 'active' : '' }}" wire:navigate>
-                                        <i class="fa fa-list" aria-hidden="true"></i>
-                                        <span class="hide-menu"> Violations </span>
-                                    </a>
-                                </li>
-                            @endif
                             @if (auth()->user()->can("viewAny", App\Models\ViolationType::class))
                             <li class="sidebar-item">
                                 <a href="{{ route('main.violations.types.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.types.*') ? 'active' : '' }}" wire:navigate>
