@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Main\Supplier;
 
+use App\Models\Delivery;
 use App\Models\Supplier;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
@@ -23,6 +24,10 @@ class SupplierIndex extends Component
     }
 
     public function deleteSupplier($id){
+        if(Delivery::where('supplier_id', $id)->exists()){
+            notyf()->position('y', 'top')->error('Cannot delete supplier with existing deliveries!');
+            return;
+        }
         Supplier::where($id)->delete();
         notyf()->position('y', 'top')->success('Supplier deleted successfully!');
         $this->dispatch('refresh-suppliers');

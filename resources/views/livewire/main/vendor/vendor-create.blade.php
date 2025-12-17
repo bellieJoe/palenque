@@ -16,7 +16,7 @@
                         @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-2">
-                        <label for="representative_name" class="form-label">Representative <span class="text-danger">*</span></label>
+                        <label for="representative_name" class="form-label">Authorized Representative <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="representative_name" wire:model.live.debounce.300ms="representative_name">
                         @error('representative_name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>

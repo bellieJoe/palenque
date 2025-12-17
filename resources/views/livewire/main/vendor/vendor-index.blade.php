@@ -1,5 +1,5 @@
 <div>
-    <x-page-header title="Vendors/Stall Holders" />
+    <x-page-header title="Vendors" />
     <div class="d-flex justify-content-end mb-3">
         @livewire('main.vendor.vendor-create')
     </div>

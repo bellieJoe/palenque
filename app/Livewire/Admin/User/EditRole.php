@@ -47,7 +47,7 @@ class EditRole extends Component
     }
     
     public function mount(){
-        $this->roleTypes = RoleType::all();
+        $this->roleTypes = RoleType::whereNotIn('id', [3, 6])->get();
         $this->municipalMarkets = MunicipalMarket::all();
     }
 }

@@ -1,4 +1,4 @@
-- hindi nagacount yung resolved at unresolved violations
+- hindi nagacount yung resolved at unresolved violations, nagacount sya after mareach yung maximum limit ng warning sa violation
 - Fees collection (supplier)
 - Editable tax
 - Dropdown color
