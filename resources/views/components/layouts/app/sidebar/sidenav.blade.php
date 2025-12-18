@@ -41,13 +41,13 @@
                         <ul aria-expanded="false" class="collapse first-level">
                             <li class="sidebar-item">
                                 <a href="{{ route('main.deliveries.index') }}" class="sidebar-link {{ request()->routeIs('main.deliveries.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa fa-truck" aria-hidden="true"></i>
+                                    <i class="" aria-hidden="true"></i>
                                     <span class="hide-menu"> Deliveries </span>
                                 </a>    
                             </li>
                             <li class="sidebar-item">
                                 <a href="{{ route('main.price-monitoring.index') }}" class="sidebar-link {{ request()->routeIs('main.price-monitoring.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                                    <i class=""></i>
                                     <span class="hide-menu"> Price Montoring </span>
                                 </a>
                             </li>
@@ -152,7 +152,7 @@
                                 @can('viewAny', \App\Models\Item::class)
                                 <li class="sidebar-item">
                                     <a href="{{ route('main.goods.index') }}" class="sidebar-link {{ request()->routeIs('main.goods.*') ? 'active' : '' }}" wire:navigate>
-                                        <i class="fa-solid fa-sliders"></i>
+                                        <i class=""></i>
                                         <span class="hide-menu"> Items </span>
                                     </a>
                                 </li>
@@ -160,7 +160,7 @@
                                 @can('viewAny', \App\Models\ItemCategory::class)
                                 <li class="sidebar-item">
                                     <a href="{{ route('main.item-categories.index') }}" class="sidebar-link {{ request()->routeIs('main.item-categories.*') ? 'active' : '' }}" wire:navigate>
-                                        <i class="fa-solid fa-sliders"></i>
+                                        <i class=""></i>
                                         <span class="hide-menu"> Item Categories </span>
                                     </a>
                                 </li>
@@ -168,7 +168,7 @@
                                 @can('viewAny', \App\Models\Unit::class)
                                 <li class="sidebar-item">
                                     <a href="{{ route('main.units.index') }}" class="sidebar-link {{ request()->routeIs('main.units.*') ? 'active' : '' }}" wire:navigate>
-                                        <i class="fa-solid fa-sliders"></i>
+                                        <i class=""></i>
                                         <span class="hide-menu"> Units </span>
                                     </a>
                                 </li>
@@ -185,7 +185,7 @@
                                 @if (auth()->user()->can("viewAny", App\Models\ViolationType::class))
                                 <li class="sidebar-item">
                                     <a href="{{ route('main.violations.types.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.types.*') ? 'active' : '' }}" wire:navigate>
-                                        <i class="fa-solid fa-sliders"></i>
+                                        <i class=""></i>
                                         <span class="hide-menu"> Violation  Types </span>
                                     </a>
                                 </li>   
