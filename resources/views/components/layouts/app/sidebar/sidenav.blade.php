@@ -201,9 +201,9 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="{{ route('main.fees.index') }}" class="sidebar-link {{ request()->routeIs('main.fees.*') ? 'active' : '' }}" wire:navigate>
-                                        <i class="mdi mdi-ticket-percent" aria-hidden="true"></i>
-                                        <span class="hide-menu"> Daily Collection Fees </span>
+                                    <a href="{{ route('main.fees.fee-settings') }}" class="sidebar-link {{ request()->routeIs('main.fees.*') ? 'active' : '' }}" wire:navigate>
+                                        <i class="" aria-hidden="true"></i>
+                                        <span class="hide-menu"> Ambulant Fees </span>
                                     </a>
                                 </li>  
                             </ul>

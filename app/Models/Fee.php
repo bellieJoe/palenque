@@ -27,4 +27,10 @@ class Fee extends Model
         return $this->belongsTo(AmbulantStall::class, "owner_id", "id");
     }
 
+    public function generateNextTicketNo(){
+        $latestFee = Fee::whereYear('date_issued', now()->year)->orderBy('no', 'desc')->first();
+        $no = $latestFee ? $latestFee->no + 1 : 1;
+        return $no;
+    }
+
 }

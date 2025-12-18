@@ -6,6 +6,7 @@ use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
 use App\Livewire\Main\Fee\AmbulantDailyCollection;
 use App\Livewire\Main\Fee\FeesCreate;
+use App\Livewire\Main\Fee\FeeSettings;
 use App\Livewire\Main\Fee\FeesIndex;
 use App\Livewire\Main\Goods\DeliveryCreate;
 use App\Livewire\Main\Goods\DeliveryIndex;
@@ -108,6 +109,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         Route::get('/ambulants', AmbulantDailyCollection::class)->middleware(['auth', 'verified'])->name('ambulants');
         Route::get('/issue-daily-fee/{ambulant_stall_id}', DailyCollectionFeeCreate::class)->middleware(['auth', 'verified'])->name('issue-daily-fee');
         Route::get('/update-daily-fee/{fee_id}', DailyCollectionFeeUpdatePayment::class)->middleware(['auth', 'verified'])->name('update-daily-fee');
+        Route::get('/fee-settings', FeeSettings::class)->middleware(['auth', 'verified'])->name('fee-settings');
     });
     Route::group(["prefix" => "units", "as" => "units."], function () {
         Route::get('/', UnitIndex::class)->middleware(['auth', 'verified'])->name('index');
