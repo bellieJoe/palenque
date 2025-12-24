@@ -1,4 +1,5 @@
 <div>
+    
     <x-page-header title="Vendors/Stall Holders Masterlist" />
     <div class="d-flex justify-content-end mb-3">
         {{-- @livewire('main.vendor.vendor-create') --}}
@@ -7,6 +8,7 @@
     <div class="card">
         <div class="card-body">
             <div id="printable">
+                @livewire('components.report-logo')
                 <h3 class="text-center">Vendors/Stallholders Masterlist</h3>
                 <p class="text-center">{{ date('F d, Y') }}</p>
                 <div class="table-responsive">

@@ -6,6 +6,7 @@
     </div>
     <div class="card">
         <div class="card-body">
+            
             <div class="row mb-3">
                 <select name="" id="" wire:model.live.debounce.300ms="reportType" class="form-control col-12 col-lg-3 col-md-6">
                     <option value="Daily">Daily</option>
@@ -34,6 +35,7 @@
                 @endif
             </div>
             <div id="printable">
+                @livewire('components.report-logo')
                 <h3 class="text-center">
                     Price Monitoring Report
                 </h3>

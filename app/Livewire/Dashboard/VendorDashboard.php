@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard;
 
+use App\Models\AmbulantStall;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
@@ -31,9 +32,14 @@ class VendorDashboard extends Component
         $this->startFilter = Carbon::parse(date('Y')."-01-01")->format('Y-m-d');
         $this->endFilter = Carbon::parse(date('Y')."-12-31")->format('Y-m-d'); 
     }
+
+    private function init(){
+        $stallsCount = AmbulantStall::where()
+    }
     
     public function render()
     {
+        $this->init();
         return view('livewire.dashboard.vendor-dashboard');
     }
 }

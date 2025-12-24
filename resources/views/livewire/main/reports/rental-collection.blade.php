@@ -34,6 +34,7 @@
                 @endif
             </div>
             <div id="printable">
+                @livewire('components.report-logo')
                 <h3 class="text-center">
                     @if ($reportType == "Daily")
                         {{ Illuminate\Support\Carbon::parse($collectionDate)->format('F d, Y') }}&nbsp;
