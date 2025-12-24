@@ -34,10 +34,11 @@
                             <th>Item <span class="text-danger">*</span></th>
                             <th>Unit <span class="text-danger">*</span></th>
                             <th>Quantity <span class="text-danger">*</span></th>
+                            <th>Total Sales <span class="text-danger">*</span></th>
                             <th>Tax(Php) <span class="text-danger">*</span></th>
                             <th>Ticket No. <span class="text-danger">*</span></th>
                             <th>Ticket Status <span class="text-danger">*</span></th>
-                            <th>Receipt No.</th>
+                            {{-- <th>Receipt No.</th> --}}
                             <th></th>
                         </tr>
                     </thead>
@@ -45,7 +46,7 @@
                         @foreach ($items as $key => $item)
                             <tr>
                                 <td class="align-middle" >
-                                    <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.item_id">
+                                    <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.item_id" wire:change="setUnit({{ $key }})">
                                         <option value="">-Select Item-</option>
                                         @foreach ($itemOptions->whereNotIn('id', collect($items)->except($key)->pluck('item_id')) as $itemOption)
                                             <option value="{{ $itemOption->id }}">{{ $itemOption->name }}</option>
@@ -63,8 +64,12 @@
                                     @error('items.'.$key.'.unit_id') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
                                 <td class="align-middle">
-                                    <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.amount">
+                                    <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.amount" >
                                     @error('items.'.$key.'.amount') <span class="text-danger">{{ $message }}</span> @enderror
+                                </td>
+                                <td class="align-middle">
+                                    <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.sales" wire:change="setTax({{ $key }})">
+                                    @error('items.'.$key.'.sales') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
                                 <td class="align-middle">
                                     <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.tax">
@@ -83,10 +88,10 @@
                                     </select>
                                     @error('items.'.$key.'.ticket_status') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
-                                <td class="align-middle">
+                                {{-- <td class="align-middle">
                                     <input name="" id="" class="form-control " wire:model.live="items.{{ $key }}.receipt_no" {{ $items[$key]['ticket_status'] == 'PAID' ? '' : 'disabled' }}>
                                     @error('items.'.$key.'.receipt_no') <span class="text-danger">{{ $message }}</span> @enderror
-                                </td>
+                                </td> --}}
                                 <td class="align-middle">
                                     <button class="btn btn-outline-danger" wire:click="removeItem({{ $key }})">Remove</button>
                                 </td>

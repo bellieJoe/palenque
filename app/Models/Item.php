@@ -17,6 +17,10 @@ class Item extends Model
         return $this->hasMany(PriceMonitoringRecord::class);
     }
 
+    public function defaultUnit(){
+        return $this->belongsTo(Unit::class);
+    }
+
     public function getUpdatedPricesAttribute(){
         return $this->hasMany(PriceMonitoringRecord::class)
         ->orderBy('unit_id')

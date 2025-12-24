@@ -14,6 +14,8 @@
                     <thead>
                         <th>Name</th>
                         <th>Category</th>
+                        <th>Type</th>
+                        <th>Unit</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
@@ -21,6 +23,8 @@
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->itemCategory->name }}</td>
+                                <td>{{ $item->type }}</td>
+                                <td>{{ $item->defaultUnit->name }}</td>
                                 <td>
                                     <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Delete</button>
                                     <button class="btn btn-outline-primary" wire:click="editItem({{$item->id}})">Edit</button>

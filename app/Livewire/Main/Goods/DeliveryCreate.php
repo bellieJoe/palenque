@@ -6,6 +6,7 @@ use App\Models\Delivery;
 use App\Models\DeliveryItem;
 use App\Models\DeliveryTicket;
 use App\Models\Item;
+use App\Models\ItemFeeSetting;
 use App\Models\Supplier;
 use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
@@ -59,8 +60,9 @@ class DeliveryCreate extends Component
             'items.*.unit_id' => 'required|exists:units,id',
             'items.*.tax' => 'required|numeric',
             'items.*.ticket_no' => 'required',
+            'items.*.sales' => 'required',
             'items.*.ticket_status' => 'required|in:PAID,UNPAID,WAIVED',
-            'items.*.receipt_no' => 'required_if:items.*.ticket_status,PAID',
+            // 'items.*.receipt_no' => 'required_if:items.*.ticket_status,PAID',
         ], [
             
         ], [
@@ -138,5 +140,16 @@ class DeliveryCreate extends Component
     public function render()
     {
         return view('livewire.main.goods.delivery-create');
+    }
+
+    public function setUnit($key)
+    {
+        $this->items[$key]['unit_id'] = $this->items[$key]['item_id'] ? Item::find($this->items[$key]['item_id'])->default_unit_id : null;
+    }
+
+    public function setTax($key)
+    {
+        $tax = ItemFeeSetting::where('municipal_market_id', auth()->user()->marketDesignation()->id)->where('is_active', true)->first();
+        $this->items[$key]['tax'] = $this->items[$key]['item_id'] ? $this->items[$key]['sales'] * ($tax->percentage / 100)  : null;
     }
 }

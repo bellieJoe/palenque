@@ -63,7 +63,7 @@
                             @if (auth()->user()->can("viewAny", App\Models\Violation::class))
                                 <li class="sidebar-item">
                                     <a href="{{ route('main.violations.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.*') ? 'active' : '' }}" wire:navigate>
-                                        <i class="fa fa-list" aria-hidden="true"></i>
+                                        <i class="" aria-hidden="true"></i>
                                         <span class="hide-menu"> Violations </span>
                                     </a>
                                 </li>
@@ -201,11 +201,17 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="{{ route('main.fees.fee-settings') }}" class="sidebar-link {{ request()->routeIs('main.fees.*') ? 'active' : '' }}" wire:navigate>
+                                    <a href="{{ route('main.fees.fee-settings') }}" class="sidebar-link {{ request()->routeIs('main.fees.fee-settings') ? 'active' : '' }}" wire:navigate>
                                         <i class="" aria-hidden="true"></i>
                                         <span class="hide-menu"> Ambulant Fees </span>
                                     </a>
                                 </li>  
+                                <li class="sidebar-item">
+                                    <a href="{{ route('main.fees.item-fee-settings') }}" class="sidebar-link {{ request()->routeIs('main.fees.item-fee-settings') ? 'active' : '' }}" wire:navigate>
+                                        <i class="" aria-hidden="true"></i>
+                                        <span class="hide-menu"> Wet & Dry Items Tax Rate </span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         @endcan
