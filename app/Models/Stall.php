@@ -28,5 +28,4 @@ class Stall extends Model
     {
         return $this->stallOccupants()->where('status', true)->first();
     }
-
 }

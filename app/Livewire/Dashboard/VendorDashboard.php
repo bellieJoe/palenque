@@ -3,6 +3,9 @@
 namespace App\Livewire\Dashboard;
 
 use App\Models\AmbulantStall;
+use App\Models\Fee;
+use App\Models\Stall;
+use App\Models\Violation;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
@@ -16,6 +19,10 @@ class VendorDashboard extends Component
 
     public $stallsCount = 0;
     public $ambulantStallsCount = 0;
+    public $violationsCount = 0;
+
+    public $dailyFeesCollectionCategories = [];
+    public $dailyCollectionData = [];
 
     public function updatingStartFilter()
     {
@@ -33,13 +40,71 @@ class VendorDashboard extends Component
         $this->endFilter = Carbon::parse(date('Y')."-12-31")->format('Y-m-d'); 
     }
 
-    private function init(){
-        $stallsCount = AmbulantStall::where()
+    public function getDailyCollectionData()
+    {
+        $ambulantStallIds = AmbulantStall::where("vendor_id", auth()->user()->vendor->id)->pluck("id")->toArray();
+        $this->dailyFeesCollectionCategories = $this->getMonthsArray($this->startFilter, $this->endFilter);
+        $this->dailyCollectionData = collect($this->dailyFeesCollectionCategories)->map(function($monthYear) use ($ambulantStallIds) {
+            return round(Fee::where("municipal_market_id", auth()->user()->marketDesignation()->id)
+            ->where("status", "PAID")
+            ->where("fee_type", "STALL")
+            ->whereIn("owner_id", $ambulantStallIds)
+            ->whereMonth("date_paid", Carbon::parse($monthYear)->format('m'))
+            ->whereYear("date_paid", Carbon::parse($monthYear)->format('Y'))
+            ->pluck("amount")
+            ->sum(), 2);
+        });
+        $this->dispatch('updateMarketFeesChart', [
+            'categories' => $this->dailyFeesCollectionCategories,
+            'dailyCollectionData' => $this->dailyCollectionData,
+        ]);
+    }
+
+    private function getMonthsArray($start, $end)
+    {
+        if(!$start || !$end) {
+            notyf()->position('y', 'top')->error('Please provide both start and end date for the filter.');
+            return [];
+        }
+        if(Carbon::parse($start)->gt(Carbon::parse($end))) {
+            notyf()->position('y', 'top')->error('Start date must be before end date.');
+            return [];
+        }
+        $months = [];
+        $startDate = Carbon::parse($start)->startOfMonth();
+        $endDate = Carbon::parse($end)->startOfMonth();
+        while($startDate->lte($endDate)) {
+            $months[] = $startDate->format('M Y');
+            $startDate->addMonth();
+        }
+        return $months;
+    }
+
+    private function init()
+    {
+        $this->ambulantStallsCount = AmbulantStall::where("vendor_id", auth()->user()->vendor->id)
+            ->where("status", 1)
+            ->whereBetween('created_at', [$this->startFilter, Carbon::parse($this->endFilter)->endOfDay()])
+            ->count();
+
+        $this->stallsCount = Stall::whereHas('stallOccupants', function ($query) {
+            $query->where('vendor_id', auth()->user()->vendor->id);
+            $query->where('status', 1);
+        })
+        ->whereBetween('created_at', [$this->startFilter, Carbon::parse($this->endFilter)->endOfDay()])
+        ->count();
+
+        $this->violationsCount = Violation::where('vendor_id', auth()->user()->vendor->id)
+            ->whereBetween('created_at', [$this->startFilter, Carbon::parse($this->endFilter)->endOfDay()])
+            ->count();
+
+        $this->getDailyCollectionData();
+
     }
     
     public function render()
     {
-        $this->init();
+        $this->init();  
         return view('livewire.dashboard.vendor-dashboard');
     }
 }

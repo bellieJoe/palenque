@@ -40,7 +40,7 @@ class UserCreate extends Component
         $this->resetErrorBag();
     }
 
-    public function saveUser(){
+    public function saveUser() {
         $this->validate();
         $password = Str::random(8);
         DB::transaction(function () use ($password) {
@@ -68,7 +68,7 @@ class UserCreate extends Component
     }
 
     public function mount(){
-        $this->roleTypes = RoleType::all();
+        $this->roleTypes = RoleType::whereNotIn('id', [3, 6])->get();
         $this->municipalMarkets = MunicipalMarket::all();
     }
 }

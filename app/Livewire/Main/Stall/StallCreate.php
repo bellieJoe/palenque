@@ -16,6 +16,10 @@ class StallCreate extends Component
     public $stall_rate;
     #[Validate('required')]
     public $area;
+    #[Validate('required|max:255|min:3')]
+    public $location;
+    #[Validate('required|in:WET,DRY')]
+    public $productType;
 
     public function showCreateStallModal()
     {
@@ -29,7 +33,9 @@ class StallCreate extends Component
             "name" => $this->name,
             "municipal_market_id" => auth()->user()->marketDesignation()->id,
             "stall_rate_id" => $this->stall_rate,
-            "area" => $this->area
+            "area" => $this->area,
+            "location" => $this->location,
+            "product_type" => $this->productType
         ]);
         notyf()->position('y', 'top')->success('Stall created successfully!');
         $this->dispatch('hide-create-stall-modal');
