@@ -230,42 +230,42 @@
                         @endcan
                     @endif
 
-                    <li class="nav-small-cap">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                        <span class="hide-menu">Reports</span>
-                    </li>
+                    @if (auth()->user()->isMarketSupervisor() || auth()->user()->isAdminAide())    
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Reports</span>
+                        </li>
 
-                    <li class="sidebar-item">
-                        <a href="{{ route('main.reports.vendors-list') }}" class="sidebar-link {{ request()->routeIs('main.reports.vendors-list.*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-file-chart"></i>
-                            <span class="hide-menu"> Vendor/Stallholders Masterlist</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="{{ route('main.reports.rental-collection') }}" class="sidebar-link {{ request()->routeIs('main.reports.rental-collection.*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-file-chart"></i>
-                            <span class="hide-menu"> Stall Rental Collections </span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="{{ route('main.reports.market-fee-collection') }}" class="sidebar-link {{ request()->routeIs('main.reports.market-fee-collection.*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-file-chart"></i>
-                            <span class="hide-menu"> Market Fees Collections </span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="{{ route('main.reports.price-monitoring') }}" class="sidebar-link {{ request()->routeIs('main.reports.price-monitorin.*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-file-chart"></i>
-                            <span class="hide-menu"> Price Monitoring </span>
-                        </a>
-                    </li>
-                    @if (auth()->user()->appSettings()->enable_violations)
-                    <li class="sidebar-item">
-                        <a href="{{ route('main.reports.market-violations') }}" class="sidebar-link {{ request()->routeIs('main.reports.market-violations.*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-file-chart"></i>
-                            <span class="hide-menu"> Market Violations </span>
-                        </a>
-                    </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('main.reports.vendors-list') }}" class="sidebar-link {{ request()->routeIs('main.reports.vendors-list.*') ? 'active' : '' }}" wire:navigate>
+                                <i class="mdi mdi-file-chart"></i>
+                                <span class="hide-menu"> Vendor/Stallholders Masterlist</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('main.reports.rental-collection') }}" class="sidebar-link {{ request()->routeIs('main.reports.rental-collection.*') ? 'active' : '' }}" wire:navigate>
+                                <i class="mdi mdi-file-chart"></i>
+                                <span class="hide-menu"> Stall Rental Collections </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('main.reports.market-fee-collection') }}" class="sidebar-link {{ request()->routeIs('main.reports.market-fee-collection.*') ? 'active' : '' }}" wire:navigate>
+                                <i class="mdi mdi-file-chart"></i>
+                                <span class="hide-menu"> Market Fees Collections </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('main.reports.price-monitoring') }}" class="sidebar-link {{ request()->routeIs('main.reports.price-monitorin.*') ? 'active' : '' }}" wire:navigate>
+                                <i class="mdi mdi-file-chart"></i>
+                                <span class="hide-menu"> Price Monitoring </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('main.reports.market-violations') }}" class="sidebar-link {{ request()->routeIs('main.reports.market-violations.*') ? 'active' : '' }}" wire:navigate>
+                                <i class="mdi mdi-file-chart"></i>
+                                <span class="hide-menu"> Market Violations </span>
+                            </a>
+                        </li>
                     @endif
 
                     @if (auth()->user()->isMarketSupervisor())

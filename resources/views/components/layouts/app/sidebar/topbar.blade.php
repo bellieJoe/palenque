@@ -261,7 +261,7 @@
                 <!-- ============================================================== -->
                 <!-- User profile and search -->
                 <!-- ============================================================== -->
-                @persist('user-dropdown')
+                {{-- @persist('user-dropdown') --}}
                 <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="https://api.dicebear.com/9.x/identicon/svg?seed={{ auth()->user()->name }}" alt="user" class="rounded-circle" width="40">
@@ -298,7 +298,7 @@
                         </div>
                     </div>
                 </li>
-                @endpersist
+                {{-- @endpersist --}}
                 <!-- ============================================================== -->
                 <!-- User profile and search -->
                 <!-- ============================================================== -->
