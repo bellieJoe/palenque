@@ -27,66 +27,79 @@
                         </a>
                     </li>
                 @endif
-
                 @if (auth()->user()->isMarketSupervisor() || auth()->user()->isAdminAide() || auth()->user()->isMarketSpecialist() || auth()->user()->isMarketInspector())
-                    <li class="nav-small-cap">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                        <span class="hide-menu">Data Entry</span>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="mdi mdi-food-variant" aria-hidden="true"></i>
-                            <span class="hide-menu"> Wet & Dry Goods </span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse first-level">
+                    @if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist() || auth()->user()->isMarketInspector())
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Data Entry</span>
+                        </li>
+                        @if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist() || auth()->user()->isMarketInspector())
                             <li class="sidebar-item">
-                                <a href="{{ route('main.deliveries.index') }}" class="sidebar-link {{ request()->routeIs('main.deliveries.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="" aria-hidden="true"></i>
-                                    <span class="hide-menu"> Deliveries </span>
-                                </a>    
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{{ route('main.price-monitoring.index') }}" class="sidebar-link {{ request()->routeIs('main.price-monitoring.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class=""></i>
-                                    <span class="hide-menu"> Price Montoring </span>
+                                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                    <i class="mdi mdi-food-variant" aria-hidden="true"></i>
+                                    <span class="hide-menu"> Wet & Dry Goods </span>
                                 </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    @if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist())
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('main.deliveries.index') }}" class="sidebar-link {{ request()->routeIs('main.deliveries.*') ? 'active' : '' }}" wire:navigate>
+                                            <i class="" aria-hidden="true"></i>
+                                            <span class="hide-menu"> Deliveries </span>
+                                        </a>    
+                                    </li>
+                                    @endif
+                                    @if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketInspector())
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('main.price-monitoring.index') }}" class="sidebar-link {{ request()->routeIs('main.price-monitoring.*') ? 'active' : '' }}" wire:navigate>
+                                            <i class=""></i>
+                                            <span class="hide-menu"> Price Montoring </span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                </ul>
                             </li>
-                        </ul>
-                    </li>
-                    @if (auth()->user()->can('viewAny', [App\Models\Violation::class]))
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="mdi mdi-account-alert" aria-hidden="true"></i>
-                            <span class="hide-menu"> Violation Monitoring </span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            @if (auth()->user()->can("viewAny", App\Models\Violation::class))
+                        @endif
+                        @if (auth()->user()->can('viewAny', [App\Models\Violation::class]))
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-account-alert" aria-hidden="true"></i>
+                                <span class="hide-menu"> Violation Monitoring </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                @if (auth()->user()->can("viewAny", App\Models\Violation::class))
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('main.violations.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.*') ? 'active' : '' }}" wire:navigate>
+                                            <i class="" aria-hidden="true"></i>
+                                            <span class="hide-menu"> Violations </span>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                        @endif
+                        @can('viewAny', \App\Models\Fee::class)
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-ticket-percent" aria-hidden="true"></i>
+                                <span class="hide-menu"> Fees Collection </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="{{ route('main.violations.index') }}" class="sidebar-link {{ request()->routeIs('main.violations.*') ? 'active' : '' }}" wire:navigate>
+                                    <a href="{{ route('main.fees.ambulants') }}" class="sidebar-link {{ request()->routeIs('main.fees.ambulants') ? 'active' : '' }}" wire:navigate>
                                         <i class="" aria-hidden="true"></i>
-                                        <span class="hide-menu"> Violations </span>
+                                        <span class="hide-menu"> Ambulants</span>
                                     </a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
+                                </li>  
+                                <li class="sidebar-item">
+                                    <a href="{{ route('main.fees.monthlyRents') }}" class="sidebar-link {{ request()->routeIs('main.fees.monthlyRents') ? 'active' : '' }}" wire:navigate>
+                                        <i class="" aria-hidden="true"></i>
+                                        <span class="hide-menu"> Monthly Rents</span>
+                                    </a>
+                                </li>  
+                            </ul>
+                        </li>
+                        @endcan
                     @endif
-                    @can('viewAny', \App\Models\Fee::class)
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                            <i class="mdi mdi-ticket-percent" aria-hidden="true"></i>
-                            <span class="hide-menu"> Fees Collection </span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item">
-                                <a href="{{ route('main.fees.ambulants') }}" class="sidebar-link {{ request()->routeIs('main.fees.*') ? 'active' : '' }}" wire:navigate>
-                                    <i class="" aria-hidden="true"></i>
-                                    <span class="hide-menu"> Ambulants</span>
-                                </a>
-                            </li>  
-                        </ul>
-                    </li>
-                    @endcan
 
 
 

@@ -9,11 +9,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-2">
+                    {{-- <div class="mb-2">
                         <label for="receipt_no" class="form-label">Receipt No <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="receipt_no" wire:model.lazy="receipt_no">
                         @error('receipt_no') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
+                    </div> --}}
                     <div class="mb-2">
                         <label for="date_paid" class="form-label">Date Paid <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="date_paid" wire:model.lazy="date_paid">

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire\Main\Vendor;
 
 use App\Models\MonthlyRent;

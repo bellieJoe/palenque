@@ -12,8 +12,8 @@ class UpdateDeliveryTicketPayment extends Component
     public $deliveryTicket; 
     #[Validate('required|date|before_or_equal:today')]
     public $date_paid;
-    #[Validate('required')]
-    public $receipt_no;
+    // #[Validate('required')]
+    // public $receipt_no;
 
     public function showUpdateDeliveryPayment($id)
     {
@@ -27,12 +27,12 @@ class UpdateDeliveryTicketPayment extends Component
         $this->validate();
         $this->deliveryTicket->update([
             'date_paid' => $this->date_paid,
-            'receipt_no' => $this->receipt_no,
+            // 'receipt_no' => $this->receipt_no,
             'status' => "PAID"
         ]);
         $this->dispatch('hide-update-delivery-payment-modal');
         $this->dispatch('refreshDelivery');
-        $this->reset(['date_paid', 'receipt_no']);
+        $this->reset(['date_paid']);
         notyf()->position('y', 'top')->success('Payment updated successfully!');
     }
 

@@ -8,5 +8,7 @@
 - Attachments ng mga vendors (business permit, lease contract)
 - Checklist ng market compliance    
 - 1st fine
-- 2 suspension
-- 3 totally remove
+- 2nd suspension
+- 3rd totally remove
+
+- create reports for the total collections per month, year and daily

@@ -13,7 +13,7 @@ class FeePolicy
      */
     public function viewAny(User $user): bool
     {
-        return auth()->user()->isMarketSpecialist() || auth()->user()->isMarketSupervisor() || auth()->user()->isAdminAide() || auth()->user()->isMarketInspector();
+        return auth()->user()->isMarketSpecialist() || auth()->user()->isMarketSupervisor();
     }
 
     /**
@@ -21,7 +21,7 @@ class FeePolicy
      */
     public function view(User $user, Fee $fee): bool
     {
-        return auth()->user()->isMarketSpecialist() || auth()->user()->isMarketSupervisor() || auth()->user()->isAdminAide() || auth()->user()->isMarketInspector();
+        return auth()->user()->isMarketSpecialist() || auth()->user()->isMarketSupervisor();
     }
 
     /**

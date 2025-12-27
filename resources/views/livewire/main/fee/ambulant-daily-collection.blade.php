@@ -24,7 +24,11 @@
                                 <td>{{ $dateFilter }}</td>
                                 <td>{{ $stall->name }}</td>
                                 <td>{{ $stall->vendor->name }}</td>
-                                <td></td>
+                                <td>
+                                    @if ($collectedFees->where('owner_id', $stall->id)->first())
+                                        <span class="badge badge-{{ $collectedFees->where('owner_id', $stall->id)->first()->status == 'PAID' ? 'success' : ($collectedFees->where('owner_id', $stall->id)->first()->status == 'UNPAID' ? 'secondary' : 'warning') }}">{{ $collectedFees->where('owner_id', $stall->id)->first()->status }}</span>
+                                    @endif
+                                </td>
                                 <td>
                                     @if (!$collectedFees->contains('owner_id', $stall->id))
                                         <button class="btn btn-outline-primary" wire:click="openIssueTicketModal({{ $stall->id }})">Issue Ticket</button>
