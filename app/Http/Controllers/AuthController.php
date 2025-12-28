@@ -16,6 +16,11 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            if (!$user || !$user->roles()->where('role_type_id', 5)->exists()) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
             $request->session()->regenerate();
             return response()->json(User::with('roles', 'roles.roleType')->find(Auth::user()->id));
         }

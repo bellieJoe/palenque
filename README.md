@@ -3,9 +3,10 @@
 - Editable tax - done
 - Dropdown color - mejo done
 - Pag inedit yung details ay di maaapektuhan yung previous records 
-- Price monitoring
-- Sama-sama ang settings
+- Price monitoring -
+- Sama-sama ang settings -done
 - Attachments ng mga vendors (business permit, lease contract) -done
+
 - Checklist ng market compliance    
 - 1st fine
 - 2nd suspension
