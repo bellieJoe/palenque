@@ -114,6 +114,37 @@
                     </table>
                 </div>
             </div>
+
+            <hr>
+            <div class="">
+                <h4 >Attachments</h4>
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <small>Business/Mayor's Permit</small>
+                        <p>
+                            <a href="{{ Storage::url('business_permit/'.$vendor->business_permit) }}" target="_blank">
+                                Click to View
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <small>DTI Permit</small>
+                        <p>
+                            <a href="{{ Storage::url('dti_permit/'.$vendor->dti_permit) }}" target="_blank">
+                                Click to View
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <small>BIR Registration</small>
+                        <p>
+                            <a href="{{ Storage::url('bir_registration/'.$vendor->bir_registration) }}" target="_blank">
+                                Click to View
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

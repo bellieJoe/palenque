@@ -56,6 +56,15 @@
                                     <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#uploadDtiPermitModal" ><i class="fa-regular fa-pen-to-square"></i></button>
                                 </p>
                             </div>
+                            <div class="col-12 col-lg-4">
+                                <small>BIR Registration</small>
+                                <p>
+                                    <a href="{{ Storage::url('bir_registration/'.$vendor->bir_registration) }}" target="_blank">
+                                        Click to View
+                                    </a>
+                                    <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#uploadBirRegistrationModal" ><i class="fa-regular fa-pen-to-square"></i></button>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,6 +117,31 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" wire:click="saveDtiPermit" wire:loading.attr="disabled">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="uploadBirRegistrationModal" class="modal fade" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload BIR Registration</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>BIR Registration</label>
+                        <input type="file"
+                            class="form-control"
+                            accept=".pdf,.jpg,.png"
+                            wire:model.live="birRegistration">
+                        @error('birRegistration') <span class="text-danger">{{ $message }}</span> @enderror
+                        <div wire:loading wire:target="birRegistration">Uploading...</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" wire:click="saveBirRegistration" wire:loading.attr="disabled">Save</button>
                 </div>
             </div>
         </div>

@@ -18,6 +18,8 @@ class ProfileIndex extends Component
     public $businessPermit;
     #[Validate('required|file|mimetypes:image/jpeg,image/png,application/pdf|max:2048')]
     public $dtiPermit;
+    #[Validate('required|file|mimetypes:image/jpeg,image/png,application/pdf|max:2048')]
+    public $birRegistration;
     public function render()
     {
         return view('livewire.settings.profile.profile-index');
@@ -48,6 +50,23 @@ class ProfileIndex extends Component
             $this->dtiPermit->storeAs('dti_permit', $fileName, 'public');
             Vendor::where('user_id', auth()->user()->id)->update([
                 'dti_permit' => $fileName
+            ]);
+            // notyf()->success('Business Permit Updated');
+            return $this->redirect(request()->header('Referer'));
+        } catch (\Throwable $th) {
+            Log::error($th);
+        }
+        
+    }
+
+    public function saveBirRegistration()
+    {
+        try {
+            $this->validateOnly('birRegistration');
+            $fileName = time() . '.' . $this->birRegistration->getClientOriginalExtension();
+            $this->birRegistration->storeAs('bir_registration', $fileName, 'public');
+            Vendor::where('user_id', auth()->user()->id)->update([
+                'bir_registration' => $fileName
             ]);
             // notyf()->success('Business Permit Updated');
             return $this->redirect(request()->header('Referer'));

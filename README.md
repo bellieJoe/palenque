@@ -1,11 +1,11 @@
 - hindi nagacount yung resolved at unresolved violations, nagacount sya after mareach yung maximum limit ng warning sa violation - ok na
-- Fees collection (supplier) 
-- Editable tax
-- Dropdown color
-- Pag inedit yung details ay di maaapektuhan yung previous records
+- Fees collection (supplier)  - done
+- Editable tax - done
+- Dropdown color - mejo done
+- Pag inedit yung details ay di maaapektuhan yung previous records 
 - Price monitoring
 - Sama-sama ang settings
-- Attachments ng mga vendors (business permit, lease contract)
+- Attachments ng mga vendors (business permit, lease contract) -done
 - Checklist ng market compliance    
 - 1st fine
 - 2nd suspension
