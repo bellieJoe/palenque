@@ -6,6 +6,7 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\MonthlyRentController;
 use App\Http\Controllers\StallOccupantController;
+use App\Http\Controllers\SupplierController;
 use App\Models\AmbulantStall;
 use App\Models\Delivery;
 use Illuminate\Http\Request;
@@ -50,3 +51,7 @@ Route::prefix('ambulant-stalls')->group(function () {
 Route::prefix('deliveries')->group(function () {
     Route::get('/', [DeliveryController::class, 'apiIndex']);
 })->middleware('auth:sanctum');
+
+Route::prefix('suppliers')->group(function () {
+    Route::get('/', [SupplierController::class, 'apiIndex']);
+});
