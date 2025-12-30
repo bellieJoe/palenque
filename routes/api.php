@@ -4,11 +4,15 @@ use App\Http\Controllers\AmbulantStallController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FeeController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemFeeSettingController;
 use App\Http\Controllers\MonthlyRentController;
 use App\Http\Controllers\StallOccupantController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UnitController;
 use App\Models\AmbulantStall;
 use App\Models\Delivery;
+use App\Models\ItemFeeSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,8 +54,21 @@ Route::prefix('ambulant-stalls')->group(function () {
 
 Route::prefix('deliveries')->group(function () {
     Route::get('/', [DeliveryController::class, 'apiIndex']);
+    Route::post('/store', [DeliveryController::class, 'apiStore']);
 })->middleware('auth:sanctum');
 
 Route::prefix('suppliers')->group(function () {
     Route::get('/', [SupplierController::class, 'apiIndex']);
 });
+
+Route::prefix('items')->group(function () {
+    Route::get('/', [ItemController::class, 'apiIndex']);
+})->middleware('auth:sanctum');
+
+Route::prefix('units')->group(function () {
+    Route::get('/', [UnitController::class, 'apiIndex']);
+})->middleware('auth:sanctum');
+
+Route::prefix('item-fee-settings')->group(function () {
+    Route::get('/get-active', [ItemFeeSettingController::class, 'getActive']);
+})->middleware('auth:sanctum');
