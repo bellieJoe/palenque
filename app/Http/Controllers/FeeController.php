@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Fee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class FeeController extends Controller
 {
@@ -18,8 +19,7 @@ class FeeController extends Controller
         ->with('ambulantStall.vendor')
         ->where('fee_type', 'STALL')
         ->where('municipal_market_id', auth()->user()->marketDesignation()->id)
-        ->whereYear("date_issued", $year)
-        ->whereMonth("date_issued", $month)
+        ->whereDate('date_issued', Carbon::parse($date)->format('Y-m-d'))
         ->get();
     }
 

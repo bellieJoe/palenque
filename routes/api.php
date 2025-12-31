@@ -4,6 +4,7 @@ use App\Http\Controllers\AmbulantStallController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FeeController;
+use App\Http\Controllers\FeeSettingController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemFeeSettingController;
 use App\Http\Controllers\MonthlyRentController;
@@ -67,9 +68,14 @@ Route::prefix('items')->group(function () {
 })->middleware('auth:sanctum');
 
 Route::prefix('units')->group(function () {
+
     Route::get('/', [UnitController::class, 'apiIndex']);
 })->middleware('auth:sanctum');
 
 Route::prefix('item-fee-settings')->group(function () {
     Route::get('/get-active', [ItemFeeSettingController::class, 'getActive']);
+})->middleware('auth:sanctum');
+
+Route::prefix('fee-settings')->group(function () {
+    Route::get('/get-active', [FeeSettingController::class, 'apiGetActive']);
 })->middleware('auth:sanctum');
