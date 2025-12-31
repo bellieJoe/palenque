@@ -55,6 +55,7 @@ Route::prefix('ambulant-stalls')->group(function () {
 Route::prefix('deliveries')->group(function () {
     Route::get('/', [DeliveryController::class, 'apiIndex']);
     Route::post('/store', [DeliveryController::class, 'apiStore']);
+    Route::post('/update', [DeliveryController::class, 'apiUpdate']);
 })->middleware('auth:sanctum');
 
 Route::prefix('suppliers')->group(function () {
