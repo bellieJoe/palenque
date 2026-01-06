@@ -1,5 +1,5 @@
 <div>
-@if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist() || auth()->user()->isAdminAide() || auth()->user()->isMarketInspector())
+@if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist() || auth()->user()->isAdminAide() || auth()->user()->isMarketInspector() || auth()->user()->isMarketAdmin())
     <div class="d-flex justify-content-center mb-4">
         <div class="form-inline mr-2">
             <label for="">From &nbsp;&nbsp;&nbsp;</label>

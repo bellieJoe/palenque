@@ -24,7 +24,7 @@
                         <label for="role" class="form-label">Role</label>
                         <select class="form-control" id="role" wire:model.lazy="role">
                             <option value="">-Select Role-</option>
-                            @foreach ($roleTypes->where('id', 7) as $roleType)
+                            @foreach ($roleTypes as $roleType)
                                 <option value="{{ $roleType->id }}">{{ $roleType->name }}</option>
                             @endforeach
                         </select>
@@ -33,7 +33,7 @@
                     @if ($role != 1)
                     <div class="mb-2">
                         <label for="municipal_market" class="form-label">Municipal Market</label>
-                        <select class="form-control" id="municipal_market" wire:model.lazy="municipal_market">
+                        <select class="form-control" id="municipal_market" wire:model.lazy="municipal_market" {{ auth()->user()->isAdmin() ? '' : 'disabled' }}>
                             <option value="">-Municipal Market-</option>
                             @foreach ($municipalMarkets as $municipalMarket)
                                 <option value="{{ $municipalMarket->id }}">{{ $municipalMarket->name }}</option>

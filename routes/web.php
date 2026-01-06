@@ -35,6 +35,7 @@ use App\Livewire\Main\Stall\DailyCollectionFeeUpdatePayment;
 use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Stall\StallRateIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
+use App\Livewire\Main\Users\UserIndex as UsersUserIndex;
 use App\Livewire\Main\Vendor\VendorIndex;
 use App\Livewire\Main\Vendor\VendorView;
 use App\Livewire\Main\Violation\ViolationCreate;
@@ -75,6 +76,9 @@ Route::group(["prefix" => "admin", "as" => "admin."], function () {
 });
 
 Route::group(["prefix" => "main", "as" => "main."], function () {
+    Route::group(["prefix" => "users", "as" => "users."], function () {
+        Route::get('/', UsersUserIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
     Route::group(["prefix" => "suppliers", "as" => "suppliers."], function () {
         Route::get('/', SupplierIndex::class)->middleware(['auth', 'verified'])->name('index');
     });

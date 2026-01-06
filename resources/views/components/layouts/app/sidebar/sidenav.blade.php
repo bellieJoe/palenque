@@ -13,6 +13,14 @@
                         <span class="hide-menu"> Dashboard </span>
                     </a>
                 </li>
+                @if (auth()->user()->isMarketAdmin())
+                <li class="sidebar-item">
+                    <a href="{{ route('main.users.index') }}"  class="sidebar-link {{ request()->routeIs('main.users.index') ? 'active' : '' }}" wire:navigate>
+                        <i class="fa-solid fa-users"></i>
+                        <span class="hide-menu"> Users </span>
+                    </a>
+                </li>
+                @endif
                 @if (auth()->user()->isAdmin())
                     <li class="sidebar-item">
                         <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" wire:navigate>
@@ -40,7 +48,7 @@
                                     <span class="hide-menu"> Wet & Dry Goods </span>
                                 </a>
                                 <ul aria-expanded="false" class="collapse first-level">
-                                    @if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist())
+                                    @if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist() || auth()->user()->isMarketInspector())
                                     <li class="sidebar-item">
                                         <a href="{{ route('main.deliveries.index') }}" class="sidebar-link {{ request()->routeIs('main.deliveries.*') ? 'active' : '' }}" wire:navigate>
                                             <i class="" aria-hidden="true"></i>
@@ -48,7 +56,7 @@
                                         </a>    
                                     </li>
                                     @endif
-                                    @if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketInspector())
+                                    @if (auth()->user()->isMarketSupervisor() || auth()->user()->isMarketInspector() || auth()->user()->isMarketSpecialist())
                                     <li class="sidebar-item">
                                         <a href="{{ route('main.price-monitoring.index') }}" class="sidebar-link {{ request()->routeIs('main.price-monitoring.*') ? 'active' : '' }}" wire:navigate>
                                             <i class=""></i>
@@ -100,8 +108,6 @@
                         </li>
                         @endcan
                     @endif
-
-
 
                     @if (auth()->user()->isMarketSupervisor())
                         <li class="nav-small-cap">

@@ -108,6 +108,11 @@ class User extends Authenticatable
         return $roles->contains('role_type_id', 6);
     }
 
+    public function isMarketAdmin() {
+        $roles = $this->roles;
+        return $roles->contains('role_type_id', 7); 
+    }
+
     public function vendor()
     {
         return $this->hasOne(Vendor::class);

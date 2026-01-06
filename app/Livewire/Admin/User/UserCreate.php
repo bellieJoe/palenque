@@ -67,8 +67,10 @@ class UserCreate extends Component
     }
 
     public function mount(){
-        $this->roleTypes = RoleType::whereNotIn('id', [3, 6])->get();
+        // $this->roleTypes = RoleType::whereNotIn('id', [3, 6])->get();
+        $this->roleTypes = RoleType::whereIn('id', auth()->user()->isAdmin() ? [7] : [2, 4, 5])->get();
         $this->municipalMarkets = MunicipalMarket::all();
-        $this->role = 7;
+        $this->role = auth()->user()->isAdmin() ? 7 : null;
+        $this->municipal_market = auth()->user()->isMarketAdmin() ? auth()->user()->marketDesignation()->id : null;
     }
 }
