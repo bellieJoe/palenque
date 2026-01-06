@@ -7,6 +7,7 @@ use App\Models\DeliveryItem;
 use App\Models\DeliveryTicket;
 use App\Models\Item;
 use App\Models\ItemFeeSetting;
+use App\Models\ItemTaxRate;
 use App\Models\Supplier;
 use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
@@ -135,6 +136,7 @@ class DeliveryCreate extends Component
         $this->suppliers = Supplier::where('municipal_market_id', auth()->user()->marketDesignation()->id)->get();
         $this->itemOptions = Item::where('municipal_market_id', auth()->user()->marketDesignation()->id)->get();
         $this->unitOptions = Unit::where('municipal_market_id', auth()->user()->marketDesignation()->id)->get();
+        $this->date_delivered = now()->format('Y-m-d');
     }
 
     public function render()
@@ -149,7 +151,8 @@ class DeliveryCreate extends Component
 
     public function setTax($key)
     {
-        $tax = ItemFeeSetting::where('municipal_market_id', auth()->user()->marketDesignation()->id)->where('is_active', true)->first();
-        $this->items[$key]['tax'] = $this->items[$key]['item_id'] ? $this->items[$key]['sales'] * ($tax->percentage / 100)  : null;
+        // $tax = ItemFeeSetting::where('municipal_market_id', auth()->user()->marketDesignation()->id)->where('is_active', true)->first();
+        $tax = ItemTaxRate::where('item_id', $this->items[$key]['item_id'])->where('municipal_market_id', auth()->user()->marketDesignation()->id)->where('unit_id', $this->items[$key]['unit_id'])->first();
+        $this->items[$key]['tax'] = $this->items[$key]['item_id'] && $tax ? $this->items[$key]['amount'] * $tax->tax_rate  : null;
     }
 }

@@ -46,7 +46,7 @@
                         @foreach ($items as $key => $item)
                             <tr>
                                 <td class="align-middle" >
-                                    <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.item_id" wire:change="setUnit({{ $key }})">
+                                    <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.item_id" wire:change="setUnit({{ $key }})" >
                                         <option value="">-Select Item-</option>
                                         @foreach ($itemOptions->whereNotIn('id', collect($items)->except($key)->pluck('item_id')) as $itemOption)
                                             <option value="{{ $itemOption->id }}">{{ $itemOption->name }}</option>
@@ -55,7 +55,7 @@
                                     @error('items.'.$key.'.item_id') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
                                 <td class="align-middle">
-                                    <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.unit_id">
+                                    <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.unit_id" wire:change="setTax({{ $key }})">
                                         <option value="">-Select Unit-</option>
                                         @foreach ($unitOptions as $unitOption)
                                             <option value="{{ $unitOption->id }}">{{ $unitOption->name }}</option>
@@ -64,7 +64,7 @@
                                     @error('items.'.$key.'.unit_id') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
                                 <td class="align-middle">
-                                    <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.amount" >
+                                    <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.amount" wire:change="setTax({{ $key }})">
                                     @error('items.'.$key.'.amount') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
                                 <td class="align-middle">
