@@ -31,15 +31,15 @@
                 <table class="table" style="min-width: 1200px">
                     <thead>
                         <tr>
-                            <th>Type</th>
-                            <th>Item <span class="text-danger">*</span></th>
-                            <th>Category <span class="text-danger">*</span></th>
-                            <th>Unit <span class="text-danger">*</span></th>
-                            <th>Origin <span class="text-danger">*</span></th>
-                            <th>Quantity <span class="text-danger">*</span></th>
-                            <th>Tax(Php) <span class="text-danger">*</span></th>
-                            <th>Ticket No. <span class="text-danger">*</span></th>
-                            <th>Ticket Status <span class="text-danger">*</span></th>
+                            <th class="align-middle">Type</th>
+                            <th class="align-middle">Item <span class="text-danger">*</span></th>
+                            <th class="align-middle">Category <span class="text-danger">*</span></th>
+                            <th class="align-middle">Unit <span class="text-danger">*</span></th>
+                            <th class="align-middle">Origin <span class="text-danger">*</span></th>
+                            <th class="align-middle">Quantity <span class="text-danger">*</span></th>
+                            <th class="align-middle">Tax(Php) <span class="text-danger">*</span></th>
+                            <th class="align-middle">Ticket No. <span class="text-danger">*</span></th>
+                            <th class="align-middle">Ticket Status <span class="text-danger">*</span></th>
                             {{-- <th>Receipt No.</th> --}}
                             <th></th>
                         </tr>
