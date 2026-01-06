@@ -221,5 +221,6 @@
             </div>
         </div>
     </div>
+    @livewire('dashboard.fish-supply')
 @endif
 </div>

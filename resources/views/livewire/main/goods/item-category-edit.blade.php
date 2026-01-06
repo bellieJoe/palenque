@@ -14,6 +14,14 @@
                         <input type="text" class="form-control" id="name" wire:model.lazy="name">
                         @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
+                    <div class="mb-2">
+                        <label for="is_fish" class="form-label">Is Fish <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="is_fish" wire:model.lazy="is_fish">
+                            <label class="form-check-label" for="is_fish">Is Fish</label>
+                        </div>
+                        @error('is_fish') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" wire:loading.attr="disabled" wire:click="updateCategory">Save</button>

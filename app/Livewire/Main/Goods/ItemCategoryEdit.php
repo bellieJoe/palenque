@@ -15,11 +15,14 @@ class ItemCategoryEdit extends Component
     public $category;
     #[Validate('required|max:255')]
     public $name;
+    #[Validate('required')]
+    public $is_fish;
 
     public function editCategory($id)
     {
         $this->category = ItemCategory::find($id);
         $this->name = $this->category->name;
+        $this->is_fish = $this->category->is_fish;
         $this->dispatch('show-edit-item-category-modal');
     }
 
@@ -27,7 +30,8 @@ class ItemCategoryEdit extends Component
     {
         $this->validate();
         ItemCategory::where('id', $this->category->id)->update([
-            "name" => $this->name
+            "name" => $this->name,
+            "is_fish" => $this->is_fish
         ]);
         notyf()->position('y', 'top')->success('Category updated successfully!');
         $this->dispatch('hide-edit-item-category-modal');

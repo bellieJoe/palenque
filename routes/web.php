@@ -16,6 +16,7 @@ use App\Livewire\Main\Goods\DeliveryIndex;
 use App\Livewire\Main\Goods\DeliveryView;
 use App\Livewire\Main\Goods\GoodsIndex;
 use App\Livewire\Main\Goods\ItemCategoryIndex;
+use App\Livewire\Main\Goods\ItemTaxRateEdit;
 use App\Livewire\Main\Goods\PriceMonitoringCreate;
 use App\Livewire\Main\Goods\PriceMonitoringEdit;
 use App\Livewire\Main\Goods\PriceMonitoringIndex;
@@ -95,6 +96,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     });
     Route::group(["prefix" => "goods", "as" => "goods."], function () {
         Route::get('/', GoodsIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/edit-tax-rate/{id}', ItemTaxRateEdit::class)->middleware(['auth', 'verified'])->name('edit-tax-rate');
     });
     Route::group(["prefix" => "item-categories", "as" => "item-categories."], function () {
         Route::get('/', ItemCategoryIndex::class)->middleware(['auth', 'verified'])->name('index');
