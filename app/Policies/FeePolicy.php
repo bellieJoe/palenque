@@ -37,6 +37,7 @@ class FeePolicy
      */
     public function update(User $user, Fee $fee): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist();
     }
 
@@ -45,6 +46,7 @@ class FeePolicy
      */
     public function delete(User $user, Fee $fee): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist();
     }
 
@@ -53,6 +55,7 @@ class FeePolicy
      */
     public function restore(User $user, Fee $fee): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist();
     }
 
@@ -61,6 +64,7 @@ class FeePolicy
      */
     public function forceDelete(User $user, Fee $fee): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor() || auth()->user()->isMarketSpecialist();
     }
 }

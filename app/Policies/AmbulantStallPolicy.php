@@ -13,6 +13,7 @@ class AmbulantStallPolicy
      */
     public function viewAny(User $user): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor()  || auth()->user()->isMarketSpecialist();
     }
 
@@ -21,6 +22,7 @@ class AmbulantStallPolicy
      */
     public function view(User $user, AmbulantStall $ambulantStall): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor()  || auth()->user()->isMarketSpecialist();
     }
 
@@ -29,6 +31,7 @@ class AmbulantStallPolicy
      */
     public function create(User $user): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor();
     }
 
@@ -37,6 +40,7 @@ class AmbulantStallPolicy
      */
     public function update(User $user, AmbulantStall $ambulantStall): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor();
     }
 
@@ -45,6 +49,7 @@ class AmbulantStallPolicy
      */
     public function delete(User $user, AmbulantStall $ambulantStall): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor() ;
     }
 
@@ -53,6 +58,7 @@ class AmbulantStallPolicy
      */
     public function restore(User $user, AmbulantStall $ambulantStall): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor() ;
     }
 
@@ -61,6 +67,7 @@ class AmbulantStallPolicy
      */
     public function forceDelete(User $user, AmbulantStall $ambulantStall): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor() ;
     }
 }

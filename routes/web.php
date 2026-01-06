@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PaymentController;
 use App\Livewire\Admin\Maintenance\PublicMarketIndex;
 use App\Livewire\Admin\User\UserIndex;
+use App\Livewire\Main\AccessManagement\AccesManagementIndex;
 use App\Livewire\Main\Fee\AmbulantDailyCollection;
 use App\Livewire\Main\Fee\FeesCreate;
 use App\Livewire\Main\Fee\FeeSettings;
@@ -78,6 +79,9 @@ Route::group(["prefix" => "admin", "as" => "admin."], function () {
 Route::group(["prefix" => "main", "as" => "main."], function () {
     Route::group(["prefix" => "users", "as" => "users."], function () {
         Route::get('/', UsersUserIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+    Route::group(["prefix" => "access-management", "as" => "access-management."], function () {
+        Route::get('/', AccesManagementIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
     Route::group(["prefix" => "suppliers", "as" => "suppliers."], function () {
         Route::get('/', SupplierIndex::class)->middleware(['auth', 'verified'])->name('index');

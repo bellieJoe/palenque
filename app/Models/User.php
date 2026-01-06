@@ -122,4 +122,9 @@ class User extends Authenticatable
     {
         return AppSettings::where('municipal_market_id', $this->marketDesignation()->id)->first();
     }
+
+    public function getAccessAttribute()
+    {
+        return RolePreset::where('municipal_market_id', $this->marketDesignation()->id)->where('role_type_id', $this->roles->first()->role_type_id)->first();
+    }
 }
