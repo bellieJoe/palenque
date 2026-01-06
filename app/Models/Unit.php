@@ -8,4 +8,8 @@ class Unit extends Model
 {
     //
     protected $guarded = [];
+
+    public function itemTaxRate(){
+        return $this->hasMany(ItemTaxRate::class);
+    }
 }

@@ -1,5 +1,5 @@
 <div>
-    <x-page-header title="Wet & Dry Goods Items" />
+    <x-page-header title="Wet & Dry Goods Items Tax Rate" />
     <div class="card">
         <div class="card-header">
             <a class="btn btn-sm btn-secondary" wire:navigate href="{{ route("main.goods.index") }}">Back</a> &nbsp;&nbsp;&nbsp;

@@ -34,7 +34,7 @@ class AccesManagementIndex extends Component
         'maintenance_wet_dry_goods_units' => false,
         'maintenance_violation_types' => false,
         'maintenance_fees_ambulants' => false,
-        'maintenance_fees_tax_rate' => false,
+        // 'maintenance_fees_tax_rate' => false,
 
         'reports' => false,
         'app_settings' => false,

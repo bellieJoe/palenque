@@ -17,6 +17,7 @@ use Livewire\Component;
 
 class DeliveryCreate extends Component
 {
+    public $total_tax;
     public $suppliers;
     #[Validate('required|array')]
     public array $items = [];
@@ -27,8 +28,12 @@ class DeliveryCreate extends Component
     #[Validate('required|date|before_or_equal:today')]
     public $date_delivered;
 
+    public function calculateTotalTax(){
+        $this->total_tax = collect($this->items)->sum('tax');
+    }
     public function addItem()
     {
+        $supplier = Supplier::find($this->supplier);
         array_push($this->items, [
             'item_id' => null,
             'amount' => null,
@@ -36,6 +41,7 @@ class DeliveryCreate extends Component
             'tax' => null,
             'ticket_no' => null,
             'ticket_status' => null,
+            'origin' => $supplier ? $supplier->address : null,
             'receipt_no' => null
         ]);
     }
@@ -61,7 +67,7 @@ class DeliveryCreate extends Component
             'items.*.unit_id' => 'required|exists:units,id',
             'items.*.tax' => 'required|numeric',
             'items.*.ticket_no' => 'required',
-            'items.*.sales' => 'required',
+            // 'items.*.sales' => 'required',
             'items.*.ticket_status' => 'required|in:PAID,UNPAID,WAIVED',
             // 'items.*.receipt_no' => 'required_if:items.*.ticket_status,PAID',
         ], [
@@ -93,6 +99,7 @@ class DeliveryCreate extends Component
                         'item_id' => $item['item_id'],
                         'amount' => $item['amount'],
                         'unit_id' => $item['unit_id'],
+                        'origin' => $item['origin'],
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];
@@ -154,5 +161,6 @@ class DeliveryCreate extends Component
         // $tax = ItemFeeSetting::where('municipal_market_id', auth()->user()->marketDesignation()->id)->where('is_active', true)->first();
         $tax = ItemTaxRate::where('item_id', $this->items[$key]['item_id'])->where('municipal_market_id', auth()->user()->marketDesignation()->id)->where('unit_id', $this->items[$key]['unit_id'])->first();
         $this->items[$key]['tax'] = $this->items[$key]['item_id'] && $tax ? $this->items[$key]['amount'] * $tax->tax_rate  : null;
+        $this->calculateTotalTax();
     }
 }

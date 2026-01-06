@@ -21,6 +21,12 @@ class Item extends Model
         return $this->belongsTo(Unit::class);
     }
 
+    public function getUnitsAttribute(){
+        return Unit::whereHas("itemTaxRate", function ($q){
+            return $q->where("item_id", $this->id);
+        })->get();
+    }
+
     public function getUpdatedPricesAttribute(){
         return $this->hasMany(PriceMonitoringRecord::class)
         ->orderBy('unit_id')

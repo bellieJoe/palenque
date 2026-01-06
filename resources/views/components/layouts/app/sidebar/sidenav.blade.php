@@ -246,8 +246,9 @@
                             </ul>
                         </li>
                         @endif
-                        @if(auth()->user()->access->maintenance_fees_ambulants ||
-                        auth()->user()->access->maintenance_fees_tax_rate)
+                        @if(auth()->user()->access->maintenance_fees_ambulants 
+                        // || auth()->user()->access->maintenance_fees_tax_rate
+                        )
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 <i class="mdi mdi-ticket-percent" aria-hidden="true"></i>
@@ -262,14 +263,14 @@
                                     </a>
                                 </li>  
                                 @endif
-                                @if (auth()->user()->access->maintenance_fees_tax_rate)
+                                {{-- @if (auth()->user()->access->maintenance_fees_tax_rate)
                                 <li class="sidebar-item">
                                     <a href="{{ route('main.fees.item-fee-settings') }}" class="sidebar-link {{ request()->routeIs('main.fees.item-fee-settings') ? 'active' : '' }}" wire:navigate>
                                         <i class="" aria-hidden="true"></i>
                                         <span class="hide-menu"> Wet & Dry Items Tax Rate </span>
                                     </a>
                                 </li>
-                                @endif
+                                @endif --}}
                             </ul>
                         </li>
                         @endif

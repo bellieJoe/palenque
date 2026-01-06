@@ -31,10 +31,12 @@
                 <table class="table" style="min-width: 1200px">
                     <thead>
                         <tr>
+                            <th>Type</th>
                             <th>Item <span class="text-danger">*</span></th>
+                            <th>Category <span class="text-danger">*</span></th>
                             <th>Unit <span class="text-danger">*</span></th>
+                            <th>Origin <span class="text-danger">*</span></th>
                             <th>Quantity <span class="text-danger">*</span></th>
-                            <th>Total Sales <span class="text-danger">*</span></th>
                             <th>Tax(Php) <span class="text-danger">*</span></th>
                             <th>Ticket No. <span class="text-danger">*</span></th>
                             <th>Ticket Status <span class="text-danger">*</span></th>
@@ -46,6 +48,11 @@
                         @foreach ($items as $key => $item)
                             <tr>
                                 <td class="align-middle" >
+                                    @if ($items[$key]['item_id'])
+                                        {{\App\Models\Item::find($items[$key]['item_id'])->type}}
+                                    @endif
+                                </td>
+                                <td class="align-middle" >
                                     <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.item_id" wire:change="setUnit({{ $key }})" >
                                         <option value="">-Select Item-</option>
                                         @foreach ($itemOptions->whereNotIn('id', collect($items)->except($key)->pluck('item_id')) as $itemOption)
@@ -54,27 +61,39 @@
                                     </select>
                                     @error('items.'.$key.'.item_id') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
+                                <td>
+                                    @if ($items[$key]['item_id'])
+                                        {{\App\Models\Item::find($items[$key]['item_id'])->itemCategory->name}}
+                                    @endif
+                                </td>
                                 <td class="align-middle">
+                                    @if ($items[$key]['item_id'])
                                     <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.unit_id" wire:change="setTax({{ $key }})">
                                         <option value="">-Select Unit-</option>
-                                        @foreach ($unitOptions as $unitOption)
+                                        @foreach (\App\Models\Item::find($items[$key]['item_id'])->units as $unitOption)
                                             <option value="{{ $unitOption->id }}">{{ $unitOption->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('items.'.$key.'.unit_id') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    <input type="text" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.origin" >
+                                    @error('items.'.$key.'.origin') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
                                 <td class="align-middle">
                                     <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.amount" wire:change="setTax({{ $key }})">
                                     @error('items.'.$key.'.amount') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
-                                <td class="align-middle">
+                                {{-- <td class="align-middle">
                                     <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.sales" wire:change="setTax({{ $key }})">
                                     @error('items.'.$key.'.sales') <span class="text-danger">{{ $message }}</span> @enderror
-                                </td>
+                                </td> --}} 
                                 <td class="align-middle">
-                                    <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.tax">
+                                    <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.tax" wire:change="calculateTotalTax()">
                                     @error('items.'.$key.'.tax') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
+                                
                                 <td class="align-middle">
                                     <input type="text" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.ticket_no">
                                     @error('items.'.$key.'.ticket_no') <span class="text-danger">{{ $message }}</span> @enderror
@@ -98,7 +117,12 @@
                             </tr>
                         @endforeach
                         <tr>
-                            <td colspan="8">
+                            <td colspan="10">
+                                <h6 class="text-right">Total Tax: {{ $total_tax }}</h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="10">
                                 <button class="btn btn-outline-success w-100" wire:click="addItem">Add Item</button>
                             </td>
                         </tr>
