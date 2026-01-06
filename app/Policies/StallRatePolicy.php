@@ -13,6 +13,7 @@ class StallRatePolicy
      */
     public function viewAny(User $user): bool
     {
+        return true;
         return $user->isMarketSupervisor();
     }
 
@@ -21,6 +22,7 @@ class StallRatePolicy
      */
     public function view(User $user, StallRate $stallRate): bool
     {
+        return true;
         return $user->isMarketSupervisor();
     }
 
@@ -29,6 +31,7 @@ class StallRatePolicy
      */
     public function create(User $user): bool
     {
+        return true;
         return $user->isMarketSupervisor();
     }
 
@@ -37,6 +40,7 @@ class StallRatePolicy
      */
     public function update(User $user, StallRate $stallRate): bool
     {
+        return true;
         return $user->isMarketSupervisor();
     }
 
@@ -45,6 +49,7 @@ class StallRatePolicy
      */
     public function delete(User $user, StallRate $stallRate): bool
     {
+        return true;
         return $user->isMarketSupervisor();
     }
 
@@ -53,6 +58,7 @@ class StallRatePolicy
      */
     public function restore(User $user, StallRate $stallRate): bool
     {
+        return true;
         return $user->isMarketSupervisor();
     }
 
@@ -61,6 +67,7 @@ class StallRatePolicy
      */
     public function forceDelete(User $user, StallRate $stallRate): bool
     {
+        return true;
         return $user->isMarketSupervisor();
     }
 }

@@ -13,6 +13,7 @@ class VendorPolicy
      */
     public function viewAny(User $user): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor() ;
     }
 
@@ -21,6 +22,7 @@ class VendorPolicy
      */
     public function view(User $user, Vendor $vendor): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor() ;
     }
 
@@ -29,6 +31,7 @@ class VendorPolicy
      */
     public function create(User $user): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor();
     }
 
@@ -37,6 +40,7 @@ class VendorPolicy
      */
     public function update(User $user, Vendor $vendor): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor();
     }
 
@@ -45,6 +49,7 @@ class VendorPolicy
      */
     public function delete(User $user, Vendor $vendor): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor();
     }
 
@@ -53,6 +58,7 @@ class VendorPolicy
      */
     public function restore(User $user, Vendor $vendor): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor();
     }
 
@@ -61,6 +67,7 @@ class VendorPolicy
      */
     public function forceDelete(User $user, Vendor $vendor): bool
     {
+        return true;
         return auth()->user()->isMarketSupervisor();
     }
 }
