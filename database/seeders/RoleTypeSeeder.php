@@ -39,6 +39,10 @@ class RoleTypeSeeder extends Seeder
                 "name" => "Vendor",
                 "id" => 6
             ],
+            [
+                "name" => "Admin",
+                "id" => 7
+            ]
         ]);
     }
 }

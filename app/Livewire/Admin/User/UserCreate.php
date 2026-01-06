@@ -27,7 +27,6 @@ class UserCreate extends Component
     #[Validate('required|email|unique:users,email|max:255')]
     public $email = '';
 
-
     public function showCreateUserModal(){
         $this->dispatch('show-create-user-modal');
         $this->reset(['name', 'email']);
@@ -70,5 +69,6 @@ class UserCreate extends Component
     public function mount(){
         $this->roleTypes = RoleType::whereNotIn('id', [3, 6])->get();
         $this->municipalMarkets = MunicipalMarket::all();
+        $this->role = 7;
     }
 }

@@ -91,9 +91,12 @@ class UserIndex extends Component
     public function render()
     {
         $users = User::query()
-        ->with('roles', 'roles.roleType')
-            ->where('name', 'like', '%' . $this->search . '%')
-            ->orWhere('email', 'like', '%' . $this->search . '%')
+            ->with(['roles', 'roles.roleType'])
+            ->whereHas('roles', fn ($q) => $q->where('role_type_id', 7))
+            ->where(function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                ->orWhere('email', 'like', '%' . $this->search . '%');
+            })
             ->paginate(10);
 
         return view('livewire.admin.user.user-index', compact('users'));

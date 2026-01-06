@@ -24,7 +24,7 @@
                         <label for="role" class="form-label">Role</label>
                         <select class="form-control" id="role" wire:model.lazy="role">
                             <option value="">-Select Role-</option>
-                            @foreach ($roleTypes as $roleType)
+                            @foreach ($roleTypes->where('id', 7) as $roleType)
                                 <option value="{{ $roleType->id }}">{{ $roleType->name }}</option>
                             @endforeach
                         </select>

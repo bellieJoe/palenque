@@ -33,7 +33,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="text-center">No users found</td>
+                                <td colspan="4" class="text-center">No admins found</td>
                             </tr>
                         @endforelse
                     </tbody>
