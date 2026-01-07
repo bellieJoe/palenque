@@ -71,4 +71,6 @@
             @endif
         </div>
     </div>
+
+    @livewire('main.settings.contract-settings')
 </div>

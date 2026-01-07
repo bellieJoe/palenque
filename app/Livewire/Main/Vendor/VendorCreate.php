@@ -21,6 +21,8 @@ class VendorCreate extends Component
     public $contact_number = "";
     #[Validate('required|max:100')]
     public $representative_name = "";
+    #[Validate('required|max:100')]
+    public $address = "";
     #[Validate('required|email|max:60|unique:users,email')]
     public $email = "";
 
@@ -40,6 +42,7 @@ class VendorCreate extends Component
                     "name" => $this->name,
                     "user_id" => $user->id,
                     "contact_number" => $this->contact_number,
+                    "address" => $this->address,
                     "representative_name" => $this->representative_name,
                     "municipal_market_id" => auth()->user()->marketDesignation()->id
                 ]);

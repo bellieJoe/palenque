@@ -6,7 +6,7 @@
         margin: 1in;
     }
 
-    body {
+    #printable {
         font-family: "Times New Roman", serif;
         font-size: 12pt;
         line-height: 1.6;
@@ -47,10 +47,10 @@
     }
 
     .signature-line {
-        margin-top: 60px;
+        margin-top: 5px;
         border-top: 1px solid #000;
         width: 100%;
-    }
+}
 
     .witness {
         margin-top: 40px;
@@ -84,120 +84,92 @@
             <button class="btn btn-primary" onclick="printReport()">Print</button>
         </div>
         <div class="" id="printable">
-            <h1>LEASE CONTRACT OF MARKET STALL</h1>
+            <h3 class="text-center">LEASE CONTRACT OF MARKET STALL</h3>
             
             <p><strong>KNOW ALL MEN BY THESE PRESENTS:</strong></p>
             
-            <p>
-            This CONTRACT OF LEASE is made and executed this day of
-            _____________________________, 2026, by and between:
-            </p>
+            <p class="text-justify">This CONTRACT OF LEASE is made and executed this day of <strong>{{ date('F d, Y') }}</strong>, by and between:</p>
             
-            <p class="indent">
-            <strong>_____________________________________________</strong>, a Local Government Unit
-            represented by <strong>_____________________________________________</strong>,
-            Municipal Mayor with office address at
-            <strong>___________________________________________________</strong>,
-            hereinafter referred to as the <strong>LESSOR</strong>.
-            </p>
+            <p class="text-justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{ $contractSettings->municipality_name }}</strong>, a Local Government Unit represented by <strong>{{ $contractSettings->mayors_name }}</strong>, Municipal Mayor with office address at <strong>{{ $contractSettings->address }}</strong>, hereinafter referred to as the <strong>LESSOR</strong>. </p>
             
             <p style="text-align:center;"><strong>- AND -</strong></p>
             
-            <p class="indent">
-            <strong>_______________________________________________________</strong>, Filipino and with
-            residence and postal address at
-            <strong>_______________________________________________</strong>,
-            hereinafter referred to as the <strong>LESSEE</strong>.
-            </p>
+            <p class="text-justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{ $contract->stallOccupant->vendor->name }}</strong>, Filipino and with residence and postal address at <strong>{{ $contract->stallOccupant->vendor->address }}</strong>, hereinafter referred to as the <strong>LESSEE</strong>. </p>
             
-            <p><strong>WITNESSETH; That</strong></p>
+            <p class="text-center"><strong>WITNESSETH; That</strong></p>
             
-            <p>
-            WHEREAS, the LESSOR is the owner of the LEASED PREMISES, commercial units
-            situated at <strong>_____________________________________________________</strong>.
-            </p>
+            <p class="text-justify">WHEREAS, the LESSOR is the owner of the LEASED PREMISES, commercial units situated at <strong>{{ $contractSettings->market_address }}</strong>. </p>
             
-            <p>
-            WHEREAS, the LESSOR agrees to lease-out the property to the LESSEE and the
-            LESSEE is willing to lease the same;
-            </p>
+            <p class="text-justify">WHEREAS, the LESSOR agrees to lease-out the property to the LESSEE and the LESSEE is willing to lease the same;</p>
             
-            <p>
-            NOW THEREFORE, for and in consideration of the foregoing premises, the
-            LESSOR leases unto the LESSEE and the LESSEE hereby accepts from the LESSOR
-            the LEASED premises, subject to the following:
-            </p>
+            <p class="text-justify">NOW THEREFORE, for and in consideration of the foregoing premises, the LESSOR leases unto the LESSEE and the LESSEE hereby accepts from the LESSOR the LEASED premises, subject to the following:</p>
             
             <p class="section-title">TERMS AND CONDITIONS</p>
             
-            <p><strong>1. PURPOSES:</strong> That premises hereby leased shall be used exclusively by the
-            LESSEE for commercial purposes only and shall not be diverted to other uses.
-            If used otherwise, the LESSOR may rescind this contract without prejudice to
-            other legal rights.</p>
+            <p class="text-justify"><strong>1. PURPOSES:</strong> That premises hereby leased shall be used exclusively by the LESSEE for commercial purposes only and shall not be diverted to other uses. It is hereby expressly agreed that if at any time the premises are used for other purposes, the LESSOR shall have the right to rescind this contract without prejudice to its other rights under the law.</p>
             
-            <p><strong>2. TERM:</strong> This lease is for THREE (3) YEARS from
-            _______________________ to _______________________ inclusive. Renewal shall
-            require written notice at least seven (7) days prior to expiration.</p>
+            @php
+                $years = round($contract->from->floatDiffInYears($contract->to));
+                $yearsWord = \Illuminate\Support\Str::upper(
+                    \Illuminate\Support\Str::plural(
+                        \Illuminate\Support\Str::ucfirst(\NumberFormatter::create('en', \NumberFormatter::SPELLOUT)->format($years)),
+                        $years
+                    )
+                );
+            @endphp
+            <p class="text-justify"><strong>2. TERM:</strong> This term of lease is for {{ $yearsWord }} ({{ $years }}) YEAR/S. from <strong>{{ $contract->from->format('F d, Y') }}</strong> to <strong>{{ $contract->to->format('F d, Y') }}</strong> inclusive. Upon its expiration, this lease may be renewed under such terms and conditions as may be mutually agreed upon by both parties,  written notice of intention to renew the lease shall be served to the LESSOR not later than seven (7) days prior to the expiry date of the period herein agreed upon.</p>
             
-            <p><strong>3. RENTAL RATE:</strong> Monthly rental rate shall be
-            ____________________________________________ (P_____________), Philippine
-            Currency, payable to the LESSOR.</p>
+            @php
+                $rate = round($contract->monthlyRents->first()->amount);
+                $rateWord = \Illuminate\Support\Str::upper(
+                    \Illuminate\Support\Str::plural(
+                        \Illuminate\Support\Str::ucfirst(\NumberFormatter::create('en', \NumberFormatter::SPELLOUT)->format($rate)),
+                        $rate
+                    )
+                );
+            @endphp
+            <p class="text-justify"><strong>3. RENTAL RATE:</strong> The monthly rental rate for the leased premises shall be in {{ $rateWord }} PESOS(P{{ number_format($contract->monthlyRents->first()->amount, 2, ',', '.') }}), Philippine Currency. All rental payments shall be made payable to the LESSOR.</p>
             
-            <p><strong>4. PAYMENT OF GOODWILL:</strong> A non-refundable goodwill payment of
-            Thirty Thousand Pesos (P30,000.00) shall be paid as follows: Fifteen Thousand
-            Pesos (P15,000.00) upon awarding of the stall and the remaining amount payable
-            within three (3) years at P420.00 per month for thirty-six (36) months.</p>
+            <p class="text-justify"><strong>4. PAYMENT OF GOODWILL:</strong> A Goodwill Payment of Thirty Thousand Pesos (P30,000.00) is required to be paid by the LESSEE. The LESSEE shall pay a FIFTEEN THOUSAND PESOS (P15,000.00) upon the awarding of the commercial stall and the remaining fifteen thousand shall be payable within Three (3) Years in equal installments or Four Hundred Twenty Pesos (P420.00) for Thirty Six Months  during the duration of the contract. The goodwill payment is nonrefundable.</p>
             
-            <p><strong>5. DEPOSIT:</strong> The LESSEE shall deposit an amount equivalent to three (3)
-            months rent or Three Thousand Six Hundred Pesos (P3,600.00). Two (2) months
-            shall be applied to the 59th and 60th months rent; the remaining month shall
-            answer for damages and unpaid obligations.</p>
+            <p class="text-justify"><strong>5. DEPOSIT:</strong> That the LESSEE shall deposit to the LESSOR upon signing of this contract and prior to move-in an amount equivalent to the rent for THREE (3) MONTHS or the sum of  Three Thousand Six Hundred Pesos (P 3,600.00), Philippine Currency.  wherein the two (2) months deposit shall be applied as rent for the 59th and 60th  months and the remaining one (1) month deposit shall answer partially for damages and any other obligations, for utilities such as Water, Electricity, CATV, Telephone, Association Dues or resulting from violation(s) of any of the provision of this contract.</p>
             
-            <p><strong>6. DEFAULT PAYMENT:</strong> Default for three (3) months allows the LESSOR
-            to terminate this contract, padlock the premises, and forfeit deposits.</p>
+            <p class="text-justify"><strong>6. DEFAULT PAYMENT:</strong> :  In case of default by the LESSEE in the payment of the rent, such as when the checks are dishonored, the LESSOR at its option may terminate this contract and eject the LESSEE. The LESSOR has the right to padlock the premises when the LESSEE is in default of payment for Three (3) months and may forfeit whatever rental deposit or advances have been given by the LESSEE.</p>
             
-            <p><strong>7. SUB-LEASE:</strong> Subleasing or assignment without written approval of the
-            LESSOR is prohibited and grounds for ejectment and forfeiture.</p>
+            <p class="text-justify"><strong>7. SUB-LEASE:</strong> The LESSEE shall not directly or indirectly sublease, allow or permit the leased premises to be occupied in whole or in part by any person, form or corporation, neither shall the LESSEE assign its rights hereunder to any other person or entity and no right of interest thereto or therein shall be conferred on or vested in anyone by the LESSEE without the LESSOR'S written approval. Violation of such shall cause the ejectment of the LESSEE and the occupant and forfeiture of whatever rental deposit or advances have been given by the LESSEE.</p>
             
-            <p><strong>8. PUBLIC UTILITIES:</strong> The LESSEE shall pay all utilities and association dues.
-            Nonpayment for three (3) months results in contract cancellation.</p>
+            <p class="text-justify"><strong>8. PUBLIC UTILITIES:</strong> The LESSEE shall pay for its telephone, electric, cable TV, water, Internet, association dues and other public services and utilities during the duration of the lease. The LESSEE shall also shoulder for the expenses of connection and maintenance of public utilities in their stall. The public utilities shall be added to the monthly rental of the stall. Nonpayment of utilities for a period of three (3) months shall cause the cancellation of the contract.</p>
             
-            <p><strong>9. FORCE MAJEURE:</strong> Destruction by acts of God may terminate this lease
-            without compensation upon written notice.</p>
+            <p class="text-justify"><strong>9. FORCE MAJEURE:</strong> If whole or any part of the leased premises shall be destroyed or damaged by fire, flood, lightning, typhoon, earthquake, storm, riot or any other unforeseen disabling cause of acts of God, as to render the leased premises during the term substantially unfit for use and occupation of the LESSEE, then this lease contract may be terminated without compensation by the LESSOR or by the LESSEE by notice in writing to the other.</p>
             
-            <p><strong>10. LESSOR’S RIGHT OF ENTRY:</strong> The LESSOR may enter the premises upon
-            due notice for lawful purposes.</p>
+            <p class="text-justify"><strong>10. LESSOR’S RIGHT OF ENTRY:</strong> The LESSOR or its authorized agent shall after giving due notice to the LESSEE shall have the right to enter the premises in the presence of the LESSEE or its representative at any reasonable hour to examine the same or make repairs therein or for the operation and maintenance of the building or to exhibit the leased premises to prospective LESSEE, or for any other lawful purposes which it may deem necessary.</p>
             
-            <p><strong>11. SUBSTANTIAL ALTERATION:</strong> Alterations encroaching other stalls are
-            prohibited. Comfort rooms are strictly forbidden.</p>
+            <p class="text-justify"><strong>11. SUBSTANTIAL ALTERATION:</strong> The LESSEE shall not substantially alter the rented premises so as to encroach the other rented stall. Should there be any violation of this, the extension shall be remove at the expense of the LESSEE. The LESSEE shall only be allowed to alter the rented premises so as to prepare the stall ready for the business intended. In case of expiration or non-renewal of lease contract, the LESSEE shall cause the removal of the improvement and return to its original form. Putting up of comfort room in the rented premises is STRICTLY PROHIBITED. Violation of the latter shall be remove by the LESSEE or cause the cancelation of the contract. </p>
             
-            <p><strong>12. EXPIRATION OF LEASE:</strong> The LESSEE shall vacate promptly upon
-            expiration. Failure results in rent plus 25% penalty.</p>
+            <p class="text-justify"><strong>12. EXPIRATION OF LEASE:</strong> At the expiration of the term of this lease or cancellation thereof, as herein provided, the LESSEE will promptly deliver to the LESSOR the leased premises with all corresponding keys and in as good and tenable condition as the same is now, ordinary wear and tear expected devoid of all occupants, movable furniture, articles and effects of any kind. Non-compliance with the terms of this clause by the LESSEE will give the LESSOR the right, at the latter’s option, to refuse to accept the delivery of the premises and compel the LESSEE to pay rent therefrom at the same rate plus Twenty Five (25) % thereof as penalty until the LESSEE shall have complied with the terms hereof.  The same penalty shall be imposed in case the LESSEE fails to leave the premises after the expiration of this Contract of Lease or termination for any reason whatsoever.</p>
             
-            <p><strong>13. JUDICIAL RELIEF:</strong> The losing party shall pay attorney’s fees equivalent
-            to 100% of the claim but not less than P50,000.00.</p>
+            <p class="text-justify"><strong>13. JUDICIAL RELIEF:</strong> Should any one of the parties herein be compelled to seek judicial relief against the other, the losing party shall pay an amount of One Hundred (100) % of the amount clamed in the complaint as attorney’s fees which shall in no case be less than P50,000.00 pesos in addition to other cost and damages which the said party may be entitled to under the law.</p>
             
-            <p><strong>14.</strong> This CONTRACT OF LEASE shall bind the parties and their successors.</p>
+            <p class="text-justify"><strong>14.</strong> This <strong>CONTRACT OF LEASE</strong> shall be valid and binding between the parties, their successors-in-interest and assigns.</p>
             
-            <p>
-            <strong>IN WITNESS WHEREOF</strong>, the parties have affixed their signatures on the date
-            and place above written.
-            </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>IN WITNESS WHEREOF</strong>, parties herein affixed their signatures on the date and place above written.</p>
             
             <div class="signature-section">
                 <div class="signature">
+                    <p class="text-center mb-0">{{ $contractSettings->mayors_name }}</p>
                     <div class="signature-line"></div>
                     <strong>LESSOR</strong>
                 </div>
             
                 <div class="signature" style="float:right;">
+                    <p class="text-center mb-0">{{ $contract->stallOccupant->vendor->name }}</p>
                     <div class="signature-line"></div>
                     <strong>LESSEE</strong>
                 </div>
             </div>
             
             <div class="witness">
-                <p>Signed in the presence of:</p>
+                <p class="text-center">Signed in the presence of:</p>
                 <div class="signature-section">
                     <div class="signature">
                         <div class="signature-line"></div>
@@ -208,52 +180,51 @@
                 </div>
             </div>
             
-            <div class="acknowledgement">
-                <p class="section-title">ACKNOWLEDGEMENT</p>
+            <div class="acknowledgement" style="page-break-before: always">
+                <p class="section-title font-weight-bold text-center">ACKNOWLEDGEMENT</p>
             
                 <p>
                     Republic of the Philippines )<br>
                     _________________________ ) S.S.
                 </p>
             
-                <p>BEFORE ME, personally appeared:</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>BEFORE ME</strong>, personally appeared:</p>
             
                 <table>
                     <tr>
-                        <th>NAME</th>
-                        <th>ID NUMBER</th>
-                        <th>DATE / PLACE ISSUED</th>
+                        <th class="text-center">NAME</th>
+                        <th class="text-center">ID NUMBER</th>
+                        <th class="text-center">DATE / PLACE ISSUED</th>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td>{{ $contractSettings->mayors_name }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>{{ $contract->stallOccupant->vendor->name }}</td>
                         <td></td>
                         <td></td>
                     </tr>
                 </table>
             
                 <p>
-                    Known to me and to me known to be the same persons who executed the
-                    foregoing instrument and acknowledged that the same is their free and
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Known to me and to me known to be the same persons who executed the
+                    foregoing instrument and acknowledged that the same is their free and 
                     voluntary act and deed.
                 </p>
             
                 <p>
-                    This instrument consisting of ____ page/s has been signed on each and
-                    every page by the parties and their witnesses.
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This instrument consisting of ____ page/s, including the page on which this acknowledgement is written, has been signed on each and every page thereof by the concerned parties and their witnesses, and sealed with my notarial seal.
                 </p>
             
-                <p>WITNESS MY HAND AND SEAL.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITNESS MY HAND AND SEAL, on the date and place first above written.</p>
             
-                <table class="no-border">
-                    <tr>
-                        <td>Doc. No. ______;</td>
-                        <td>Page No. ______;</td>
-                    </tr>
-                    <tr>
-                        <td>Book No. ______;</td>
-                        <td>Series of 20___.</td>
-                    </tr>
-                </table>
+                <p class="mb-0">Doc. No. ______;</p>
+                <p class="mb-0 mt-0">Page No. ______;</p>
+                <p class="mb-0 mt-0">Book No. ______;</p>
+                <p class="mb-0 mt-0">Series of 20___.</p>
+                
             </div>
         </div>
     </div>
@@ -273,7 +244,33 @@
                 table { width: 100%; border-collapse: collapse; }
                 th, td { border: 1px solid #000; padding: 5px; }
                 th { background-color: #f0f0f0; }
-                h3, p { text-align: center; }
+                .mb-0 { margin-bottom: 0; }
+                .mt-0 { margin-top: 0; }
+                .text-center { text-align: center; }
+                .text-right { text-align: right; }
+                .text-justify { text-align: justify; }
+                .font-weight-bold { font-weight: bold; }
+                .signature-section {
+                    margin-top: 50px;
+                    width: 100%;
+                }
+
+                .signature {
+                    display: inline-block;
+                    width: 45%;
+                    text-align: center;
+                    vertical-align: top;
+                }
+
+                .signature-line {
+                    margin-top: 5px;
+                    border-top: 1px solid #000;
+                    width: 100%;
+                }
+
+                .witness {
+                    margin-top: 40px;
+                }
             `
         });
     }

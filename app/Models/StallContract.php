@@ -27,4 +27,9 @@ class StallContract extends Model
     {
         return $this->belongsTo(Stall::class);  
     }
+
+    public function monthlyRents()
+    {
+        return $this->hasMany(MonthlyRent::class);
+    }
 }
