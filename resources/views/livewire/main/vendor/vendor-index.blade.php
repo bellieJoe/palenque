@@ -12,6 +12,7 @@
                         <th>Name</th>
                         <th>Stalls Occupied</th>
                         <th>Representative</th>
+                        <th>Address</th>
                         <th>Contact Number</th>
                         <th>Email</th>
                         <th>Actions</th>
@@ -22,6 +23,7 @@
                                 <td class="align-middle">{{ $vendor->name }}</td>
                                 <td class="align-middle"><a href="#">{{ $vendor->stallOccupants->count() }}  stall/s</a> </td>
                                 <td class="align-middle">{{ $vendor->representative_name }}</td>
+                                <td class="align-middle">{{ $vendor->address }}</td>
                                 <td class="align-middle">{{ $vendor->contact_number }}</td>
                                 <td class="align-middle">{{ $vendor->user->email }}</td>
                                 <td class="align-middle">

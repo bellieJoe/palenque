@@ -47,10 +47,10 @@
     }
 
     .signature-line {
-        margin-top: 60px;
+        margin-top: 5px;
         border-top: 1px solid #000;
         width: 100%;
-    }
+}
 
     .witness {
         margin-top: 40px;
@@ -88,14 +88,13 @@
             
             <p><strong>KNOW ALL MEN BY THESE PRESENTS:</strong></p>
             
-            <p class="text-justify">This CONTRACT OF LEASE is made and executed this day of <strong>{{ date('F d, Y') }}</strong>, by and between:
-            </p>
+            <p class="text-justify">This CONTRACT OF LEASE is made and executed this day of <strong>{{ date('F d, Y') }}</strong>, by and between:</p>
             
-            <p class="text-justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>_____________________________________________</strong>, a Local Government Unit represented by <strong>_____________________________________________</strong>, Municipal Mayor with office address at <strong>___________________________________________________</strong>, hereinafter referred to as the <strong>LESSOR</strong>. </p>
+            <p class="text-justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{ $contractSettings->municipality_name }}</strong>, a Local Government Unit represented by <strong>{{ $contractSettings->mayors_name }}</strong>, Municipal Mayor with office address at <strong>{{ $contractSettings->address }}</strong>, hereinafter referred to as the <strong>LESSOR</strong>. </p>
             
             <p style="text-align:center;"><strong>- AND -</strong></p>
             
-            <p class="text-justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>_______________________________________________________</strong>, Filipino and with residence and postal address at <strong>_______________________________________________</strong>, hereinafter referred to as the <strong>LESSEE</strong>. </p>
+            <p class="text-justify">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{ $contract->stallOccupant->vendor->name }}</strong>, Filipino and with residence and postal address at <strong>{{ $contract->stallOccupant->vendor->address }}</strong>, hereinafter referred to as the <strong>LESSEE</strong>. </p>
             
             <p class="text-center"><strong>WITNESSETH; That</strong></p>
             
@@ -135,17 +134,17 @@
             
             <p class="text-justify"><strong>14.</strong> This <strong>CONTRACT OF LEASE</strong> shall be valid and binding between the parties, their successors-in-interest and assigns.</p>
             
-            <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>IN WITNESS WHEREOF</strong>, parties herein affixed their signatures on the date and place above written.
-            </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>IN WITNESS WHEREOF</strong>, parties herein affixed their signatures on the date and place above written.</p>
             
             <div class="signature-section">
                 <div class="signature">
+                    <p class="text-center mb-0">{{ $contractSettings->mayors_name }}</p>
                     <div class="signature-line"></div>
                     <strong>LESSOR</strong>
                 </div>
             
                 <div class="signature" style="float:right;">
+                    <p class="text-center mb-0">{{ $contract->stallOccupant->vendor->name }}</p>
                     <div class="signature-line"></div>
                     <strong>LESSEE</strong>
                 </div>
@@ -180,12 +179,12 @@
                         <th class="text-center">DATE / PLACE ISSUED</th>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td>{{ $contractSettings->mayors_name }}</td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td>{{ $contract->stallOccupant->vendor->name }}</td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -246,7 +245,7 @@
                 }
 
                 .signature-line {
-                    margin-top: 60px;
+                    margin-top: 5px;
                     border-top: 1px solid #000;
                     width: 100%;
                 }
