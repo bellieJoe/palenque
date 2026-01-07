@@ -67,7 +67,7 @@ class DeliveryCreate extends Component
             'items.*.unit_id' => 'required|exists:units,id',
             'items.*.tax' => 'required|numeric',
             'items.*.ticket_no' => 'required',
-            // 'items.*.sales' => 'required',
+            'items.*.sales' => 'required',
             'items.*.ticket_status' => 'required|in:PAID,UNPAID,WAIVED',
             // 'items.*.receipt_no' => 'required_if:items.*.ticket_status,PAID',
         ], [
@@ -99,6 +99,7 @@ class DeliveryCreate extends Component
                         'item_id' => $item['item_id'],
                         'amount' => $item['amount'],
                         'unit_id' => $item['unit_id'],
+                        'sales' => $item['sales'],
                         'origin' => $item['origin'],
                         'created_at' => now(),
                         'updated_at' => now(),

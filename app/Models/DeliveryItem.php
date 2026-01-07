@@ -11,7 +11,7 @@ class DeliveryItem extends Model
     
     public function delivery()
     {
-        return $this->belongsTo(Delivery::class);
+        return $this->belongsTo(Delivery::class, 'delivery_id');
     }
 
     public function deliveryItem()

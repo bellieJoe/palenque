@@ -18,27 +18,38 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col">Fish</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Origin</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($items as $item)
-                            <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->quantity }}</td>
-                                <td></td>
-                            </tr>
-                        @empty
-                            <tr><td colspan="2" class="text-center">No Items Found</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-center">Vendors with Highest Count of Violations</h5>
+                    <div 
+                        class="" 
+                        wire:ignore
+                        x-data
+                        x-init="
+                            let options = {
+                                chart: {
+                                    type: 'bar'
+                                },
+                                plotOptions: {
+                                    bar: {
+                                        horizontal: true
+                                    }
+                                },
+                                series: [{
+                                    name: 'Total',
+                                    data: @js($data)
+                                }]
+                            }
+                            let chart = new ApexCharts($refs.chart, options);
+                            chart.render();
+                            Livewire.on('updatData', (payload) => {
+                                chart.updateSeries([{ data: payload[0].data }]);
+                            });
+                        "
+                        >
+                            <div x-ref="chart"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

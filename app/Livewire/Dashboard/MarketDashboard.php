@@ -74,6 +74,7 @@ class MarketDashboard extends Component
         $this->getMostViolatedVendorData();
         $this->getTopSuppliersData();
         $this->getMarketFeesData();
+    
     }
 
     private function getMarketFeesData()

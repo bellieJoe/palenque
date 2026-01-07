@@ -9,6 +9,10 @@ class Item extends Model
     //
     protected $guarded = [];
 
+    public function deliveries(){
+        return $this->hasMany(DeliveryItem::class);
+    }
+
     public function itemCategory(){
         return $this->belongsTo(ItemCategory::class);
     }
@@ -34,5 +38,10 @@ class Item extends Model
         ->get()
         ->unique('unit_id')
         ->values();
+    }
+
+    public function delivery_items()
+    {
+        return $this->hasMany(DeliveryItem::class);
     }
 }
