@@ -62,7 +62,7 @@ class VendorCreate extends Component
     }
 
     public function showCreateVendorModal(){
-        $this->reset(['name', 'email','contact_number']);
+        $this->reset(['name', 'email','contact_number', 'representative_name']);
         $this->resetErrorBag();
         $this->dispatch('show-create-vendor-modal');
     }
