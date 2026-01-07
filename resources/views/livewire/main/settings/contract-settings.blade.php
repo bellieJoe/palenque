@@ -23,6 +23,13 @@
                     @error('municipal_address') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
             </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="mb-3">
+                    <label for="">Market Address</label>
+                    <input type="text" class="form-control" wire:model.lazy="market_address">
+                    @error('market_address') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+            </div>
         </div>
         <button class="btn btn-sm btn-primary" type="button" wire:loading.attr="disabled" wire:click="updateContractSettings()">Update</button>
     </div>

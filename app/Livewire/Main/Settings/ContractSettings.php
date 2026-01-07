@@ -11,6 +11,7 @@ class ContractSettings extends Component
     public $municipality_name;
     public $mayor_name;
     public $municipal_address;
+    public $market_address;
 
     public function mount()
     {
@@ -20,6 +21,7 @@ class ContractSettings extends Component
             $this->municipality_name = $contract_settings->municipality_name;
             $this->mayor_name = $contract_settings->mayors_name;
             $this->municipal_address = $contract_settings->address;
+            $this->market_address = $contract_settings->market_address;
         }
     }
 
@@ -29,6 +31,7 @@ class ContractSettings extends Component
             'municipality_name' => 'required|string|max:255',
             'mayor_name' => 'required|string|max:255',
             'municipal_address' => 'required|string|max:500',
+            'market_address' => 'required|string|max:500',
         ]);
 
         ContractSetting::updateOrCreate(
@@ -37,6 +40,7 @@ class ContractSettings extends Component
                 'municipality_name' => $this->municipality_name,
                 'mayors_name' => $this->mayor_name,
                 'address' => $this->municipal_address,
+                'market_address' => $this->market_address,
             ]
         );
 
