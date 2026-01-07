@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\MunicipalMarket;
+use App\Models\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,7 +27,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             RoleTypeSeeder::class,
             MunicipalMarketSeeder::class,
-            AppSettingsSeeder::class
+            AppSettingsSeeder::class,
+            RolePresetSeeder::class
         ]);
     }
 }
