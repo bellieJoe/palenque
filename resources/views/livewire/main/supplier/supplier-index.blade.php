@@ -22,11 +22,41 @@
         </div>
     </div> --}}
     <div class="d-flex justify-content-end mb-2">
+        <a class="btn btn-primary" href="{{ route("main.origins.create")}}">Add Origin</a>&nbsp;
         @livewire('main.supplier.supplier-create')
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h6 class="card-title">Origins</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        @forelse ($origins as $origin)
+                            <tr>
+                                <td>{{ $origin->name }} ({{ $origin->is_local ? "Local" : "Import" }})</td>
+                                <td>
+                                    <button class="btn btn-outline-danger" wire:click="deleteOrigin({{$origin->id}})" wire:confirm="Are you sure you want to delete this origin?">Delete</button>
+                                    <a class="btn btn-outline-primary" href="{{ route("main.origins.edit" , $origin->id) }}">Edit</a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="2" class="text-center">No Suppliers Found</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <div class="card">
         <div class="card-body">
             <input type="text" class="form-control mb-3" wire:model.live.debounce.300ms="search" placeholder="Search Suppliers...">
+            
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -40,7 +70,7 @@
                         @forelse ($suppliers as $supplier)
                             <tr>
                                 <td>{{ $supplier->name }}</td>
-                                <td>{{ $supplier->address }}</td>
+                                <td>{{ $supplier->origin ? $supplier->origin->name : "" }}</td>
                                 <td>{{ $supplier->contact_number }}</td>
                                 <td>{{ $supplier->email }}</td>
                                 <td>

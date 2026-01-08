@@ -18,4 +18,9 @@ class Supplier extends Model
     {
         return $this->hasMany(Delivery::class);
     }
+
+    public function origin()
+    {
+        return $this->belongsTo(Origin::class);
+    }
 }

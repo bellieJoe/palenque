@@ -30,8 +30,7 @@
                             <th>Item</th>
                             <th>Quantity</th>
                             <th>Tax</th>
-                            <th>Ticket No.</th>
-                            <th>Receipt No.</th>
+                            <th>Origin</th>
                             <th>Date Issued</th>
                             <th>Ticket Status</th>
                             {{-- <th>Actions</th> --}}
@@ -43,8 +42,7 @@
                                 <td>{{ $deliveryItem->item->name }}</td>
                                 <td>{{ $deliveryItem->amount }} {{ $deliveryItem->unit->name }}</td>
                                 <td>Php {{ number_format($deliveryItem->deliveryTicket->amount, 2, '.', ',') }}</td>
-                                <td>{{ $deliveryItem->deliveryTicket->ticket_no }}</td>
-                                <td>{{ $deliveryItem->deliveryTicket->receipt_no ? $deliveryItem->deliveryTicket->receipt_no : 'N/A' }}</td>
+                                <td>{{ $deliveryItem->originated->name}}</td>
                                 <td>{{ $deliveryItem->deliveryTicket->date_issued->format('F d, Y') }}</td>
                                 <td><span class="badge badge-{{ $deliveryItem->deliveryTicket->status == 'PAID' ? 'success' : ($deliveryItem->deliveryTicket->status == 'UNPAID' ? 'warning' : 'secondary') }}">{{ $deliveryItem->deliveryTicket->status }}</span></td>
                                 {{-- <td>    

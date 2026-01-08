@@ -79,7 +79,12 @@
                                     @endif
                                 </td>
                                 <td class="align-middle">
-                                    <input type="text" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.origin" >
+                                    <select class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.origin" >
+                                        <option value="">-Select Origin-</option>
+                                        @foreach ($origins as $origin)
+                                            <option value="{{ $origin->id }}">{{ $origin->name }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('items.'.$key.'.origin') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
                                 <td class="align-middle">

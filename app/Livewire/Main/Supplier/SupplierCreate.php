@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Main\Supplier;
 
+use App\Models\Origin;
 use App\Models\Supplier;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -10,7 +11,7 @@ class SupplierCreate extends Component
 {
     #[Validate('required|max:255')]
     public $name = "";
-    #[Validate('nullable|max:100')]
+    #[Validate('nullable|exists:origins,id')]
     public $address = "";
     #[Validate('nullable|max:20')]
     public $contact_number = "";
@@ -18,6 +19,7 @@ class SupplierCreate extends Component
     public $description = "";
     #[Validate('required|email|max:60')]
     public $email = "";
+    public $origins;
 
     public function saveSupplier(){
         $this->validate();
@@ -25,6 +27,7 @@ class SupplierCreate extends Component
             "name" => $this->name,
             "email" => $this->email,
             "address" => $this->address,
+            "origin_id" => $this->address,
             "contact_number" => $this->contact_number,
             "description" => $this->description,
             "municipal_market_id" => auth()->user()->marketDesignation()->id
@@ -33,6 +36,10 @@ class SupplierCreate extends Component
         $this->dispatch('hide-create-supplier-modal');
         $this->dispatch('refresh-suppliers');
         return;
+    }
+
+    public function mount(){
+        $this->origins = Origin::where("municipal_market_id", auth()->user()->marketDesignation()->id)->get();
     }
 
     public function showCreateSupplierModal(){

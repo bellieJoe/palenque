@@ -33,4 +33,8 @@ class DeliveryItem extends Model
     {
         return $this->hasOne(DeliveryTicket::class);
     }
+
+    public function originated () {
+        return $this->belongsTo(Origin::class, 'origin');
+    }
 }

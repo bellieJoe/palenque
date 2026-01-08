@@ -8,6 +8,7 @@ use App\Models\DeliveryTicket;
 use App\Models\Item;
 use App\Models\ItemFeeSetting;
 use App\Models\ItemTaxRate;
+use App\Models\Origin;
 use App\Models\Supplier;
 use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
@@ -27,10 +28,12 @@ class DeliveryCreate extends Component
     public $supplier;
     #[Validate('required|date|before_or_equal:today')]
     public $date_delivered;
+    public $origins;
 
     public function calculateTotalTax(){
         $this->total_tax = collect($this->items)->sum('tax');
     }
+
     public function addItem()
     {
         $supplier = Supplier::find($this->supplier);
@@ -148,6 +151,7 @@ class DeliveryCreate extends Component
         $this->itemOptions = Item::where('municipal_market_id', auth()->user()->marketDesignation()->id)->get();
         $this->unitOptions = Unit::where('municipal_market_id', auth()->user()->marketDesignation()->id)->get();
         $this->date_delivered = now()->format('Y-m-d');
+        $this->origins = Origin::where("municipal_market_id", auth()->user()->marketDesignation()->id)->get();
     }
 
     public function render()

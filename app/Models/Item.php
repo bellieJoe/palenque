@@ -44,4 +44,8 @@ class Item extends Model
     {
         return $this->hasMany(DeliveryItem::class);
     }
+    public function deliveryItems()
+    {
+        return $this->hasMany(DeliveryItem::class);
+    }
 }

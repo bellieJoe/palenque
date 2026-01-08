@@ -307,6 +307,12 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a href="{{ route('main.reports.fish-monitoring') }}" class="sidebar-link {{ request()->routeIs('main.reports.fish-monitoring.*') ? 'active' : '' }}" wire:navigate>
+                                <i class="mdi mdi-file-chart"></i>
+                                <span class="hide-menu"> Fish Monitoring </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="{{ route('main.reports.market-violations') }}" class="sidebar-link {{ request()->routeIs('main.reports.market-violations.*') ? 'active' : '' }}" wire:navigate>
                                 <i class="mdi mdi-file-chart"></i>
                                 <span class="hide-menu"> Market Violations </span>

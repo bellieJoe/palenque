@@ -27,7 +27,12 @@
                     </div>
                     <div class="mb-2">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" wire:model.lazy="address">
+                        <select type="text" class="form-control" id="address" wire:model.lazy="address" value="{{ $address }}">
+                            <option value="">Select Address</option>
+                            @foreach ($origins as $origin)
+                                <option value="{{ $origin->id }}">{{ $origin->name }}</option>
+                            @endforeach
+                        </select>
                         @error('address') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="mb-2">

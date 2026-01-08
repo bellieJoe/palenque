@@ -23,6 +23,7 @@ use App\Livewire\Main\Goods\PriceMonitoringIndex;
 use App\Livewire\Main\Goods\UnitCreate;
 use App\Livewire\Main\Goods\UnitEdit;
 use App\Livewire\Main\Goods\UnitIndex;
+use App\Livewire\Main\Reports\FishMonitoring;
 use App\Livewire\Main\Reports\MarketFeesCollection;
 use App\Livewire\Main\Reports\MarketViolations;
 use App\Livewire\Main\Reports\PriceMonitoring;
@@ -37,6 +38,8 @@ use App\Livewire\Main\Stall\DailyCollectionFeeUpdatePayment;
 use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Stall\StallRateIndex;
 use App\Livewire\Main\Supplier\SupplierIndex;
+use App\Livewire\Main\Suppliers\OriginCreate;
+use App\Livewire\Main\Suppliers\OriginEdit;
 use App\Livewire\Main\Users\UserIndex as UsersUserIndex;
 use App\Livewire\Main\Vendor\PrintContract;
 use App\Livewire\Main\Vendor\VendorIndex;
@@ -154,12 +157,18 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         Route::get('market-fee-collection', MarketFeesCollection::class)->middleware(['auth', 'verified'])->name('market-fee-collection');
         Route::get('market-violations', MarketViolations::class)->middleware(['auth', 'verified'])->name('market-violations');
         Route::get('price-monitoring', PriceMonitoring::class)->middleware(['auth', 'verified'])->name('price-monitoring');
+        Route::get('fish-monitoring', FishMonitoring::class)->middleware(['auth', 'verified'])->name('fish-monitoring');
     });
 
     Route::group(["prefix" => "price-monitoring", "as" => "price-monitoring."], function () {
         Route::get('/', PriceMonitoringIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create', PriceMonitoringCreate::class)->middleware(['auth', 'verified'])->name('create');
         Route::get('/edit/{id}', PriceMonitoringEdit::class)->middleware(['auth', 'verified'])->name('edit');
+    });
+
+    Route::group(["prefix" => "origins", "as" => "origins."], function () {
+        Route::get('/create', OriginCreate::class)->middleware(['auth', 'verified'])->name('create');
+        Route::get('/edit/{id}', OriginEdit::class)->middleware(['auth', 'verified'])->name('edit');
     });
 });
 
