@@ -66,9 +66,9 @@ class DeliveryCreate extends Component
             'items.*.amount' => 'required|numeric',
             'items.*.unit_id' => 'required|exists:units,id',
             'items.*.tax' => 'required|numeric',
-            'items.*.ticket_no' => 'required',
-            'items.*.sales' => 'required',
-            'items.*.ticket_status' => 'required|in:PAID,UNPAID,WAIVED',
+            // 'items.*.ticket_no' => 'required',
+            // 'items.*.sales' => 'required',
+            // 'items.*.ticket_status' => 'required|in:PAID,UNPAID,WAIVED',
             // 'items.*.receipt_no' => 'required_if:items.*.ticket_status,PAID',
         ], [
             
@@ -99,7 +99,7 @@ class DeliveryCreate extends Component
                         'item_id' => $item['item_id'],
                         'amount' => $item['amount'],
                         'unit_id' => $item['unit_id'],
-                        'sales' => $item['sales'],
+                        'sales' => 0,
                         'origin' => $item['origin'],
                         'created_at' => now(),
                         'updated_at' => now(),
@@ -115,8 +115,8 @@ class DeliveryCreate extends Component
                         'delivery_item_id' => $deliveryItem->id,
                         'municipal_market_id' => auth()->user()->marketDesignation()->id,
                         'amount' => $item['tax'] ?? 0,
-                        'ticket_no' => $item['ticket_no'] ?? null,
-                        'status' => $item['ticket_status'] ?? 'UNPAID',
+                        'ticket_no' => now()->format('Ymd') . '-' . $deliveryItem->id,
+                        'status' => $item['ticket_status'] ?? 'PAID',
                         'receipt_no' => $item['receipt_no'] ?? null,
                         'date_issued' => now(),
                         'date_paid' => isset($item['ticket_status']) && $item['ticket_status'] === 'PAID'

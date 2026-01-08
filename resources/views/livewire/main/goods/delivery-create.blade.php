@@ -38,9 +38,9 @@
                             <th class="align-middle">Origin <span class="text-danger">*</span></th>
                             <th class="align-middle">Quantity <span class="text-danger">*</span></th>
                             <th class="align-middle">Tax(Php) <span class="text-danger">*</span></th>
-                            <th class="align-middle">Sales <span class="text-danger">*</span></th>
-                            <th class="align-middle">Ticket No. <span class="text-danger">*</span></th>
-                            <th class="align-middle">Ticket Status <span class="text-danger">*</span></th>
+                            {{-- <th class="align-middle">Sales <span class="text-danger">*</span></th> --}}
+                            {{-- <th class="align-middle">Ticket No. <span class="text-danger">*</span></th> --}}
+                            {{-- <th class="align-middle">Ticket Status <span class="text-danger">*</span></th> --}}
                             {{-- <th>Receipt No.</th> --}}
                             <th></th>
                         </tr>
@@ -94,16 +94,16 @@
                                     <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.tax" wire:change="calculateTotalTax()">
                                     @error('items.'.$key.'.tax') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
-                                <td class="align-middle">
+                                {{-- <td class="align-middle">
                                     <input type="number" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.sales">                                    
                                     @error('items.'.$key.'.sales') <span class="text-danger">{{ $message }}</span> @enderror
-                                </td>
+                                </td> --}}
                                 
-                                <td class="align-middle">
+                                {{-- <td class="align-middle">
                                     <input type="text" class="form-control" wire:model.live.debounce.300ms="items.{{ $key }}.ticket_no">
                                     @error('items.'.$key.'.ticket_no') <span class="text-danger">{{ $message }}</span> @enderror
-                                </td>
-                                <td class="align-middle">
+                                </td> --}}
+                                {{-- <td class="align-middle">
                                     <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.ticket_status">
                                         <option value="">-Select Ticket Status-</option>
                                         <option value="PAID">PAID</option>
@@ -111,7 +111,7 @@
                                         <option value="WAIVED">WAIVED</option>
                                     </select>
                                     @error('items.'.$key.'.ticket_status') <span class="text-danger">{{ $message }}</span> @enderror
-                                </td>
+                                </td> --}}
                                 {{-- <td class="align-middle">
                                     <input name="" id="" class="form-control " wire:model.live="items.{{ $key }}.receipt_no" {{ $items[$key]['ticket_status'] == 'PAID' ? '' : 'disabled' }}>
                                     @error('items.'.$key.'.receipt_no') <span class="text-danger">{{ $message }}</span> @enderror

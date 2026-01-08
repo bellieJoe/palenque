@@ -69,7 +69,7 @@
                             <option value="-Select Status-"></option>
                             <option value="PAID">PAID</option>
                             <option value="UNPAID">UNPAID</option>
-                            <option value="WAIVED">WAIVED</option>
+                            {{-- <option value="WAIVED">WAIVED</option> --}}
                         </select>
                         @error('status') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>

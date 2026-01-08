@@ -34,7 +34,7 @@
                             <th>Receipt No.</th>
                             <th>Date Issued</th>
                             <th>Ticket Status</th>
-                            <th>Actions</th>
+                            {{-- <th>Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -47,13 +47,12 @@
                                 <td>{{ $deliveryItem->deliveryTicket->receipt_no ? $deliveryItem->deliveryTicket->receipt_no : 'N/A' }}</td>
                                 <td>{{ $deliveryItem->deliveryTicket->date_issued->format('F d, Y') }}</td>
                                 <td><span class="badge badge-{{ $deliveryItem->deliveryTicket->status == 'PAID' ? 'success' : ($deliveryItem->deliveryTicket->status == 'UNPAID' ? 'warning' : 'secondary') }}">{{ $deliveryItem->deliveryTicket->status }}</span></td>
-                                <td>    
+                                {{-- <td>    
                                     @if ($deliveryItem->deliveryTicket->status === 'UNPAID')
                                         <button class="btn btn-outline-primary"  wire:click="waiveTicket({{$deliveryItem->deliveryTicket->id}})" wire:confirm="Are you sure you want to waive this ticket?">Waive</button>
                                         <button class="btn btn-outline-primary"  wire:click="updateDeliveryTicketPayment({{$deliveryItem->deliveryTicket->id}})" >Update Payment</button>
                                     @endif
-                                    {{-- <button class="btn btn-outline-danger" wire:click="deleteStall({{$stall->id}})" wire:confirm="Are you sure you want to remove this stall?">Remove</button> --}}
-                                </td>
+                                </td> --}}
                             </tr>
                         @empty
                             <tr><td colspan="8" class="text-center">No Stalls Found</td></tr>

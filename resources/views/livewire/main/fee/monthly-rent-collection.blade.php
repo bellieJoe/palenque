@@ -15,6 +15,7 @@
                             <th scope="col">Stall Name</th>
                             <th scope="col">Vendor</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Amount</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -31,6 +32,7 @@
                                     {{ $monthlyRent->stallContract->stallOccupant->vendor->name }}
                                 </td>
                                 <td class="align-middle"><span class="badge badge-{{ $monthlyRent->status == 'PAID' ? 'success' : ($monthlyRent->status == 'UNPAID' ? 'warning' : 'secondary') }}">{{ $monthlyRent->status }}</span></td>
+                                <td class="align-middle">PHP {{ number_format($monthlyRent->amount, 2, ',', '.') }}</td>
                                 <td class="align-middle">
                                     @if ($monthlyRent->status == "UNPAID")
                                         <button class="btn btn-outline-warning" wire:confirm="Are you sure you want to waive this rent?" wire:click="rentPaymentWaive({{$monthlyRent->id}})">Waive</button>

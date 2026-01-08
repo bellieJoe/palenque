@@ -50,7 +50,7 @@
                                 <td>{{ $stall->active_contract ? $stall->active_contract->from->format('F d, Y') . ' to ' . $stall->active_contract->to->format('F d, Y') : 'N/A' }} </td>
                                 <td>
                                     @if ($stall->active_contract)
-                                        Php {{ number_format($stall->active_contract->rate->rate, 2, '.', ',') }}
+                                        Php {{ number_format($stall->active_contract->monthlyRents->first()->amount, 2, '.', ',') }}
                                     @else
                                         N/A
                                     @endif

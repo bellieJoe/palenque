@@ -110,25 +110,27 @@
             
             @php
                 $years = round($contract->from->floatDiffInYears($contract->to));
-                $yearsWord = \Illuminate\Support\Str::upper(
-                    \Illuminate\Support\Str::plural(
-                        \Illuminate\Support\Str::ucfirst(\NumberFormatter::create('en', \NumberFormatter::SPELLOUT)->format($years)),
-                        $years
-                    )
-                );
+                // $yearsWord = \Illuminate\Support\Str::upper(
+                //     \Illuminate\Support\Str::plural(
+                //         \Illuminate\Support\Str::ucfirst(\NumberFormatter::create('en', \NumberFormatter::SPELLOUT)->format($years)),
+                //         $years
+                //     )
+                // );
+                $yearsWord = "";
             @endphp
             <p class="text-justify"><strong>2. TERM:</strong> This term of lease is for {{ $yearsWord }} ({{ $years }}) YEAR/S. from <strong>{{ $contract->from->format('F d, Y') }}</strong> to <strong>{{ $contract->to->format('F d, Y') }}</strong> inclusive. Upon its expiration, this lease may be renewed under such terms and conditions as may be mutually agreed upon by both parties,  written notice of intention to renew the lease shall be served to the LESSOR not later than seven (7) days prior to the expiry date of the period herein agreed upon.</p>
             
             @php
                 $rate = round($contract->monthlyRents->first()->amount);
-                $rateWord = \Illuminate\Support\Str::upper(
-                    \Illuminate\Support\Str::plural(
-                        \Illuminate\Support\Str::ucfirst(\NumberFormatter::create('en', \NumberFormatter::SPELLOUT)->format($rate)),
-                        $rate
-                    )
-                );
+                // $rateWord = \Illuminate\Support\Str::upper(
+                //     \Illuminate\Support\Str::plural(
+                //         \Illuminate\Support\Str::ucfirst(\NumberFormatter::create('en', \NumberFormatter::SPELLOUT)->format($rate)),
+                //         $rate
+                //     )
+                // );
+                $rateWord = "";
             @endphp
-            <p class="text-justify"><strong>3. RENTAL RATE:</strong> The monthly rental rate for the leased premises shall be in {{ $rateWord }} PESOS(P{{ number_format($contract->monthlyRents->first()->amount, 2, ',', '.') }}), Philippine Currency. All rental payments shall be made payable to the LESSOR.</p>
+            <p class="text-justify"><strong>3. RENTAL RATE:</strong> The monthly rental rate for the leased premises shall be in {{ $rateWord }} (P{{ number_format($contract->monthlyRents->first()->amount, 2, ',', '.') }}), Philippine Currency. All rental payments shall be made payable to the LESSOR.</p>
             
             <p class="text-justify"><strong>4. PAYMENT OF GOODWILL:</strong> A Goodwill Payment of Thirty Thousand Pesos (P30,000.00) is required to be paid by the LESSEE. The LESSEE shall pay a FIFTEEN THOUSAND PESOS (P15,000.00) upon the awarding of the commercial stall and the remaining fifteen thousand shall be payable within Three (3) Years in equal installments or Four Hundred Twenty Pesos (P420.00) for Thirty Six Months  during the duration of the contract. The goodwill payment is nonrefundable.</p>
             
