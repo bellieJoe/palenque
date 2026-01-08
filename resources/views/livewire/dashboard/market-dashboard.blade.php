@@ -72,6 +72,7 @@
             </div>                        
         </div>
     </div>
+    @livewire('dashboard.fish-supply')
     <div class="row">
         <div class="col-12 col-lg-6">
             <div class="card">
@@ -221,6 +222,6 @@
             </div>
         </div>
     </div>
-    @livewire('dashboard.fish-supply')
+    
 @endif
 </div>

@@ -16,6 +16,9 @@ class UnitCreate extends Component
         $this->validate();
         Unit::create([
             'name' => $this->name,
+            'is_base_unit' => true,
+            'base_unit_id' => null,
+            'conversion_factor' => 1,
             'municipal_market_id' => auth()->user()->marketDesignation()->id
         ]);
         notyf()->position('y', 'top')->success('Unit created successfully!');

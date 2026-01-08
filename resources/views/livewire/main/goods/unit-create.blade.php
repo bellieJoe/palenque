@@ -1,12 +1,12 @@
 <div>
     <x-page-header title="Units" />
-    <div class="card" style="max-width: 500px">
+    <div class="card" style="max-width: 800px">
         <div class="card-header">
             <h6 class="card-title">Add Unit</h6>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="mb-2 col">
+                <div class="mb-2 col-12 col-md-6 col-lg-4">
                     <label for="name" class="form-label">Unit <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="name" wire:model.live.debounce.300ms="name">
                     @error('name') <span class="text-danger">{{ $message }}</span> @enderror

@@ -94,10 +94,13 @@ class DeliveryCreate extends Component
                 $deliveryTicketsData = [];
 
                 foreach ($this->items as $item) {
+                    $_item = Item::find($item['item_id']);
+                    $_unit = Unit::find($item['unit_id']);
                     $deliveryItemsData[] = [
                         'delivery_id' => $delivery->id,
                         'item_id' => $item['item_id'],
                         'amount' => $item['amount'],
+                        "base_amount" => $_item->default_unit_id == $item['unit_id'] ? $item['amount'] : $item['amount'] * $_unit->conversion_factor,
                         'unit_id' => $item['unit_id'],
                         'sales' => 0,
                         'origin' => $item['origin'],

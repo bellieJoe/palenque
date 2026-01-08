@@ -10,12 +10,16 @@
                 <table class="table table-hovered" style="min-width: 1000px">
                     <thead>
                         <th>Unit Name</th>
+                        <th>Base Unit</th>
+                        <th>Conversion Factor</th>
                         <th>Actions</th>
                     </thead>
                     <tbody>
                         @forelse ($units as $unit)
                             <tr>
                                 <td class="align-middle">{{ $unit->name }}</td>
+                                <td class="align-middle">{{ $unit->is_base_unit ? 'N/A' : $unit->baseUnit->name }}</td>
+                                <td class="align-middle">{{ $unit->is_base_unit ? 'N/A' : $unit->conversion_factor }}</td>
                                 <td class="align-middle">
                                     <button class="btn btn-outline-danger" wire:click="deleteUnit('{{ $unit->id }}')" wire:confirm="Are you sure you want to delete this unit? This action is irreversible.">Delete Unit</button>
                                     <a class="btn btn-outline-primary" href="{{ route('main.units.edit', $unit->id) }}" wire:navigate>Edit Unit</a>

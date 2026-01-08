@@ -12,4 +12,8 @@ class Unit extends Model
     public function itemTaxRate(){
         return $this->hasMany(ItemTaxRate::class);
     }
+
+    public function baseUnit(){
+        return $this->hasOne(Unit::class, 'id', 'base_unit_id');
+    }
 }

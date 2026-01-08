@@ -38,7 +38,9 @@ class FishSupply extends Component
     private function init()
     {
         $this->data = Item::where('municipal_market_id', auth()->user()->marketDesignation()->id)
-
+            ->whereHas("itemCategory", function($q) {
+                $q->where("name", "Fish");
+            })
             // ✅ correct relationship path
             ->whereHas('delivery_items.delivery', function ($query) {
                 $query->whereBetween('delivery_date', [
@@ -57,7 +59,7 @@ class FishSupply extends Component
                         ]);
                     });
                 }
-            ], 'sales')
+            ], 'base_amount')
 
             ->orderByDesc('sales_total')
             ->limit(10)
