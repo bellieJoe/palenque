@@ -61,8 +61,8 @@
                                 <th class="align-middle text-center" rowspan="2" class="text-center">ORIGIN</th>
                             </tr>
                             <tr>
-                                <th class="align-middle text-center">FROM</th>
-                                <th class="align-middle text-center">TO</th>
+                                <th width="150px" class="align-middle text-center">FROM</th>
+                                <th width="150px" class="align-middle text-center">TO</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,7 +72,7 @@
                             @forelse ($dataLocal as $item)
                                 <tr>
                                     <td class="align-middle">{{ $item->item_name }}</td>
-                                    <td>{{ number_format($item->total, 2, '.', ',') }}</td>
+                                    <td>{{ number_format($item->total, 0, '.', ',') }}</td>
                                     <td>{{ \App\Models\Item::getAverageMinPrice($reportType, ($reportType == "Daily" ? $collectionDate : ($reportType == "Monthly" ? $collectionMonth : $collectionYear)), $item->item_id ) }}</td>
                                     <td>{{ \App\Models\Item::getAverageMaxPrice($reportType, ($reportType == "Daily" ? $collectionDate : ($reportType == "Monthly" ? $collectionMonth : $collectionYear)), $item->item_id ) }}</td>
                                     <td>{{ $item->origin_name }}</td>

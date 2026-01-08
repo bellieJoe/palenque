@@ -63,7 +63,7 @@ class DeliveryCreate extends Component
     public function storeDelivery()
     {
         $validated = $this->validate([
-            'supplier' => 'required|exists:suppliers,id',
+            'supplier' => 'nullable|exists:suppliers,id',
             'date_delivered' => 'required|date|before_or_equal:today',
             'items.*.item_id' => 'required|exists:items,id',
             'items.*.amount' => 'required|numeric',

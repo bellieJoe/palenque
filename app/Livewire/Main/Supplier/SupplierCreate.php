@@ -27,7 +27,7 @@ class SupplierCreate extends Component
             "name" => $this->name,
             "email" => $this->email,
             "address" => $this->address,
-            "origin_id" => $this->address,
+            "origin_id" => $this->address ? $this->address : null,
             "contact_number" => $this->contact_number,
             "description" => $this->description,
             "municipal_market_id" => auth()->user()->marketDesignation()->id

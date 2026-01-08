@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::table('price_monitoring_records', function (Blueprint $table) {
-            $table->foreignId('unit_id')->nullable()->change();
+        Schema::table('suppliers', function (Blueprint $table) {
+            //
+            $table->foreignId('origin_id')->nullable()->change();
         });
     }
 
@@ -22,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('nullable_on_suppliers', function (Blueprint $table) {
+            //
+        });
     }
 };
