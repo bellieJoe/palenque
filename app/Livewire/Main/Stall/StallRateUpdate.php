@@ -16,8 +16,8 @@ class StallRateUpdate extends Component
     public $stallRate;
    #[Validate('required', 'string', 'max:20')]
     public $name;
-    #[Validate('required', 'code', 'max:10')]
-    public $code;
+    // #[Validate('required', 'code', 'max:10')]
+    // public $code;
     #[Validate('required')]
     public $rate;
 
@@ -26,7 +26,7 @@ class StallRateUpdate extends Component
         $stallRate = StallRate::find($id);
         $this->stallRate = $stallRate;
         $this->name = $stallRate->name;
-        $this->code = $stallRate->code;
+        // $this->code = $stallRate->code;
         $this->rate = $stallRate->rate;
         $this->dispatch('show-edit-stall-rate-modal');
     }
@@ -35,7 +35,7 @@ class StallRateUpdate extends Component
     {
         $this->validate();
         $this->stallRate->name = $this->name;
-        $this->stallRate->code = $this->code;
+        // $this->stallRate->code = $this->code;
         $this->stallRate->rate = $this->rate;
         $this->stallRate->save();
         notyf()->position('y', 'top')->success('Stall Rate updated successfully!');

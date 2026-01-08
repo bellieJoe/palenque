@@ -12,7 +12,7 @@
                     <thead class="">
                         <tr>
                             <th>Name</th>
-                            <th>Code</th>
+                            {{-- <th>Code</th> --}}
                             <th>Rate</th>
                             <th>Actions</th>
                         </tr>
@@ -21,7 +21,7 @@
                         @forelse ($stallRates as $stallRate)
                             <tr>    
                                 <td>{{ $stallRate->name }}</td>
-                                <td>{{ $stallRate->code }}</td>
+                                {{-- <td>{{ $stallRate->code }}</td> --}}
                                 <td>{{ $stallRate->rate }}</td>
                                 <td>
                                     <!-- Example actions -->

@@ -55,6 +55,8 @@ class VendorCreate extends Component
                 Notification::send($user, new UserCreatedNotification($password));
             });
 
+            $this->reset(['name', 'email','contact_number', 'representative_name', 'address']);
+
             notyf()->position('y', 'top')->success('Vendor created successfully!');
             $this->dispatch('hide-create-vendor-modal');
             $this->dispatch('refresh-vendors');

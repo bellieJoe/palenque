@@ -14,11 +14,11 @@
                         <input type="text" class="form-control" id="name" wire:model.lazy="name">
                         @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
-                    <div class="mb-2">
+                    {{-- <div class="mb-2">
                         <label for="code" class="form-label">Code <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="code" wire:model.lazy="code">
                         @error('code') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
+                    </div> --}}
                     <div class="mb-2">
                         <label for="rate" class="form-label">Rate <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="rate" wire:model.lazy="rate">

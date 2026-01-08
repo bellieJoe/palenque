@@ -10,8 +10,8 @@ class StallRateCreate extends Component
 {
     #[Validate('required', 'string', 'max:20')]
     public $name;
-    #[Validate('required', 'code', 'max:10')]
-    public $code;
+    // #[Validate('required', 'code', 'max:10')]
+    // public $code;
     #[Validate('required')]
     public $rate;
 
@@ -25,12 +25,12 @@ class StallRateCreate extends Component
         $this->validate();
         StallRate::create([
             "name" => $this->name,
-            "code" => $this->code,
+            // "code" => $this->code,
             "rate" => $this->rate,
             "municipal_market_id" => auth()->user()->marketDesignation()->id
         ]);
         notyf()->position('y', 'top')->success('Stall Rate created successfully!');
-        $this->reset(['name', 'code', 'rate']);
+        $this->reset(['name', 'rate']);
         $this->dispatch('hide-create-stall-rate-modal');
         $this->dispatch('refresh-stall-rates');
         return;
