@@ -11,8 +11,8 @@ class ViolationTypeEdit extends Component
     public $violationType;
     #[Validate('required|max:255')]
     public $name = "";
-    #[Validate('required|max:255')]
-    public $code = "";
+    // #[Validate('required|max:255')]
+    // public $code = "";
     #[Validate('required|in:MONETARY,SERVICE')]
     public $penalty_type = "";
     #[Validate('nullable|required_if:penalty_type,MONETARY')]
@@ -24,7 +24,7 @@ class ViolationTypeEdit extends Component
     {
         $this->violationType = ViolationType::find($id);
         $this->name = $this->violationType->name;
-        $this->code = $this->violationType->code;
+        // $this->code = $this->violationType->code;
         $this->penalty_type = $this->violationType->penalty_type;
         $this->penalty_amount = $this->violationType->monetary_penalty;
         $this->penalty_service = $this->violationType->service_penalty;
@@ -35,7 +35,7 @@ class ViolationTypeEdit extends Component
         $this->validate();
         $this->violationType->update([
             "name" => $this->name,
-            "code" => $this->code,
+            // "code" => $this->code,
             "penalty_type" => $this->penalty_type,
             "monetary_penalty" => $this->penalty_type ? $this->penalty_amount : null,
             "service_penalty" => $this->penalty_type ? $this->penalty_service : null

@@ -6,11 +6,11 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="mb-2 col col-lg-4 col-md-6">
+                {{-- <div class="mb-2 col col-lg-4 col-md-6">
                     <label for="code" class="form-label">Code <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="code" wire:model.live.debounce.300ms="code">
                     @error('code') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
+                </div> --}}
                 <div class="mb-2 col col-lg-4 col-md-6">
                     <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="name" wire:model.live.debounce.300ms="name">

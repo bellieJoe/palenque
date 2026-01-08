@@ -10,8 +10,6 @@ class ItemCategoryCreate extends Component
 {
     #[Validate('required|max:255')]
     public $name;
-    #[Validate('required')]
-    public $is_fish;
 
     public function showCreateItemCategoryModal()
     {
@@ -25,7 +23,6 @@ class ItemCategoryCreate extends Component
         ItemCategory::create([
             "name" => $this->name,
             "municipal_market_id" => auth()->user()->marketDesignation()->id,
-            "is_fish" => $this->is_fish
         ]);
         notyf()->position('y', 'top')->success('Item Category created successfully!');
         $this->dispatch('hide-create-item-category-modal');

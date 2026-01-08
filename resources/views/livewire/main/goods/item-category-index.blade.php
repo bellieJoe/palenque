@@ -11,14 +11,14 @@
                 <table class="table">
                     <thead>
                         <th>Name</th>
-                        <th>Is Fish</th>
+                        {{-- <th>Is Fish</th> --}}
                         <th>Actions</th>
                     </thead>
                     <tbody>
                         @forelse ($categories as $category)
                             <tr>
                                 <td>{{ $category->name }}</td>
-                                <td>{{ $category->is_fish ? 'Yes' : 'No' }}</td>
+                                {{-- <td>{{ $category->is_fish ? 'Yes' : 'No' }}</td> --}}
                                 <td>
                                     <button class="btn btn-outline-danger" wire:click="deleteCategory({{$category->id}})" wire:confirm="Are you sure you want to delete this category?">Delete</button>
                                     <button class="btn btn-outline-primary" wire:click="editCategory({{$category->id}})">Edit</button>

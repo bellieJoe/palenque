@@ -9,7 +9,7 @@
             <div class="table-responsive">
                 <table class="table table-hovered" style="min-width: 1000px">
                     <thead>
-                        <th>Code</th>
+                        {{-- <th>Code</th> --}}
                         <th>Name</th>
                         <th>Penalty Type</th>
                         <th>Monetary Penalty</th>
@@ -19,7 +19,7 @@
                     <tbody>
                         @forelse ($violationTypes as $violationType)
                             <tr>
-                                <td class="align-middle">{{ $violationType->code }}</td>
+                                {{-- <td class="align-middle">{{ $violationType->code }}</td> --}}
                                 <td class="align-middle">{{ $violationType->name }}</td>
                                 <td class="align-middle">{{ $violationType->penalty_type }}</td>
                                 <td class="align-middle">Php {{ number_format($violationType->monetary_penalty, 2, '.', ',') }}</td>
