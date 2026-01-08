@@ -29,7 +29,7 @@ class SupplierIndex extends Component
             notyf()->position('y', 'top')->error('Cannot delete supplier with existing deliveries!');
             return;
         }
-        Supplier::where($id)->delete();
+        Supplier::where("id", $id)->delete();
         notyf()->position('y', 'top')->success('Supplier deleted successfully!');
         $this->dispatch('refresh-suppliers');
     }
