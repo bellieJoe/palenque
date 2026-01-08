@@ -37,6 +37,7 @@ class StallCreate extends Component
             "location" => $this->location,
             "product_type" => $this->productType
         ]);
+        $this->reset(['name', 'stall_rate', 'area', 'location', 'productType']);
         notyf()->position('y', 'top')->success('Stall created successfully!');
         $this->dispatch('hide-create-stall-modal');
         $this->dispatch('refresh-stalls');

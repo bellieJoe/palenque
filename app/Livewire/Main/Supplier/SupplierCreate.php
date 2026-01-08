@@ -32,6 +32,7 @@ class SupplierCreate extends Component
             "description" => $this->description,
             "municipal_market_id" => auth()->user()->marketDesignation()->id
         ]);
+        $this->reset(['name', 'email', 'address', 'contact_number', 'description']);
         notyf()->position('y', 'top')->success('Supplier created successfully!');
         $this->dispatch('hide-create-supplier-modal');
         $this->dispatch('refresh-suppliers');
