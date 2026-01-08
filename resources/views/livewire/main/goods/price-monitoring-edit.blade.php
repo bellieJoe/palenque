@@ -11,7 +11,7 @@
                     <input type="text" class="form-control"value="{{ $item->name }}" disabled>
                     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-                <div class="mb-2 col-12 col-md-6 col-lg-4">
+                {{-- <div class="mb-2 col-12 col-md-6 col-lg-4">
                     <label for="name" class="form-label">Unit <span class="text-danger">*</span></label>
                     <select class="form-control" wire:model.live.debounce.300ms="unit">
                         <option value="">-Select Unit-</option>
@@ -20,14 +20,22 @@
                         @endforeach
                     </select>
                     @error('uni') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
+                </div> --}}
                 <div class="mb-2 col-12 col-md-6 col-lg-4">
-                    <label for="name" class="form-label">Price <span class="text-danger">*</span></label>
+                    <label for="name" class="form-label">Min Price <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <span class="input-group-text">₱</span>
                         <input type="number" min="0" class="form-control" wire:model.live.debounce.300ms="price">
                     </div>
                     @error('price') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="mb-2 col-12 col-md-6 col-lg-4">
+                    <label for="name" class="form-label">Max Price <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text">₱</span>
+                        <input type="number" min="0" class="form-control" wire:model.live.debounce.300ms="price_max">
+                    </div>
+                    @error('price_max') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-2 col-12 col-md-6 col-lg-4">
                     <label for="name" class="form-label">Date <span class="text-danger">*</span></label>

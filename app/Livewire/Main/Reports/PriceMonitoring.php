@@ -12,17 +12,19 @@ use Livewire\WithPagination;
 class PriceMonitoring extends Component
 {
     use WithPagination, WithoutUrlPagination;
-    #[Validate('required|in:Daily,Monthly,Yearly')]
+    #[Validate('required|in:Daily,Monthly,Yearly,Weekly')]
     public $reportType = 'Daily';
     public $collectionDate = null;
     public $collectionMonth = null;
     public $collectionYear = null;
+    public $collectionWeek = null;
 
     public function mount()
     {
         $this->collectionDate = now()->format('Y-m-d');
-        $this->collectionMonth = now()->format('Y-m');
+        $this->collectionMonth = now()->format('Y-m-d');
         $this->collectionYear = now()->format('Y');
+        $this->collectionWeek = now()->format('Y-m-d');
     }
 
     public function updating($name, $value)

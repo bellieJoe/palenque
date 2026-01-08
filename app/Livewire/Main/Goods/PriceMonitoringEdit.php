@@ -17,12 +17,14 @@ class PriceMonitoringEdit extends Component
     public $item;
     public $units;
 
-    #[Validate('required|numeric|min:0.01')]
+    #[Validate('required|numeric|min:0.01|lt:price_max')]
     public $price;
+    #[Validate('required|numeric|min:0.01|gt:price')]
+    public $price_max;
     #[Validate('required|date')]
     public $date;
-    #[Validate('required|exists:units,id')]
-    public $unit;
+    // #[Validate('required|exists:units,id')]
+    // public $unit;
 
     public function updatedUnit()
     {
@@ -36,6 +38,7 @@ class PriceMonitoringEdit extends Component
         )
         ->first();
         $this->price = $price ? $price->price : 0;
+        $this->price_max = $price ? $price->price_max : 0;
     }
 
     public function updatedDate()
@@ -43,13 +46,13 @@ class PriceMonitoringEdit extends Component
         $price = PriceMonitoringRecord::where(
             [
                 'item_id' => $this->item->id,
-                'unit_id' => $this->unit,
                 'date' => $this->date,
                 "municipal_market_id" => auth()->user()->marketDesignation()->id
             ]
         )
         ->first();
         $this->price = $price ? $price->price : 0;
+        $this->price_max = $price ? $price->price_max : 0;
     }
 
     public function store()
@@ -61,7 +64,6 @@ class PriceMonitoringEdit extends Component
                 $price = PriceMonitoringRecord::where(
                     [
                         'item_id' => $this->item->id,
-                        'unit_id' => $this->unit,
                         'date' => $this->date,
                         "municipal_market_id" => auth()->user()->marketDesignation()->id
                     ]
@@ -77,9 +79,10 @@ class PriceMonitoringEdit extends Component
                     
                     PriceMonitoringRecord::create([
                         'item_id' => $this->item->id,
-                        'unit_id' => $this->unit,
+                        // 'unit_id' => $this->unit,
                         'date' => $this->date,
                         'price' => $this->price,
+                        'price_max' => $this->price_max,
                         "municipal_market_id" => auth()->user()->marketDesignation()->id,
                         "user_id" => auth()->user()->id
                     ]);

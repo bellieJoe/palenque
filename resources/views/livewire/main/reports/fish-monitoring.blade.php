@@ -18,6 +18,11 @@
                     <input type="date" class="form-control" wire:model.live.debounce.300ms="collectionDate">
                 </div>
                 @endif
+                {{-- @if ($reportType == "Weekly")
+                <div class="col-12 col-lg-3 col-md-6">
+                    <input type="week" class="form-control" wire:model.live.debounce.300ms="collectionDate">
+                </div>
+                @endif --}}
                 @if ($reportType == "Monthly")
                 <div class="col-12 col-lg-3 col-md-6">
                     <input type="month" class="form-control" wire:model.live.debounce.300ms="collectionMonth">
@@ -68,8 +73,8 @@
                                 <tr>
                                     <td class="align-middle">{{ $item->item_name }}</td>
                                     <td>{{ number_format($item->total, 2, '.', ',') }}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ \App\Models\Item::getAverageMinPrice($reportType, ($reportType == "Daily" ? $collectionDate : ($reportType == "Monthly" ? $collectionMonth : $collectionYear)), $item->item_id ) }}</td>
+                                    <td>{{ \App\Models\Item::getAverageMaxPrice($reportType, ($reportType == "Daily" ? $collectionDate : ($reportType == "Monthly" ? $collectionMonth : $collectionYear)), $item->item_id ) }}</td>
                                     <td>{{ $item->origin_name }}</td>
                                 </tr>
                             @empty
@@ -82,8 +87,8 @@
                                 <tr>
                                     <td class="align-middle">{{ $item->item_name }}</td>
                                     <td>{{ number_format($item->total, 2, '.', ',') }}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ \App\Models\Item::getAverageMinPrice($reportType, ($reportType == "Daily" ? $collectionDate : ($reportType == "Monthly" ? $collectionMonth : $collectionYear)), $item->item_id ) }}</td>
+                                    <td>{{ \App\Models\Item::getAverageMaxPrice($reportType, ($reportType == "Daily" ? $collectionDate : ($reportType == "Monthly" ? $collectionMonth : $collectionYear)), $item->item_id ) }}</td>
                                     <td>{{ $item->origin_name }}</td>
                                 </tr>
                             @empty

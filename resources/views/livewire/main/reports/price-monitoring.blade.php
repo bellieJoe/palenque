@@ -10,12 +10,18 @@
             <div class="row mb-3">
                 <select name="" id="" wire:model.live.debounce.300ms="reportType" class="form-control col-12 col-lg-3 col-md-6">
                     <option value="Daily">Daily</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Yearly">Yearly</option>
+                    <option value="Weekly">Weekly</option>
+                    {{-- <option value="Monthly">Monthly</option> --}}
+                    {{-- <option value="Yearly">Yearly</option> --}}
                 </select>
                 @if ($reportType == "Daily")
                 <div class="col-12 col-lg-3 col-md-6">
                     <input type="date" class="form-control" wire:model.live.debounce.300ms="collectionDate">
+                </div>
+                @endif
+                @if ($reportType == "Weekly")
+                <div class="col-12 col-lg-3 col-md-6">
+                    <input type="week" class="form-control" wire:model.live.debounce.300ms="collectionWeek">
                 </div>
                 @endif
                 @if ($reportType == "Monthly")
@@ -23,7 +29,7 @@
                     <input type="month" class="form-control" wire:model.live.debounce.300ms="collectionMonth">
                 </div>
                 @endif
-                @if ($reportType == "Yearly")
+                {{-- @if ($reportType == "Yearly")
                 <div class="col-12 col-lg-3 col-md-6">
                     <select id="yearSelect" class="form-control" wire:model.live.debounce.300ms="collectionYear">
                         <option value="">Select year</option>
@@ -32,7 +38,7 @@
                         @endfor
                     </select>
                 </div>
-                @endif
+                @endif --}}
             </div>
             <div id="printable">
                 @livewire('components.report-logo')
@@ -40,7 +46,7 @@
                     Price Monitoring Report
                 </h3>
                 <h6 class="text-center">
-                    As of 
+                    As of   
                     @if ($reportType == "Daily")
                         {{ Illuminate\Support\Carbon::parse($collectionDate)->format('F d, Y') }}&nbsp;
                     @elseif($reportType == "Monthly")
@@ -53,16 +59,18 @@
                 <table class="table table-hovered  table-bordered" style="min-width: 1000px">
                     <thead class="thead-light">
                         <th>Item</th>
-                        <th>Latest Price</th>
-                        <th>Per Unit</th>
+                        <th>From</th>
+                        <th>To</th>
                     </thead>
                     <tbody>
                         @forelse ($items as $item)
                             @forelse ($item->priceMonitoringRecords as $kp => $price)
                             <tr>
                                 <td class="border-bottom-0 border-top-0">{{ $kp == 0 ? $item->name : '' }}</td>
-                                <td>{{ $price ? 'PHP ' . number_format($price->price, 2, '.', ',') : 'Not Set' }}</td>
-                                <td>{{ $price ? $price->unit->name : 'Not Set' }}</td>
+                                {{-- <td>{{ $price ? 'PHP ' . number_format($price->price, 2, '.', ',') : 'Not Set' }}</td>
+                                <td>{{ $price ? 'PHP ' . number_format($price->price_max, 2, '.', ',') : 'Not Set' }}</td> --}}
+                                <td>{{ \App\Models\Item::getAverageMinPrice($reportType, ($reportType == "Daily" ? $collectionDate : ($reportType == "Monthly" ? $collectionMonth : $collectionWeek)), $item->id ) }}</td>
+                                <td>{{ \App\Models\Item::getAverageMaxPrice($reportType, ($reportType == "Daily" ? $collectionDate : ($reportType == "Monthly" ? $collectionMonth : $collectionWeek)), $item->id ) }}</td>
                             </tr>
                             @empty
                             <tr>

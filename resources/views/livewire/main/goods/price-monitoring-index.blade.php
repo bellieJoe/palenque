@@ -9,14 +9,15 @@
             <div class="table-responsive">
                 <table class="table table-hovered table-bordered" style="min-width: 1000px">
                     <thead class="thead-light">
-                        <th>Latest Price</th>
+                        <th>Latest Min Price</th>
+                        <th>Latest Max Price</th>
                         <th>Date Updated</th>
-                        <th>Per Unit</th>
+                        {{-- <th>Per Unit</th> --}}
                     </thead>
                     <tbody>
                         @forelse ($items as $item)
                             <tr class="bg-light">
-                                <th colspan="3" >
+                                <th colspan="4" >
                                     <a class="btn btn-sm btn-outline-primary mr-2" href="{{ route('main.price-monitoring.edit', $item->id) }}" wire:navigate>Update Price</a>
                                     {{ $item->name }}
                                 </th>
@@ -24,16 +25,17 @@
                             @forelse ($item->updatedPrices as $price)
                             <tr>
                                 <td>{{ $price ? 'PHP ' . number_format($price->price, 2, '.', ',') : 'Not Set' }}</td>
+                                <td>{{ $price ? 'PHP ' . number_format($price->price_max, 2, '.', ',') : 'Not Set' }}</td>
                                 <td>{{ $price ? $price->date->format('F d, Y') : 'Not Set' }}</td>
-                                <td>{{ $price ? $price->unit->name : 'Not Set' }}</td>
+                                {{-- <td>{{ $price ? $price->unit->name : 'Not Set' }}</td> --}}
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="3" class="text-center">No Price Set</td>
+                                <td colspan="4" class="text-center">No Price Set</td>
                             </tr>
                             @endforelse
                         @empty
-                            <tr><td colspan="3" class="text-center">No Items Found</td></tr>
+                            <tr><td colspan="4" class="text-center">No Items Found</td></tr>
                         @endforelse
                     </tbody>
                 </table>
