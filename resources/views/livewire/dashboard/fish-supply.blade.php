@@ -20,7 +20,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="text-center">Vendors with Highest Count of Violations</h5>
+                    <h5 class="text-center">Fish Supply</h5>
                     <div 
                         class="" 
                         wire:ignore

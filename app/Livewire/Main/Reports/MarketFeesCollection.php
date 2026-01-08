@@ -4,6 +4,7 @@ namespace App\Livewire\Main\Reports;
 
 use App\Models\Delivery;
 use App\Models\DeliveryTicket;
+use App\Models\Fee;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -53,19 +54,45 @@ class MarketFeesCollection extends Component
         ->where('municipal_market_id', auth()->user()->marketDesignation()->id)
         ->where('status', 'PAID')
         ->when($this->reportType == 'Daily', function ($query) {
-            $query->whereDate('date_paid', $this->collectionDate);
+            $query->whereHas("deliveryItem", function($q){
+                $q->whereHas("delivery", function($q){
+                    $q->whereDate('delivery_date', $this->collectionDate);
+                });
+            });
+        })
+        ->when($this->reportType == 'Monthly', function ($query) {
+            $query->whereHas("deliveryItem", function($q){
+                $q->whereHas("delivery", function($q){
+                    $q->whereMonth('delivery_date', Carbon::parse($this->collectionMonth)->format('m'))
+                        ->whereYear('delivery_date', Carbon::parse($this->collectionMonth)->format('Y')); //->whereMonth('date_paid', $this->collectionMonth);
+                });
+            });
+        })
+        ->when($this->reportType == 'Yearly', function ($query) {
+            $query->whereHas("deliveryItem", function($q){
+                $q->whereHas("delivery", function($q){
+                    $q->whereYear('delivery_date', $this->collectionYear);
+                });
+            });
+        })
+        ->get();
+        $ambulantFees = Fee::query()
+        ->where("fee_type", "STALL")
+        ->when($this->reportType == 'Daily', function ($query) {
+            $query->whereDate('date_issued', $this->collectionDate);
         })
         ->when($this->reportType == 'Monthly', function ($query) {
             $query
-                ->whereMonth('date_paid', Carbon::parse($this->collectionMonth)->format('m'))
-                ->whereYear('date_paid', Carbon::parse($this->collectionMonth)->format('Y')); //->whereMonth('date_paid', $this->collectionMonth);
+                ->whereMonth('date_issued', Carbon::parse($this->collectionMonth)->format('m'))
+                ->whereYear('date_issued', Carbon::parse($this->collectionMonth)->format('Y')); //->whereMonth('date_issued', $this->collectionMonth);
         })
         ->when($this->reportType == 'Yearly', function ($query) {
-            $query->whereYear('date_paid', $this->collectionYear);
+            $query->whereYear('date_issued', $this->collectionYear);
         })
         ->get();
         return view('livewire.main.reports.market-fees-collection', [
-            'feeCollections' => $feeCollections
+            'feeCollections' => $feeCollections,
+            'ambulantFees' => $ambulantFees
         ]);
     }
 }

@@ -46,6 +46,7 @@
                     @endif
                     Market Fee Collection Report
                 </h3>
+                <h6>Deliveries</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered table-sm" style="min-width: 1000px">
                         <thead>
@@ -60,7 +61,7 @@
                             @forelse ($feeCollections as $fee)
                                 <tr>
                                     <td class="align-middle">{{ $fee->deliveryItem->delivery->supplier->name }}</td>
-                                    <td class="align-middle">{{ $fee->date_paid->format('F d, Y') }}</td>
+                                    <td class="align-middle">{{ $fee->deliveryItem->delivery->delivery_date->format('F d, Y') }}</td>
                                     <td class="align-middle">{{ $fee->deliveryItem->item->name }}</td>
                                     <td class="align-middle">{{ $fee->deliveryItem->amount }}</td>
                                     <td class="align-middle">{{ $fee->deliveryItem->unit->name }}</td>
@@ -75,6 +76,32 @@
                 <div class="row">
                     <div class="col-12">
                         <p class="text-end"><b>Total:</b> Php {{ number_format($feeCollections->sum('amount'), 2, ',', '.') }}</p>
+                    </div>
+                </div>
+                <h6>Ambulants</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" style="min-width: 1000px">
+                        <thead>
+                            <th>Vendor</th>
+                            <th>Date</th>
+                            <th class="text-center">Amount</th>
+                        </thead>
+                        <tbody>
+                            @forelse ($ambulantFees as $fee)
+                                <tr>
+                                    <td class="align-middle">{{ $fee->ambulantStall->vendor->name }}</td>
+                                    <td class="align-middle">{{ $fee->date_issued->format('F d, Y') }}</td>
+                                    <td class="align-middle">{{ $fee->amount }}</td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="3" class="text-center">No Ambulant Fees Found</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-end"><b>Total:</b> Php {{ number_format($ambulantFees->sum('amount'), 2, ',', '.') }}</p>
                     </div>
                 </div>
             </div>

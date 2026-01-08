@@ -3,6 +3,8 @@
 namespace App\Livewire\Main\Goods;
 
 use App\Models\DeliveryItem;
+use App\Models\Item;
+use App\Models\ItemTaxRate;
 use App\Models\Unit;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
@@ -27,6 +29,8 @@ class UnitIndex extends Component
         $unit = Unit::find($id);
         if(
             DeliveryItem::where("unit_id", $unit->id)->count() > 0
+            || Item::where("default_unit_id", $unit->id)->count() > 0
+            || ItemTaxRate::where("unit_id", $unit->id)->count() > 0
             // add other validations or relation
         )
         {
