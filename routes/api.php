@@ -8,6 +8,7 @@ use App\Http\Controllers\FeeSettingController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemFeeSettingController;
 use App\Http\Controllers\MonthlyRentController;
+use App\Http\Controllers\OriginController;
 use App\Http\Controllers\StallOccupantController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
@@ -79,3 +80,7 @@ Route::prefix('item-fee-settings')->group(function () {
 Route::prefix('fee-settings')->group(function () {
     Route::get('/get-active', [FeeSettingController::class, 'apiGetActive']);
 })->middleware('auth:sanctum');
+
+Route::prefix("origins")->group(function(){
+    Route::get('/', [OriginController::class, 'apiIndex']);
+});

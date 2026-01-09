@@ -28,8 +28,8 @@ class FeeController extends Controller
         $request->validate([
             'ambulant_stall' => 'required|exists:ambulant_stalls,id',
             'amount' => 'required',
-            'date_paid' => 'required_if:status,PAID',
-            'receipt_no' => 'required_if:status,PAID',
+            // 'date_paid' => 'required_if:status,PAID',
+            // 'receipt_no' => 'required_if:status,PAID',
             'status' => 'required|in:PAID,UNPAID',
             'remarks' => 'nullable|max:255',
         ]);
@@ -44,8 +44,8 @@ class FeeController extends Controller
            'fee_type' => 'STALL',
            'amount' => $request->amount,
            'remarks' => $request->remarks,
-           'date_paid' => $request->status == 'PAID' ? $request->date_paid : null,
-           'receipt_no' => $request->status == 'PAID' ? $request->receipt_no : null,
+           'date_paid' => now(),
+           'receipt_no' => null,
            'status' => $request->status,
            'date_issued' => now()
         ]);

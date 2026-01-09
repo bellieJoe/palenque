@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Delivery;
 use App\Models\DeliveryItem;
 use App\Models\DeliveryTicket;
+use App\Models\Item;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -32,9 +34,9 @@ class DeliveryController extends Controller
             'items.*.unit' => 'required|exists:units,id',
             'items.*.quantity' => 'required|numeric|min:1',
             'items.*.tax' => 'required|numeric|min:0',
-            'items.*.ticket_no' => 'required',
-            'items.*.ticket_status' => 'required|in:PAID,UNPAID,WAIVED',
-            'items.*.total_sales' => 'required|numeric|min:0',
+            // 'items.*.ticket_no' => 'required',
+            // 'items.*.ticket_status' => 'required|in:PAID,UNPAID,WAIVED',
+            // 'items.*.total_sales' => 'required|numeric|min:0',
         ]);
 
         return DB::transaction(function () use ($request) {
@@ -45,21 +47,24 @@ class DeliveryController extends Controller
             ]);
 
             foreach ($request->items as $item) {
+                $_item = Item::find($item['item']);
+                $unit = Unit::find($item['unit']);
                 $delivery_item = DeliveryItem::create([
                     'delivery_id' => $delivery->id,
                     'item_id' => $item['item'],
                     'unit_id' => $item['unit'],
                     'amount' => $item['quantity'],
-                    'sales' => $item['total_sales'],
+                    'sales' => 0,
+                    "base_amount" => $_item->default_unit_id == $item['unit'] ? $item['quantity'] : $item['quantity'] * $unit->conversion_factor,
                 ]);
 
                 DeliveryTicket::create([
                     'delivery_item_id' => $delivery_item->id,
                     'municipal_market_id' => auth()->user()->marketDesignation()->id,
                     'amount' => $item['tax'],
-                    'status' => $item['ticket_status'],
+                    'status' => "PAID",
                     'date_issued' => $request->delivery_date,
-                    'ticket_no' => $item['ticket_no'],
+                    'ticket_no' => now()->year . '-' . str_pad($delivery_item->id, 6, '0', STR_PAD_LEFT),
                 ]);
             }
         });

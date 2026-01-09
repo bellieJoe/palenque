@@ -114,4 +114,8 @@ class Item extends Model
             ->avg('price_max');
     }
 
+    public function itemTaxRates(){
+        return $this->hasMany(ItemTaxRate::class);
+    }
+
 }
