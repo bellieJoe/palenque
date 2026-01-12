@@ -46,8 +46,20 @@ class StallIndex extends Component
         ->where('name', 'like', '%' . $this->search . '%')
         ->where('municipal_market_id', auth()->user()->marketDesignation()->id)
         ->paginate(10);
+        $counts = [
+            "total_stalls" => Stall::where('municipal_market_id', auth()->user()->marketDesignation()->id)->count(),
+            "available_stalls" => Stall::where('municipal_market_id', auth()->user()->marketDesignation()->id)
+            ->whereDoesntHave('stallOccupants', function ($query) {
+                $query->whereHas('stallContracts', function ($query) {
+                    $query->whereDate('from', '<=', now())
+                        ->whereDate('to', '>=', now());
+                });
+            })
+            ->count()
+        ];
         return view('livewire.main.stall.stall-index', [
-            'stalls' => $stalls
+            'stalls' => $stalls,
+            'counts' => $counts
         ]);
     }
 }
