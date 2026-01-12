@@ -29,6 +29,7 @@ class AccesManagementIndex extends Component
         'maintenance_stall_management_ambulants' => false,
         'maintenance_stall_management_stalls' => false,
         'maintenance_stall_management_stall_rates' => false,
+        'maintenance_stalls_buildings' => false,
         'maintenance_wet_dry_goods_items' => false,
         'maintenance_wet_dry_goods_categories' => false,
         'maintenance_wet_dry_goods_units' => false,

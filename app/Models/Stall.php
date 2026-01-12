@@ -30,4 +30,9 @@ class Stall extends Model
     {
         return $this->stallOccupants()->where('status', true)->first();
     }
+
+    public function building()
+    {
+        return $this->belongsTo(Building::class);
+    }
 }

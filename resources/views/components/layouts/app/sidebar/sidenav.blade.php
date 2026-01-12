@@ -129,6 +129,7 @@
                         auth()->user()->access->maintenance_stall_management_ambulants ||
                         auth()->user()->access->maintenance_stall_management_stalls ||
                         auth()->user()->access->maintenance_stall_management_stall_rates ||
+                        auth()->user()->access->maintenance_stalls_buildings ||
                         auth()->user()->access->maintenance_wet_dry_goods_items ||
                         auth()->user()->access->maintenance_wet_dry_goods_categories ||
                         auth()->user()->access->maintenance_wet_dry_goods_units ||
@@ -158,6 +159,7 @@
                         @endif
                         @if(auth()->user()->access->maintenance_stall_management_ambulants ||
                         auth()->user()->access->maintenance_stall_management_stalls ||
+                        auth()->user()->access->maintenance_stalls_buildings ||
                         auth()->user()->access->maintenance_stall_management_stall_rates)
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
@@ -186,6 +188,14 @@
                                     <a href="{{ route('main.stall-rates.index') }}" class="sidebar-link {{ request()->routeIs('main.stall-rates.*') ? 'active' : '' }}" wire:navigate>
                                         <i class=""></i>
                                         <span class="hide-menu"> Stall Rates </span>
+                                    </a>
+                                </li>
+                                @endif
+                                @if(auth()->user()->access->maintenance_stalls_buildings)
+                                <li class="sidebar-item">
+                                    <a href="{{ route('main.buildings.index') }}" class="sidebar-link {{ request()->routeIs('main.buildings.*') ? 'active' : '' }}" wire:navigate>
+                                        <i class=""></i>
+                                        <span class="hide-menu"> Buildings </span>
                                     </a>
                                 </li>
                                 @endif

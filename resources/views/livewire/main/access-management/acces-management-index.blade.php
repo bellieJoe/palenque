@@ -55,6 +55,7 @@
                                     'maintenance_stall_management_ambulants' => 'Stall Management – Ambulants',
                                     'maintenance_stall_management_stalls' => 'Stalls',
                                     'maintenance_stall_management_stall_rates' => 'Stall Rates',
+                                    'maintenance_stalls_buildings' => 'Buildings',
                                     'maintenance_wet_dry_goods_items' => 'Items',
                                     'maintenance_wet_dry_goods_categories' => 'Categories',
                                     'maintenance_wet_dry_goods_units' => 'Units',

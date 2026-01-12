@@ -33,10 +33,12 @@ use App\Livewire\Main\Settings\AppSettingsIndex;
 use App\Livewire\Main\Stall\AmbulantStallCreate;
 use App\Livewire\Main\Stall\AmbulantStallEdit;
 use App\Livewire\Main\Stall\AmbulantStallIndex;
+use App\Livewire\Main\Stall\BuildingIndex;
 use App\Livewire\Main\Stall\DailyCollectionFeeCreate;
 use App\Livewire\Main\Stall\DailyCollectionFeeUpdatePayment;
 use App\Livewire\Main\Stall\StallIndex;
 use App\Livewire\Main\Stall\StallRateIndex;
+use App\Livewire\Main\Stalls\BuildingCreate;
 use App\Livewire\Main\Supplier\SupplierIndex;
 use App\Livewire\Main\Suppliers\OriginCreate;
 use App\Livewire\Main\Suppliers\OriginEdit;
@@ -55,6 +57,7 @@ use App\Livewire\Settings\Profile\ProfileIndex;
 use App\Livewire\Stall\Vendor\Fee\FeeIndex;
 use App\Livewire\Vendor\Fee\MonthlyRentIndex;
 use App\Livewire\Vendor\Stall\AmbulantStallIndex as VendorAmbulantStallIndex;
+use App\Models\Building;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -93,6 +96,10 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     });
     Route::group(["prefix" => "stalls", "as" => "stalls."], function () {
         Route::get('/', StallIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+    Route::group(["prefix" => "buildings", "as" => "buildings."], function () {
+        Route::get('/', BuildingIndex::class)->middleware(['auth', 'verified'])->name('index');
+        Route::get('/create', BuildingCreate::class)->middleware(['auth', 'verified'])->name('create');
     });
     Route::group(["prefix" => "vendors", "as" => "vendors."], function () {
         Route::get('/', VendorIndex::class)->middleware(['auth', 'verified'])->name('index');
