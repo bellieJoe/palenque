@@ -41,10 +41,10 @@ class SupplierIndex extends Component
 
     public function deleteOrigin($id)
     {
-        if(Supplier::where('origin_id', $id)->exists()){
-            notyf()->position('y', 'top')->error('Cannot delete origin with existing suppliers!');
-            return;
-        }
+        // if(Supplier::where('origin_id', $id)->exists()){
+        //     notyf()->position('y', 'top')->error('Cannot delete origin with existing suppliers!');
+        //     return;
+        // }
         Origin::find($id)->delete();
         notyf()->position('y', 'top')->success('Origin deleted successfully!');
         $this->dispatch('refresh-suppliers');

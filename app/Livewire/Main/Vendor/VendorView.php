@@ -7,6 +7,7 @@ use App\Models\StallContract;
 use App\Models\StallOccupant;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 use function Flasher\Notyf\Prime\notyf;
@@ -60,8 +61,12 @@ class VendorView extends Component
         DB::transaction(function () use ($id) {
             try {
                 $stallOccupant = StallOccupant::find($id);
+                $stallContract = StallContract::where('stall_occupant_id', $id)->first();
+                if(MonthlyRent::where("stall_contract_id", $stallContract->id)->where("status", "PAID")->exists()){
+                    return notyf()->position('y', 'top')->error('Stall has paid rents!');
+                }
                 $stallOccupant->delete();
-                StallContract::where('stall_occupant_id', $id)->delete();
+                $stallContract->delete();
                 $this->dispatch('refresh-vendor');
                 MonthlyRent::whereHas('stallContract', function ($query) use ($stallOccupant) {
                     $query->where('stall_occupant_id', $stallOccupant->id);
@@ -70,6 +75,7 @@ class VendorView extends Component
                 notyf()->position('y', 'top')->success('Stall deleted successfully!');
             } catch (\Throwable $th) {
                 DB::rollBack();
+                Log::error($th);
                 notyf()->position('y', 'top')->error('Failed to delete stall!');
             }
         });

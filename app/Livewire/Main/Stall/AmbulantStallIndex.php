@@ -3,6 +3,7 @@
 namespace App\Livewire\Main\Stall;
 
 use App\Models\AmbulantStall;
+use App\Models\Fee;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
@@ -21,6 +22,12 @@ class AmbulantStallIndex extends Component
 
     public function deleteAmbulantStall($id)
     {
+        if(
+            Fee::where("owner_id", $id)->where("fee_type", "STALL")->exists()
+        )
+        {
+            return notyf()->position('y', 'top')->error('Ambulant Stall already has data!');
+        }
         AmbulantStall::find($id)->delete();
         notyf()->position('y', 'top')->success('Ambulant Stall deleted successfully!');
     }

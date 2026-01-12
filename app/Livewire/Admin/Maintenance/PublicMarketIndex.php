@@ -28,7 +28,7 @@ class PublicMarketIndex extends Component
 
     public function deletePublicMarket($id)
     {
-        MunicipalMarket::find($id)->delete();
+        MunicipalMarket::find($id)->softDelete();
         notyf()->position('y', 'top')->success('Public Market deleted successfully!');
     }
 

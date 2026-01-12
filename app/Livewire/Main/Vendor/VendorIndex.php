@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Main\Vendor;
 
+use App\Models\AmbulantStall;
 use App\Models\Role;
 use App\Models\StallOccupant;
 use App\Models\Vendor;
+use App\Models\Violation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -35,8 +37,12 @@ class VendorIndex extends Component
         try {
             DB::transaction(function () use ($id) {
                 $vendor = Vendor::with('user')->findOrFail($id);
-                if(StallOccupant::where("vendor_id", $vendor->id)->exists()){
-                    notyf()->position('y', 'top')->error('Vendor is an occupant and cannot be deleted!');
+                if(
+                    StallOccupant::where("vendor_id", $vendor->id)->exists()
+                    || AmbulantStall::where("vendor_id", $vendor->id)->exists()
+                    || Violation::where("vendor_id", $vendor->id)->exists()
+                ){
+                    notyf()->position('y', 'top')->error('Vendor already has associated data!');
                     return;
                 }
                 $user = $vendor->user;
