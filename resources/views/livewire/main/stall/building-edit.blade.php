@@ -4,7 +4,7 @@
         <div class="card-header">
             <h6 class="card-title">
                 <a class="btn btn-sm btn-secondary border-0 mr-2" href="{{ route('main.buildings.index') }}" wire:navigate><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
-                Create Building
+                Edit Building
             </h6>
         </div>
         <div class="card-body">

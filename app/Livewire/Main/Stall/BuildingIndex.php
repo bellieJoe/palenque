@@ -19,7 +19,7 @@ class BuildingIndex extends Component
 
     public function render()
     {
-        $buildings = Building::where("municipal_market_id", auth()->user()->marketDesignation()->id)->with("stalls")->paginate(20);
+        $buildings = Building::where("municipal_market_id", auth()->user()->marketDesignation()->id)->where("name", "like", "%{$this->search}%")->with("stalls")->paginate(20);
         return view('livewire.main.stall.building-index',
         [
             "buildings" => $buildings

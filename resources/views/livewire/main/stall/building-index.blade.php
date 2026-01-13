@@ -19,13 +19,7 @@
                                 <td class="align-middle">{{ $building->name }}</td>
                                 <td class="align-middle">{{ $building->stalls->count() }}</td>
                                 <td class="align-middle">
-                                    {{-- @can('update', $ambulantStall)
-                                        <button class="btn btn-outline-danger" wire:click="deleteAmbulantStall({{$ambulantStall->id}})"  wire:confirm="Are you sure you want to delete this Ambulant Stall? This action is irreversible.">Delete Stall</button>
-                                        <a class="btn btn-outline-primary" href="{{ route('main.ambulant-stalls.edit', $ambulantStall->id) }}" wire:navigate>Edit Stall</a>
-                                    @endcan
-                                    @can('create', \App\Models\Fee::class)
-                                        <a class="btn btn-outline-warning" href="{{ route('main.fees.issue-daily-fee', $ambulantStall->id) }}" wire:navigate>Issue Ticket</a>
-                                    @endcan --}}
+                                   <a href="{{ route('main.buildings.edit', $building->id) }}" wire:navigate class="btn btn-outline-primary">Edit</a>
                                 </td>
                             </tr>
                         @empty

@@ -33,6 +33,7 @@ use App\Livewire\Main\Settings\AppSettingsIndex;
 use App\Livewire\Main\Stall\AmbulantStallCreate;
 use App\Livewire\Main\Stall\AmbulantStallEdit;
 use App\Livewire\Main\Stall\AmbulantStallIndex;
+use App\Livewire\Main\Stall\BuildingEdit;
 use App\Livewire\Main\Stall\BuildingIndex;
 use App\Livewire\Main\Stall\DailyCollectionFeeCreate;
 use App\Livewire\Main\Stall\DailyCollectionFeeUpdatePayment;
@@ -100,6 +101,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
     Route::group(["prefix" => "buildings", "as" => "buildings."], function () {
         Route::get('/', BuildingIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create', BuildingCreate::class)->middleware(['auth', 'verified'])->name('create');
+        Route::get('/edit/{id}', BuildingEdit::class)->middleware(['auth', 'verified'])->name('edit');
     });
     Route::group(["prefix" => "vendors", "as" => "vendors."], function () {
         Route::get('/', VendorIndex::class)->middleware(['auth', 'verified'])->name('index');
