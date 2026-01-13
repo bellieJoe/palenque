@@ -56,9 +56,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($stall->active_contract)
+                                    {{-- @if ($stall->active_contract)
                                         <button class="btn btn-outline-primary" wire:confirm="Are you sure you want to terminate this contract?" wire:click="terminateContract({{$stall->id}})">Terminate Contract</button>
-                                    @endif
+                                    @endif --}}
                                     <button class="btn btn-outline-danger" wire:click="deleteStall({{$stall->id}})" wire:confirm="Are you sure you want to remove this stall?">Remove</button>
                                     <a  class="btn btn-success" target="_blank" href="{{ route('main.vendors.print-contract', $stall->active_contract->id)}}">Print Contract</a>
                                 </td>

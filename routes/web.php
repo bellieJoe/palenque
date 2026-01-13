@@ -127,7 +127,7 @@ Route::group(["prefix" => "main", "as" => "main."], function () {
         });
         Route::get('', ViolationIndex::class)->middleware(['auth', 'verified'])->name('index');
         Route::get('/create/{vendor_id}', ViolationCreate::class)->middleware(['auth', 'verified'])->name('create');
-        Route::get('/view/{vendor_id}', ViolationView::class)->middleware(['auth', 'verified'])->name('view');
+        Route::get('/view/{stallOccupantId}', ViolationView::class)->middleware(['auth', 'verified'])->name('view');
     });
     Route::group(["prefix" => "fees", "as" => "fees."], function () {
         Route::get('/', FeesIndex::class)->middleware(['auth', 'verified'])->name('index');

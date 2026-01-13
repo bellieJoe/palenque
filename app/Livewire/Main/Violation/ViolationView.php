@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Main\Violation;
 
+use App\Models\StallOccupant;
 use App\Models\Vendor;
 use App\Models\Violation;
 use Illuminate\Support\Facades\Log;
@@ -12,7 +13,7 @@ use Livewire\WithPagination;
 class ViolationView extends Component
 {
     use WithPagination, WithoutUrlPagination;
-    public $vendor;
+    public $stallOccupant;
     protected $listeners = ['refresh-violations' => 'refreshViolations'];
     public $search;
 
@@ -40,14 +41,17 @@ class ViolationView extends Component
         ]);
     }
 
-    public function mount($vendor_id)
+    public function mount($stallOccupantId)
     {
-        $this->vendor = Vendor::where('id', $vendor_id)->with(['violations.violationType'])->first();
+        $stallOccupant = StallOccupant::find($stallOccupantId);
+        $this->stallOccupant = StallOccupant::where('id', $stallOccupantId)->with(['violations' => function ($query) { 
+            $query->with('violationType'); 
+        }])->first();
     }
 
     public function render()
     {
-        $violations = Violation::where('vendor_id', $this->vendor->id)
+        $violations = Violation::where('stall_occupant_id', $this->stallOccupant->id)
         ->whereHas('violationType', function ($query) {
             $query->where('name', 'like', '%' . $this->search . '%');
         })

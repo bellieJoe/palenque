@@ -26,6 +26,30 @@ class StallOccupant extends Model
         return $this->hasMany(StallContract::class);
     }
 
+    public function stallContract(){
+        return $this->hasOne(StallContract::class);
+    }
+
+    public function violations()
+    {
+        return $this->hasMany(Violation::class);
+    }
+
+    public function getUnresolvedViolationsAttribute()
+    {
+        return $this->violations()->where('status', "PENDING");
+    }
+
+    public function getResolvedViolationsAttribute()
+    {
+        return $this->violations()->where('status', "RESOLVED");
+    }
+
+    public function getWaivedViolationsAttribute()
+    {
+        return $this->violations()->where('status', "WAIVED");
+    }
+
 
 
     public function getActiveContractAttribute()

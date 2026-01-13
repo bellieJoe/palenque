@@ -12,19 +12,23 @@
                 <div class="row">
                     <div class="col-lg-4 mb-2">
                         <label class="small mb-0 text-muted">Vendor</label>
-                        <div>{{ $vendor->name }}</div>
+                        <div>{{ $stallOccupant->vendor->name }}</div>
+                    </div>
+                    <div class="col-lg-4 mb-2">
+                        <label class="small mb-0 text-muted">Stall</label>
+                        <div>{{ $stallOccupant->stall->name }}</div>
                     </div>
                     <div class="col-lg-4 mb-2">
                         <label class="small mb-0 text-muted">Representative</label>
-                        <div>{{ $vendor->representative_name }}</div>
+                        <div>{{ $stallOccupant->vendor->representative_name }}</div>
                     </div>
                     <div class="col-lg-4 mb-2">
                         <label class="small mb-0 text-muted">Contact Number</label>
-                        <div>{{ $vendor->contact_number }}</div>
+                        <div>{{ $stallOccupant->vendor->contact_number }}</div>
                     </div>
                     <div class="col-lg-4 mb-2">
                         <label class="small mb-0 text-muted">Email</label>
-                        <div>{{ $vendor->user->email }}</div>
+                        <div>{{ $stallOccupant->vendor->user->email }}</div>
                     </div>
                 </div>
             </div>
