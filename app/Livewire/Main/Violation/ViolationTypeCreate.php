@@ -21,6 +21,11 @@ class ViolationTypeCreate extends Component
 
     public function storeViolationType(){
         $this->validate();
+        if(ViolationType::where(["name" => $this->name, "municipal_market_id" => auth()->user()->marketDesignation()->id])->exists()){
+            notyf()->position('y', 'top')->error('Violation type already exists!');
+            $this->redirectRoute('main.violations.types.index');
+            return;
+        }
         ViolationType::create([
             "name" => $this->name,
             // "code" => $this->code,

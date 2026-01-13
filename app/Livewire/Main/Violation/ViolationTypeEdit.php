@@ -33,6 +33,11 @@ class ViolationTypeEdit extends Component
     public function saveViolationType()
     {
         $this->validate();
+        if(ViolationType::where('name', $this->name)->where('id', '!=', $this->violationType->id)->where('municipal_market_id', auth()->user()->marketDesignation()->id)->exists()){
+            notyf()->position('y', 'top')->error('Violation type already exists!');
+            $this->redirectRoute('main.violations.types.index');
+            return;
+        }
         $this->violationType->update([
             "name" => $this->name,
             // "code" => $this->code,

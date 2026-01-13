@@ -42,7 +42,17 @@
                                 <option value="{{ $stallRate->id }}">{{ $stallRate->name }} - {{ $stallRate->rate }}</option>
                             @endforeach
                         </select>
-                        @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('stall_rate') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-2">
+                        <label for="name" class="form-label">Building <span class="text-danger">*</span></label>
+                        <select name="" class="form-control select2" wire:model.lazy="building">
+                            <option value="">-Select Building-</option>
+                            @foreach ($buildings as $building)
+                                <option value="{{ $building->id }}">{{ $building->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('building') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
