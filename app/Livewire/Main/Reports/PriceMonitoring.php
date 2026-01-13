@@ -19,6 +19,13 @@ class PriceMonitoring extends Component
     public $collectionYear = null;
     public $collectionWeek = null;
 
+    public function updatingReportType()
+    {
+        $this->collectionDate = now()->format('Y-m-d');
+        $this->collectionMonth = now()->format('Y-m');
+        $this->collectionYear = now()->format('Y');
+    }
+
     public function mount()
     {
         $this->collectionDate = now()->format('Y-m-d');

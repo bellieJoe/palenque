@@ -18,6 +18,13 @@ class MarketViolations extends Component
     public $collectionMonth = null;
     public $collectionYear = null;
 
+    public function updatingReportType()
+    {
+        $this->collectionDate = now()->format('Y-m-d');
+        $this->collectionMonth = now()->format('Y-m');
+        $this->collectionYear = now()->format('Y');
+    }
+
     public function mount()
     {
         $this->collectionDate = now()->format('Y-m-d');
@@ -50,6 +57,7 @@ class MarketViolations extends Component
     {
         $marketViolations = Violation::query()
         ->where('municipal_market_id', auth()->user()->marketDesignation()->id)
+        ->where('violation_count', '>', auth()->user()->appSettings()->max_violation_warning)
         ->when($this->reportType == 'Daily', function ($query) {
             $query->whereDate('created_at', $this->collectionDate);
         })

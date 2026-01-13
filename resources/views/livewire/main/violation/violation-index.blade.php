@@ -32,7 +32,7 @@
                                     @can('create', \App\Models\Main\Violation::class)
                                         <a class="btn btn-outline-primary" href="{{ route('main.violations.view', $stallOccupant->id) }}" wire:navigate>View Violations</a>
                                         <a class="btn btn-outline-primary" href="{{ route('main.violations.create', $stallOccupant->vendor->id) }}" wire:navigate>Add Violation</a>
-                                        @if ($stallOccupant->violations->count() > 3)
+                                        @if ($stallOccupant->violations->where("violation_count", ">", auth()->user()->appSettings()->max_violation_warning)->count() > 3)
                                             <button class="btn btn-outline-primary" wire:confirm="Are you sure you want to terminate this contract?" wire:click="terminateContract({{$stallOccupant->id}})">Terminate Contract</button>
                                         @endif
                                     @endcan

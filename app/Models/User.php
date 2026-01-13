@@ -129,4 +129,12 @@ class User extends Authenticatable
     {
         return RolePreset::where('municipal_market_id', $this->marketDesignation()->id)->where('role_type_id', $this->roles->first()->role_type_id)->first();
     }
+
+    public function getSupervisorsAttribute()
+    {
+        return User::whereHas('roles', function ($query) {
+            $query->where('role_type_id', 2);
+            $query->where("municipal_market_id", $this->marketDesignation()->id);
+        })->get();
+    }
 }

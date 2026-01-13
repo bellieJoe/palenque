@@ -1,4 +1,9 @@
 <div>
+    <style>
+        #supervisor-name{
+            display: none;
+        }
+    </style>
     <x-page-header title="Fish Monitoring Report" />
     <div class="d-flex justify-content-end mb-3">
         {{-- @livewire('main.vendor.vendor-create') --}}
@@ -30,10 +35,10 @@
                 @endif
                 @if ($reportType == "Yearly")
                 <div class="col-12 col-lg-3 col-md-6">
-                    <select id="yearSelect" class="form-control" wire:model.live.debounce.300ms="collectionYear">
+                    <select class="form-control" wire:model.live.debounce.300ms="collectionYear">
                         <option value="">Select year</option>
                         @for ($year = now()->year; $year >= 2022; $year--)
-                            <option value="{{ $year }}">{{ $year }}</option>
+                            <option value="{{ $year }}" >{{ $year }}</option>
                         @endfor
                     </select>
                 </div>
@@ -97,6 +102,22 @@
                         </tbody>
                     </table>
                 </div>
+                <br><br><br><br>
+                <div class="">
+                    <div class="d-flex justify-content-end">
+                        <div class="">
+                            <select class="form-control" name="" id="supervisor-select" onchange="onSupervisorSelect()">
+                                <option value="">-Select Supervisor-</option>
+                                @foreach (auth()->user()->supervisors as $supervisor)
+                                    <option value="{{ $supervisor->name }}">{{$supervisor->name}}</option>
+                                @endforeach
+                            </select>
+                            <h4 class="text-center mb-0" id="supervisor-name" ></h4>
+                            __________________________________________
+                            <p class="text-center">Market Supervisor</p>
+                        </div>
+                    </div>
+                </div>
                 {{-- <div class="row">
                     <div class="col-12">
                         <p class="text-end"><b>Total:</b> Php {{ number_format($feeCollections->sum('amount'), 2, ',', '.') }}</p>
@@ -105,7 +126,15 @@
             </div>
         </div>
     </div>
+    
+    
     <script>
+    function onSupervisorSelect(){
+        var supervisor = $('#supervisor-select').val();
+        console.log(supervisor);
+        document.getElementById('supervisor-name').innerHTML = supervisor;
+    }
+    
     function printReport() {
         printJS({
             printable: 'printable',
@@ -122,6 +151,10 @@
                 th, td { border: 1px solid #000; padding: 5px; }
                 th { background-color: #f0f0f0; }
                 h3, p { text-align: center; }
+                .d-flex { display: flex; }
+                .justify-content-end { justify-content: end; }
+                #supervisor-select { display: none; }
+                #supervisor-name { display: block; text-align: center; margin-bottom: 0px; }
             `
         });
     }

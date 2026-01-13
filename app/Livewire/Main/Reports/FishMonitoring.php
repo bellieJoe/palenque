@@ -14,14 +14,21 @@ class FishMonitoring extends Component
     use WithPagination, WithoutUrlPagination;
     #[Validate('required|in:Daily,Monthly,Yearly')]
     public $reportType = 'Daily';
-    public $collectionDate = null;
-    public $collectionMonth = null;
-    public $collectionYear = null;
+    public $collectionDate;
+    public $collectionMonth;
+    public $collectionYear;
+
+    public function updatingReportType()
+    {
+        $this->collectionDate = now()->format('Y-m-d');
+        $this->collectionMonth = now()->format('Y-m');
+        $this->collectionYear = now()->format('Y');
+    }
 
      public function updating($name, $value)
     {
-        $properties = ['collectionDate', 'collectionMonth', 'collectionYear'];
-
+        $properties = ['collectionDate', 'collectionMonth', 'collectionYear', 'reportType'];
+        
         if (in_array($name, $properties)) {
             foreach ($properties as $prop) {
                 if ($prop !== $name) {
@@ -48,6 +55,9 @@ class FishMonitoring extends Component
     
     public function render()
     {
+        $this->collectionDate = now()->format('Y-m-d');
+        $this->collectionMonth = now()->format('Y-m');
+        $this->collectionYear = now()->format('Y');
         // $data = Item::query()
         // ->join('delivery_items', 'delivery_items.item_id', '=', 'items.id')
         // ->whereHas('itemCategory', fn ($q) => $q->where('name', 'Fish'))
