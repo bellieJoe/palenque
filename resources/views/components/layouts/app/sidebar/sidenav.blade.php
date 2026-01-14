@@ -353,6 +353,12 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a href="{{ route('vendor.notifications.index') }}" class="sidebar-link {{ request()->routeIs('vendor.notifications..*') ? 'active' : '' }}" wire:navigate>
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="hide-menu"> Notifications </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                             <i class="mdi mdi-cash-multiple"></i>
                             <span class="hide-menu"> Fees </span>
