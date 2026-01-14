@@ -12,18 +12,30 @@
                     @error('date_delivered') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-2 col col-lg-4" >
-                    <label for="supplier" class="form-label">Supplier <span class="text-danger">*</span></label>
+                    <label for="supplier" class="form-label">Supplier <span class="text-danger"></span></label>
                     <select 
                     class="form-control " 
                     id="supplier" 
                     wire:model.lazy="supplier">
                         <option value="">-Select Supplier-</option>
-                        @foreach ($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                        @foreach ($suppliers as $_supplier)
+                            <option value="{{ $_supplier->id }}">{{ $_supplier->name }}</option>
                         @endforeach
                     </select>
                     @error('supplier') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
+                @if ($supplier === null || $supplier === '' || empty($supplier)) 
+                    <div class="mb-2 col col-lg-4" >
+                        <label for="supplier" class="form-label">Supplier Name <span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="supplier_name" wire:model.lazy="supplier_name">
+                        @error('supplier_name') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="mb-2 col col-lg-4" >
+                        <label for="supplier" class="form-label">Supplier Address <span class="text-danger"></span></label>
+                        <input type="text" class="form-control" id="supplier_address" wire:model.lazy="supplier_address">
+                        @error('supplier_address') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                @endif
             </div>
             <br>
             <h6>Wet & Dry Goods Items</h6>

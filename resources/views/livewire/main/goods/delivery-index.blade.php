@@ -49,7 +49,7 @@
                     <tbody>
                         @forelse ($deliveries as $delivery)
                             <tr>
-                                <td class="align-middle">{{ $delivery->supplier->name }}</td>
+                                <td class="align-middle">{{ $delivery->supplier_id ? $delivery->supplier->name : $delivery->supplier_name }}</td>
                                 <td class="align-middle">{{ $delivery->delivery_date->format('F d, Y') }}</td>
                                 <td class="align-middle text-{{ $delivery->unpaidTicketsCount <= 0 ? 'success' : 'danger' }}">{{ $delivery->paidTicketsCount }}/{{ $delivery->unpaidTicketsCount + $delivery->paidTicketsCount }}</td>
                                 <td class="align-middle">

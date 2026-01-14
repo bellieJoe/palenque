@@ -10,7 +10,11 @@
             <div class="row">
                 <div class="col-lg-4 mb-2">
                     <label class="small mb-0 text-muted">Supplier</label>
-                    <div>{{ $delivery->supplier->name }}</div>
+                    <div>{{ $delivery->supplier_id ? $delivery->supplier->name : $delivery->supplier_name }}</div>
+                </div>
+                <div class="col-lg-4 mb-2">
+                    <label class="small mb-0 text-muted">Supplier Address</label>
+                    <div>{{ $delivery->supplier_id ? $delivery->supplier->origin->name : $delivery->supplier_address }}</div>
                 </div>
                 <div class="col-lg-4 mb-2">
                     <label class="small mb-0 text-muted">Delivery Date</label>

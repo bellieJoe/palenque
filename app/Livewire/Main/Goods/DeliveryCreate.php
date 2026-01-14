@@ -24,8 +24,12 @@ class DeliveryCreate extends Component
     public array $items = [];
     public $itemOptions;
     public $unitOptions;
-    #[Validate('required|exists:suppliers,id')]
-    public $supplier;
+    #[Validate('nullable|exists:suppliers,id')]
+    public $supplier = null;
+    #[Validate('required_without:supplier|string|max:255')]
+    public $supplier_name;
+    #[Validate('required_without:supplier|string|max:255')]
+    public $supplier_address;
     #[Validate('required|date|before_or_equal:today')]
     public $date_delivered;
     public $origins;
@@ -69,6 +73,8 @@ class DeliveryCreate extends Component
             'items.*.amount' => 'required|numeric',
             'items.*.unit_id' => 'required|exists:units,id',
             'items.*.tax' => 'required|numeric',
+            'supplier_name' => 'required_without:supplier|string|max:255',
+            'supplier_address' => 'required_without:supplier|string|max:255',
             // 'items.*.ticket_no' => 'required',
             // 'items.*.sales' => 'required',
             // 'items.*.ticket_status' => 'required|in:PAID,UNPAID,WAIVED',
@@ -88,9 +94,11 @@ class DeliveryCreate extends Component
         DB::transaction(function () {
             try {
                 $delivery = Delivery::create([
-                    'supplier_id' => $this->supplier,
+                    'supplier_id' => $this->supplier ? $this->supplier : null,
                     'delivery_date' => $this->date_delivered,
                     'municipal_market_id' => auth()->user()->marketDesignation()->id,
+                    'supplier_name' => $this->supplier ? Supplier::find($this->supplier)->name : $this->supplier_name,
+                    'supplier_address' => $this->supplier ? Supplier::find($this->supplier)->address : $this->supplier_address
                 ]);
 
                 $deliveryItemsData = [];
