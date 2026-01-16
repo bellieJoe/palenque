@@ -35,6 +35,10 @@
                                 <small>Contact Number</small>
                                 <p>{{ $vendor->contact_number }}</p>
                             </div>
+                            <div class="col-12 col-lg-4">
+                                <small>Products Sold</small>
+                                <p>{{ $vendor->product_type == "BOTH" ? "WET & DRY" : $vendor->product_type }}</p>
+                            </div>
                         </div>
                         <h4 >Attachments</h4>
                         <div class="row">

@@ -24,7 +24,7 @@
                     </select>
                     @error('supplier') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-                @if ($supplier === null || $supplier === '' || empty($supplier)) 
+                {{-- @if ($supplier === null || $supplier === '' || empty($supplier))  --}}
                     <div class="mb-2 col col-lg-4" >
                         <label for="supplier" class="form-label">Supplier Name <span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="supplier_name" wire:model.lazy="supplier_name">
@@ -35,15 +35,28 @@
                         <input type="text" class="form-control" id="supplier_address" wire:model.lazy="supplier_address">
                         @error('supplier_address') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
-                @endif
+                {{-- @endif --}}
+                <div class="mb-2 col col-lg-4" >
+                    <label for="supplier" class="form-label">Type of Supplies Delivered <span class="text-danger"></span></label>
+                    <select 
+                    class="form-control " 
+                    id="delivery_type" 
+                    wire:model.lazy="delivery_type">
+                        <option value="">-Select Type-</option>
+                        <option value="WET">Wet Goods</option>
+                        <option value="DRY">Dry Goods</option>
+                    </select>
+                    @error('delivery_type') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
             </div>
+            
             <br>
             <h6>Wet & Dry Goods Items</h6>
             <div class="table-responsive">
                 <table class="table" style="min-width: 1200px">
                     <thead>
                         <tr>
-                            <th class="align-middle">Type</th>
+                            {{-- <th class="align-middle">Type</th> --}}
                             <th class="align-middle">Item <span class="text-danger">*</span></th>
                             <th class="align-middle">Category <span class="text-danger">*</span></th>
                             <th class="align-middle">Unit <span class="text-danger">*</span></th>
@@ -60,11 +73,11 @@
                     <tbody>
                         @foreach ($items as $key => $item)
                             <tr>
-                                <td class="align-middle" >
+                                {{-- <td class="align-middle" >
                                     @if ($items[$key]['item_id'])
                                         {{\App\Models\Item::find($items[$key]['item_id'])->type}}
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td class="align-middle" >
                                     <select name="" id="" class="form-control " wire:model.live="items.{{ $key }}.item_id" wire:change="setUnit({{ $key }})" >
                                         <option value="">-Select Item-</option>

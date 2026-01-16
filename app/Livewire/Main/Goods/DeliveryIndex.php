@@ -40,9 +40,11 @@ class DeliveryIndex extends Component
 
     public function render()
     {
-        $deliveries = Delivery::whereBetween('delivery_date', [$this->fromFilter, $this->toFilter])->paginate(20);
+        $wetDeliveries = Delivery::whereBetween('delivery_date', [$this->fromFilter, $this->toFilter])->whereHas("deliveryItems.item", function($query) { $query->where("type", "WET"); })->paginate(20);
+        $dryDeliveries = Delivery::whereBetween('delivery_date', [$this->fromFilter, $this->toFilter])->whereHas("deliveryItems.item", function($query) { $query->where("type", "DRY"); })->paginate(20);
         return view('livewire.main.goods.delivery-index', [
-            'deliveries' => $deliveries
+            'wetDeliveries' => $wetDeliveries,
+            'dryDeliveries' => $dryDeliveries
         ]);
     }
 }

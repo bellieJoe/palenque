@@ -26,16 +26,24 @@ class DeliveryCreate extends Component
     public $unitOptions;
     #[Validate('nullable|exists:suppliers,id')]
     public $supplier = null;
-    #[Validate('required_without:supplier|string|max:255')]
+    #[Validate('required_without:suppli|max:255')]
     public $supplier_name;
-    #[Validate('required_without:supplier|string|max:255')]
+    #[Validate('required_without:suppli|max:255')]
     public $supplier_address;
     #[Validate('required|date|before_or_equal:today')]
     public $date_delivered;
+    #[Validate('required|in:WET,DRY')]
+    public $delivery_type;
     public $origins;
 
     public function calculateTotalTax(){
         $this->total_tax = collect($this->items)->sum('tax');
+    }
+
+    public function updatingDeliveryType($value)
+    {
+        $this->items = [];
+        $this->itemOptions = Item::where('municipal_market_id', auth()->user()->marketDesignation()->id)->where("type", $value)->get();
     }
 
     public function addItem()
@@ -73,8 +81,8 @@ class DeliveryCreate extends Component
             'items.*.amount' => 'required|numeric',
             'items.*.unit_id' => 'required|exists:units,id',
             'items.*.tax' => 'required|numeric',
-            'supplier_name' => 'required_without:supplier|string|max:255',
-            'supplier_address' => 'required_without:supplier|string|max:255',
+            'supplier_name' => 'required_without:supplier|max:255',
+            'supplier_address' => 'required_without:supplier|max:255',
             // 'items.*.ticket_no' => 'required',
             // 'items.*.sales' => 'required',
             // 'items.*.ticket_status' => 'required|in:PAID,UNPAID,WAIVED',
