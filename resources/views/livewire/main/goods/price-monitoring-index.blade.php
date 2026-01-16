@@ -1,8 +1,6 @@
 <div>
     <x-page-header title="Price Monitoring" />
-    {{-- <div class="d-flex justify-content-end mb-3">
-        <a class="btn btn-primary" href="{{ route('main.price-monitoring.create') }}">Update Price</a>
-    </div> --}}
+    @livewire('main.goods.price-history-chart')
     <div class="card">
         <div class="card-body">
             <input type="text" class="form-control mb-3" wire:model.live.debounce.300ms="search" placeholder="Search Items...">

@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Main\Goods;
 
+use App\Models\DeliveryTicket;
 use App\Models\Item;
+use App\Models\MonthlyRent;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
@@ -11,6 +14,8 @@ class PriceMonitoringIndex extends Component
 {
     use WithoutUrlPagination, WithPagination;
     public $search;
+
+    
 
     public function updatingSearch()
     {
