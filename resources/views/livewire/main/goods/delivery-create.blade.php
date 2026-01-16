@@ -24,7 +24,7 @@
                     </select>
                     @error('supplier') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-                {{-- @if ($supplier === null || $supplier === '' || empty($supplier))  --}}
+                @if ($supplier === null || $supplier === '' || empty($supplier)) 
                     <div class="mb-2 col col-lg-4" >
                         <label for="supplier" class="form-label">Supplier Name <span class="text-danger"></span></label>
                         <input type="text" class="form-control" id="supplier_name" wire:model.lazy="supplier_name">
@@ -35,7 +35,7 @@
                         <input type="text" class="form-control" id="supplier_address" wire:model.lazy="supplier_address">
                         @error('supplier_address') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
-                {{-- @endif --}}
+                @endif
                 <div class="mb-2 col col-lg-4" >
                     <label for="supplier" class="form-label">Type of Supplies Delivered <span class="text-danger"></span></label>
                     <select 

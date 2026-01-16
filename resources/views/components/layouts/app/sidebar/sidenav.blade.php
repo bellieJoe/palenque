@@ -380,6 +380,12 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('vendor.price-monitoring.index') }}" class="sidebar-link {{ request()->routeIs('vendor.price-monitoring..*') ? 'active' : '' }}" wire:navigate>
+                            <i class="mdi mdi-chart-line"></i>
+                            <span class="hide-menu"> Price Monitoring </span>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </nav>

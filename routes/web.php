@@ -58,6 +58,7 @@ use App\Livewire\Settings\Profile\ProfileIndex;
 use App\Livewire\Stall\Vendor\Fee\FeeIndex;
 use App\Livewire\Vendor\Fee\MonthlyRentIndex;
 use App\Livewire\Vendor\Notifications\NotificationIndex;
+use App\Livewire\Vendor\PriceMonitoring\PriceMonitoringIndex as PriceMonitoringPriceMonitoringIndex;
 use App\Livewire\Vendor\Stall\AmbulantStallIndex as VendorAmbulantStallIndex;
 use App\Models\Building;
 use App\Models\ItemCategory;
@@ -195,6 +196,10 @@ Route::group(["prefix" => "vendor", "as" => "vendor."], function () {
 
     Route::group(["prefix" => "notifications", "as" => "notifications."], function () {
         Route::get('/', NotificationIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+
+    Route::group(["prefix" => "price-monitoring", "as" => "price-monitoring."], function () {
+        Route::get("/", PriceMonitoringPriceMonitoringIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
 });
 
