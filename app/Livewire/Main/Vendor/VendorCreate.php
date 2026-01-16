@@ -25,6 +25,8 @@ class VendorCreate extends Component
     public $address = "";
     #[Validate('required|email|max:60|unique:users,email')]
     public $email = "";
+    #[Validate('required|in:WET,DRY,BOTH')]
+    public $product_type = "";
 
     public function saveVendor()
     {
@@ -44,7 +46,8 @@ class VendorCreate extends Component
                     "contact_number" => $this->contact_number,
                     "address" => $this->address,
                     "representative_name" => $this->representative_name,
-                    "municipal_market_id" => auth()->user()->marketDesignation()->id
+                    "municipal_market_id" => auth()->user()->marketDesignation()->id,
+                    "product_type" => $this->product_type
                 ]);
                 Role::create([
                     'user_id' => $user->id,

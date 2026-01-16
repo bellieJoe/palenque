@@ -35,6 +35,16 @@
                         <input type="text" class="form-control" id="contact_number" wire:model.live.debounce.300ms="contact_number">
                         @error('contact_number') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
+                    <div class="mb-2">
+                        <label for="contact_number" class="form-label">Type of Products Sold <span class="text-danger">*</span></label>
+                        <select class="form-control" id="product_type" wire:model.live.debounce.300ms="product_type">
+                            <option value="">Select Products Sold</option>
+                            <option value="WET">Wet Products</option>
+                            <option value="DRY">Dry Products</option>
+                            <option value="BOTH">Both</option>
+                        </select>
+                        @error('product_type') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" wire:loading.attr="disabled" wire:click="saveVendor">Register</button>
