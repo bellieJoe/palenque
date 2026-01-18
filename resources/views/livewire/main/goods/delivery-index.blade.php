@@ -1,5 +1,6 @@
 <div>
     <x-page-header title="Wet & Dry Goods Deliveries" />
+    @livewire('main.goods.delivery-per-good-chart')
     <div class="d-flex justify-content-end mb-3">
         <a class="btn btn-primary" href="{{ route('main.deliveries.create') }}" wire:navigate>Add Delivery</a>
     </div>
