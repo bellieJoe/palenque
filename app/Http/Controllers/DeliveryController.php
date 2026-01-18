@@ -28,7 +28,9 @@ class DeliveryController extends Controller
     {
         $request->validate([
             'delivery_date' => 'required',
-            'supplier' => 'required|exists:suppliers,id',
+            'supplier' => 'nullable|exists:suppliers,id',
+            "supplier_name" => "required_without:supplier",
+            "supplier_address" => "required_without:supplier",
             'items' => 'required|array',
             'items.*.item' => 'required|exists:items,id',
             'items.*.unit' => 'required|exists:units,id',
@@ -42,7 +44,9 @@ class DeliveryController extends Controller
         return DB::transaction(function () use ($request) {
             $delivery = Delivery::create([
                 'delivery_date' => $request->delivery_date,
-                'supplier_id' => $request->supplier,
+                'supplier_id' => $request->supplier ? $request->supplier : null,
+                'supplier_name' => $request->supplier_name,
+                'supplier_address' => $request->supplier_address,
                 'municipal_market_id' => auth()->user()->marketDesignation()->id,
             ]);
 
