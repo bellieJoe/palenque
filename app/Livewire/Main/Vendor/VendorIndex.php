@@ -47,8 +47,11 @@ class VendorIndex extends Component
                 }
                 $user = $vendor->user;
                 // Delete related roles first
-                Role::where("user_id", $user->id)->delete();
+                // Role::where("user_id", $user->id)->delete();
                 // Delete user and vendor
+                $vendor->update([
+                    "restore_date" => now()->addDays(60)->format('Y-m-d')
+                ]);
                 $user->delete();
                 $vendor->delete();
                 notyf()->position('y', 'top')->success('Vendor deleted successfully!');
@@ -59,13 +62,41 @@ class VendorIndex extends Component
         }
     }
 
+    public function restoreVendor($id){
+        try {
+            DB::transaction(function () use ($id) {
+                $vendor = Vendor::withTrashed()->with('user')->findOrFail($id);
+                $vendor->update([
+                    "restore_date" => null
+                ]);
+                $vendor->restore();
+                $vendor->user()->restore();
+                notyf()->position('y', 'top')->success('Vendor restored successfully!');
+            });
+        } catch (\Throwable $th) {
+            Log::error($th);
+            notyf()->position('y', 'top')->error('Failed to restore vendor!');
+        }
+    }
+
     public function render()
     {
         Gate::authorize('viewAny', Vendor::class);
         $vendors = Vendor::query()
+        ->withTrashed()
+        ->where(function ($q) {
+            $q->whereNull('deleted_at') // active records (ignore restore_date)
+            ->orWhere(function ($q) {
+                $q->whereNotNull('deleted_at') // deleted records
+                    ->whereDate('restore_date', '>', today());
+            });
+        })
         ->where("name", "like", "%{$this->search}%")
         ->where("municipal_market_id", auth()->user()->marketDesignation()->id)
-        ->with("user")
+        ->with("user", function($q){
+            $q->withTrashed();
+        })
+        ->orderBy('restore_date', 'asc')
         ->paginate(10);
         return view('livewire.main.vendor.vendor-index', ["vendors" => $vendors]);
     }
