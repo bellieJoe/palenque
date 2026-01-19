@@ -13,7 +13,7 @@ class StallOccupant extends Model
 
     public function stall()
     {
-        return $this->belongsTo(Stall::class);
+        return $this->belongsTo(Stall::class)->withTrashed();
     }
 
     public function vendor()

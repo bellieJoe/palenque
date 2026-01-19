@@ -64,8 +64,13 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button class="btn btn-outline-danger" wire:click="deleteStall({{$stall->id}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
-                                    <button class="btn btn-outline-primary" wire:click="editStall({{$stall->id}})">Edit</button>
+                                    @if (!$stall->trashed())
+                                        <button class="btn btn-outline-danger" wire:click="deleteStall({{$stall->id}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
+                                        <button class="btn btn-outline-primary" wire:click="editStall({{$stall->id}})">Edit</button>
+                                    @endif
+                                    @if ($stall->trashed())
+                                        <button class="btn btn-outline-danger" wire:click="restoreStall({{$stall->id}})" wire:confirm="Are you sure you want to restore this post?">Restore ({{ number_format(now()->diffInDays($stall->restore_date), 0) }} days left)</button>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

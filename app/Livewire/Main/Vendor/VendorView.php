@@ -23,10 +23,17 @@ class VendorView extends Component
     public function mount($id){
         $this->id = $id;
         $this->vendor = Vendor::find($id);
-        $this->stalls = StallOccupant::where('vendor_id', $id)->get();
+        $this->stalls = StallOccupant::where('vendor_id', $id)
+        ->whereHas('stall', function ($query) {
+            $query->withTrashed();
+        })
+        ->get();
         $this->monthlyRents = MonthlyRent::whereHas('stallContract', function ($query){
             $query->whereHas('stallOccupant', function ($query) {
                 $query->where('vendor_id', $this->vendor->id);
+                $query->whereHas('stall', function ($query) {
+                    $query->withTrashed();
+                });
             })
             ->whereNotIn('status', ['CANCELLED', 'TERMINATED']);
         })
