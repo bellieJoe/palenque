@@ -12,7 +12,7 @@
                         <th>Stall No.</th>
                         <th>Stall Name</th>
                         <th>Vendor</th>
-                        <th>Status</th>
+                        {{-- <th>Status</th> --}}
                         <th>Actions</th>
                     </thead>
                     <tbody>
@@ -21,19 +21,24 @@
                                 <td class="align-middle">{{ $ambulantStall->stall_no }}</td>
                                 <td class="align-middle">{{ $ambulantStall->name }}</td>
                                 <td class="align-middle">{{ $ambulantStall->vendor->name }}</td>
-                                <td class="align-middle">
+                                {{-- <td class="align-middle">
                                     <span class="badge badge-{{ $ambulantStall->status == 1 ? 'success' : 'secondary' }}">
                                         {{ $ambulantStall->status == 1 ? 'Active' : 'Inactive' }}
                                     </span>
-                                </td>
+                                </td> --}}
                                 <td class="align-middle">
-                                    @can('update', $ambulantStall)
-                                        <button class="btn btn-outline-danger" wire:click="deleteAmbulantStall({{$ambulantStall->id}})"  wire:confirm="Are you sure you want to delete this Ambulant Stall? This action is irreversible.">Delete Stall</button>
-                                        <a class="btn btn-outline-primary" href="{{ route('main.ambulant-stalls.edit', $ambulantStall->id) }}" wire:navigate>Edit Stall</a>
-                                    @endcan
-                                    @can('create', \App\Models\Fee::class)
-                                        <a class="btn btn-outline-warning" href="{{ route('main.fees.issue-daily-fee', $ambulantStall->id) }}" wire:navigate>Issue Ticket</a>
-                                    @endcan
+                                    @if (!$ambulantStall->trashed())
+                                        @can('update', $ambulantStall)
+                                            <button class="btn btn-outline-danger" wire:click="deleteAmbulantStall({{$ambulantStall->id}})"  wire:confirm="Are you sure you want to delete this Ambulant Stall?.">Delete Stall</button>
+                                            <a class="btn btn-outline-primary" href="{{ route('main.ambulant-stalls.edit', $ambulantStall->id) }}" wire:navigate>Edit Stall</a>
+                                        @endcan
+                                        @can('create', \App\Models\Fee::class)
+                                            <a class="btn btn-outline-warning" href="{{ route('main.fees.issue-daily-fee', $ambulantStall->id) }}" wire:navigate>Issue Ticket</a>
+                                        @endcan
+                                    @endif
+                                    @if ($ambulantStall->trashed())
+                                        <button class="btn btn-outline-danger" wire:click="restoreAmbulantStall({{$ambulantStall->id}})"  wire:confirm="Are you sure you want to restore this Ambulant Stall?.">Restore Stall ({{ number_format(now()->diffInDays($ambulantStall->restore_date), 0) }} days left)</button>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
