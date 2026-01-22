@@ -23,6 +23,6 @@ class Supplier extends Model
 
     public function origin()
     {
-        return $this->belongsTo(Origin::class);
+        return $this->belongsTo(Origin::class)->withTrashed();
     }
 }

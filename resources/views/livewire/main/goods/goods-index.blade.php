@@ -27,9 +27,14 @@
                                 {{-- <td>{{ $item->type }}</td> --}}
                                 <td>{{ $item->units->pluck('name')->implode(', ') }}</td>
                                 <td>
-                                    <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Delete</button>
-                                    <button class="btn btn-outline-primary" wire:click="editItem({{$item->id}})">Edit</button>
-                                    <a class="btn btn-outline-primary" href="{{ route('main.goods.edit-tax-rate', $item->id) }}" wire:navigate>Edit Tax Rates</a>
+                                    @if (!$item->trashed())
+                                        <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Delete</button>
+                                        <button class="btn btn-outline-primary" wire:click="editItem({{$item->id}})">Edit</button>
+                                        <a class="btn btn-outline-primary" href="{{ route('main.goods.edit-tax-rate', $item->id) }}" wire:navigate>Edit Tax Rates</a>
+                                    @endif
+                                    @if ($item->trashed())
+                                        <button class="btn btn-outline-danger" wire:click="restoreItem({{$item->id}})" wire:confirm="Are you sure you want to restore this item?">Restore ({{ number_format(now()->diffInDays($item->restore_date), 0) }} days left)</button>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
@@ -55,9 +60,14 @@
                                 {{-- <td>{{ $item->type }}</td> --}}
                                 <td>{{ $item->units->pluck('name')->implode(', ') }}</td>
                                 <td>
-                                    <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Delete</button>
-                                    <button class="btn btn-outline-primary" wire:click="editItem({{$item->id}})">Edit</button>
-                                    <a class="btn btn-outline-primary" href="{{ route('main.goods.edit-tax-rate', $item->id) }}" wire:navigate>Edit Tax Rates</a>
+                                    @if (!$item->trashed())
+                                        <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Delete</button>
+                                        <button class="btn btn-outline-primary" wire:click="editItem({{$item->id}})">Edit</button>
+                                        <a class="btn btn-outline-primary" href="{{ route('main.goods.edit-tax-rate', $item->id) }}" wire:navigate>Edit Tax Rates</a>
+                                    @endif
+                                    @if ($item->trashed())
+                                        <button class="btn btn-outline-danger" wire:click="restoreItem({{$item->id}})" wire:confirm="Are you sure you want to restore this item?">Restore ({{ number_format(now()->diffInDays($item->restore_date), 0) }} days left)</button>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

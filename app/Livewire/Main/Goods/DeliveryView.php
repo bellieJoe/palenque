@@ -4,6 +4,7 @@ namespace App\Livewire\Main\Goods;
 
 use App\Models\Delivery;
 use App\Models\DeliveryTicket;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class DeliveryView extends Component
@@ -28,7 +29,20 @@ class DeliveryView extends Component
     
     public function mount($delivery_id)
     {
-        $this->delivery = Delivery::query()->with("deliveryItems.unit", "deliveryItems.item")->find($delivery_id);
+        $this->delivery = Delivery::query()
+        ->with([
+            "supplier" => function($q){
+                $q->withTrashed();
+                $q->with("origin", function($query){
+                    $query->withTrashed();
+                });
+            },
+            "deliveryItems.unit", 
+            "deliveryItems.item"
+        ])
+        ->find($delivery_id);
+
+        Log::info($this->delivery);
     }
 
     public function render()

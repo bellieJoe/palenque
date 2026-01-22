@@ -37,6 +37,6 @@ class DeliveryItem extends Model
     }
 
     public function originated () {
-        return $this->belongsTo(Origin::class, 'origin');
+        return $this->belongsTo(Origin::class, 'origin')->withTrashed();
     }
 }

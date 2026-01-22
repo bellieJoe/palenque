@@ -25,9 +25,14 @@
                                 <td class="align-middle">Php {{ number_format($violationType->monetary_penalty, 2, '.', ',') }}</td>
                                 {{-- <td class="align-middle">{{ $violationType->service_penalty }}</td> --}}
                                 <td class="align-middle">
-                                    <a class="btn btn-outline-primary" href="{{ route('main.violations.types.view', $violationType->id) }}" wire:navigate>View</a>
-                                    <button class="btn btn-outline-danger" wire:click="deleteViolationType({{$violationType->id}})" wire:confirm="Are you sure you want to delete this Vaiolation?">Delete</button>
-                                    <a class="btn btn-outline-primary" href="{{ route('main.violations.types.edit', $violationType->id) }}" wire:navigate>Edit</a>
+                                    @if (!$violationType->trashed())
+                                        <a class="btn btn-outline-primary" href="{{ route('main.violations.types.view', $violationType->id) }}" wire:navigate>View</a>
+                                        <button class="btn btn-outline-danger" wire:click="deleteViolationType({{$violationType->id}})" wire:confirm="Are you sure you want to delete this Vaiolation?">Delete</button>
+                                        <a class="btn btn-outline-primary" href="{{ route('main.violations.types.edit', $violationType->id) }}" wire:navigate>Edit</a>
+                                    @endif
+                                    @if ($violationType->trashed())
+                                        <button class="btn btn-outline-danger" wire:click="restoreViolationType({{$violationType->id}})" wire:confirm="Are you sure you want to restore this Vaiolation?">Restore ({{ number_format(now()->diffInDays($violationType->restore_date), 0) }} day/s left)</button>   
+                                    @endif                
                                 </td>
                             </tr>
                         @empty

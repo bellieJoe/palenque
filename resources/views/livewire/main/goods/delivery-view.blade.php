@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-lg-4 mb-2">
                     <label class="small mb-0 text-muted">Supplier Address</label>
-                    <div>{{ $delivery->supplier_id ? $delivery->supplier->origin->name : $delivery->supplier_address }}</div>
+                    <div>{{ $delivery->supplier_id ? ($delivery->supplier->origin ? $delivery->supplier->origin->name : "N/A") : $delivery->supplier_address }}</div>
                 </div>
                 <div class="col-lg-4 mb-2">
                     <label class="small mb-0 text-muted">Delivery Date</label>
@@ -46,7 +46,7 @@
                                 <td>{{ $deliveryItem->item->name }}</td>
                                 <td>{{ $deliveryItem->amount }} {{ $deliveryItem->unit->name }}</td>
                                 <td>Php {{ number_format($deliveryItem->deliveryTicket->amount, 2, '.', ',') }}</td>
-                                <td>{{ $deliveryItem->originated->name}}</td>
+                                <td>{{ $deliveryItem->originated ? $deliveryItem->originated->name : "N/A"}}</td>
                                 <td>{{ $deliveryItem->deliveryTicket->date_issued->format('F d, Y') }}</td>
                                 <td><span class="badge badge-{{ $deliveryItem->deliveryTicket->status == 'PAID' ? 'success' : ($deliveryItem->deliveryTicket->status == 'UNPAID' ? 'warning' : 'secondary') }}">{{ $deliveryItem->deliveryTicket->status }}</span></td>
                                 {{-- <td>    
