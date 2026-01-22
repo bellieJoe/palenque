@@ -19,8 +19,13 @@
                                 <td class="align-middle">{{ $building->name }}</td>
                                 <td class="align-middle">{{ $building->stalls->count() }}</td>
                                 <td class="align-middle">
-                                   <button class="btn btn-ouline-danger btn-sm" wire:confirm="Are you sure you want to delete this building?" wire:click="deleteBuilding({{$building->id}})">Delete</button>
-                                   <a href="{{ route('main.buildings.edit', $building->id) }}" wire:navigate class="btn btn-outline-primary">Edit</a>
+                                    @if (!$building->trashed())
+                                        <button class="btn btn-outline-danger " wire:confirm="Are you sure you want to delete this building?" wire:click="deleteBuilding({{$building->id}})">Delete</button>
+                                        <a href="{{ route('main.buildings.edit', $building->id) }}" wire:navigate class="btn btn-outline-primary">Edit</a>
+                                    @endif
+                                    @if ($building->trashed())
+                                        <button class="btn btn-outline-danger " wire:confirm="Are you sure you want to restore this building?" wire:click="restoreBuilding({{$building->id}})">Restore ({{ number_format(now()->diffInDays($building->restore_date), 0) }} day/s left)</button>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
