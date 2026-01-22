@@ -53,9 +53,12 @@ class ViolationView extends Component
     {
         $violations = Violation::where('stall_occupant_id', $this->stallOccupant->id)
         ->whereHas('violationType', function ($query) {
+            $query->withTrashed();
             $query->where('name', 'like', '%' . $this->search . '%');
         })
-        ->with(['violationType'])
+        ->with(['violationType' => function($query){
+            $query->withTrashed();
+        }])
         ->orderBy('status', 'desc')
         ->paginate(20);
         return view('livewire.main.violation.violation-view', [

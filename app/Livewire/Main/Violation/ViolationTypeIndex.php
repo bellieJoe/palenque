@@ -24,7 +24,7 @@ class ViolationTypeIndex extends Component
     {
         $this->resetPage();
     }
-
+        
     public function deleteViolationType($id){
         ViolationType::find($id)->update([
             "restore_date" => now()->addDays(60)->format('Y-m-d')
