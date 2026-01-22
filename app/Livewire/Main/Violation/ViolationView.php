@@ -26,7 +26,7 @@ class ViolationView extends Component
     {
         
     }
-
+        
     public function waiveViolation($violationId)
     {
          Violation::find($violationId)->update([
