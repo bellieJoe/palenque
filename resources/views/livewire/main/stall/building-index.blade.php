@@ -19,6 +19,7 @@
                                 <td class="align-middle">{{ $building->name }}</td>
                                 <td class="align-middle">{{ $building->stalls->count() }}</td>
                                 <td class="align-middle">
+                                   <button class="btn btn-ouline-danger btn-sm" wire:confirm="Are you sure you want to delete this building?" wire:click="deleteBuilding({{$building->id}})">Delete</button>
                                    <a href="{{ route('main.buildings.edit', $building->id) }}" wire:navigate class="btn btn-outline-primary">Edit</a>
                                 </td>
                             </tr>
