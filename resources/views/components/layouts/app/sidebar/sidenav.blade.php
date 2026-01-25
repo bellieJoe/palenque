@@ -347,16 +347,36 @@
                 {{-- VENDOR ONLY --}}
                 @if (auth()->user()->isVendor())
                     <li class="sidebar-item">
-                        <a href="{{ route('vendor.ambulant-stalls.index') }}" class="sidebar-link {{ request()->routeIs('vendor.ambulant-stalls..*') ? 'active' : '' }}" wire:navigate>
-                            <i class="mdi mdi-store"></i>
-                            <span class="hide-menu"> Ambulant Stalls </span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
                         <a href="{{ route('vendor.notifications.index') }}" class="sidebar-link {{ request()->routeIs('vendor.notifications..*') ? 'active' : '' }}" wire:navigate>
                             <i class="fa-solid fa-bell"></i>
                             <span class="hide-menu"> Notifications </span>
                         </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{ route('vendor.violations.index') }}" class="sidebar-link {{ request()->routeIs('vendor.violations.*') ? 'active' : '' }}" wire:navigate>
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span class="hide-menu"> Violations </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="mdi mdi-store"></i>
+                            <span class="hide-menu"> Stalls </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('vendor.stalls.index') }}" class="sidebar-link {{ request()->routeIs('vendor.stalls.*') ? 'active' : '' }}" wire:navigate>
+                                    <i class=""></i>
+                                    <span class="hide-menu">Rented Stalls </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('vendor.ambulant-stalls.index') }}" class="sidebar-link {{ request()->routeIs('vendor.ambulant-stalls..*') ? 'active' : '' }}" wire:navigate>
+                                    <i class=""></i>
+                                    <span class="hide-menu"> Ambulant Stalls </span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
@@ -367,14 +387,14 @@
                             <li class="sidebar-item">
                                 <a href="{{ route('vendor.fees.index') }}" class="sidebar-link {{ request()->routeIs('vendor.fees.*') ? 'active' : '' }}" wire:navigate>
                                     {{-- <i class="fa fa-ticket"></i> --}}
-                                    <i class="mdi mdi-calendar-today"></i>
+                                    <i class=""></i>
                                     <span class="hide-menu"> Daily Collection Fees</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="{{ route('vendor.monthly-rents.index') }}" class="sidebar-link {{ request()->routeIs('vendor.monthly-rents.*') ? 'active' : '' }}" wire:navigate>
                                     {{-- <i class="fa fa-ticket"></i> --}}
-                                    <i class="mdi mdi-calendar-multiple"></i>
+                                    <i class=""></i>
                                     <span class="hide-menu"> Monthly Rents</span>
                                 </a>
                             </li>

@@ -85,7 +85,7 @@
                         x-init="
                             let options = {
                                 chart: {
-                                    type: 'bar'
+                                    type: 'bar',
                                 },
                                 plotOptions: {
                                     bar: {
@@ -157,7 +157,8 @@
                         x-init="
                             let options = {
                                 chart: {
-                                    type: 'line'
+                                    type: 'line',
+                                    height: 400
                                 },
                                 stroke: {
                                     curve: 'smooth',

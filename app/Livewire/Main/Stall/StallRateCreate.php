@@ -9,7 +9,7 @@ use Livewire\Component;
 class StallRateCreate extends Component
 {
     #[Validate('required', 'string', 'max:20')]
-    // public $name;
+    public $name;
     // #[Validate('required', 'code', 'max:10')]
     // public $code;
     #[Validate('required')]

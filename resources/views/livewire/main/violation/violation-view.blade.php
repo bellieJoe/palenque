@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-center">
-                <a class="btn btn-sm btn-outline-secondary border-0" href="{{ route('main.violations.index') }}" wire:navigate><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;&nbsp;
+                <a class="btn btn-sm btn-outline-secondary border-0" href="{{ auth()->user()->isVendor() ? route('vendor.violations.index') : route('main.violations.index') }}" wire:navigate><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;&nbsp;
                 <h5 class="card-title">Vendor Violations</h5>
             </div>
         </div>
@@ -41,7 +41,9 @@
                         <th>Warning</th>
                         <th>Date Issued</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        @if (!auth()->user()->isVendor())
+                            <th>Actions</th>
+                        @endif
                     </thead>
                     <tbody>
                         @forelse ($violations as $violation)
@@ -52,7 +54,7 @@
                                 <td class="align-middle">{{ $violation->created_at->format('M d, Y') }}</td>
                                 <td class="align-middle"><span class="badge badge-{{ $violation->status == 'RESOLVED' ? 'success' : ($violation->status == 'WAIVED' ? 'warning' : 'secondary') }}">{{ $violation->status }}</span></td>
                                 <td class="align-middle">
-                                    @if ($violation->status == "PENDING" && $violation->violation_count > auth()->user()->appSettings()->max_violation_warning )
+                                    @if ($violation->status == "PENDING" && $violation->violation_count > auth()->user()->appSettings()->max_violation_warning && !auth()->user()->isVendor() )
                                         <button class="btn btn-outline-primary" wire:click="waiveViolation({{$violation->id}})" wire:confirm="Are you sure you want to waive this violation?">Waive</button>
                                         <button class="btn btn-outline-primary" wire:click="resolveViolation({{$violation->id}})" wire:confirm="Are you sure you want to resolve this violation?">Resolve</button>
                                     @endif

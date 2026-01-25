@@ -7,12 +7,12 @@
                     <div class="row mb-2 justify-content-center">
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="">
-                                <input type="date" class="form-control" wire:model.live="startFilter">
+                                <input type="date" class="form-control form-control-sm" wire:model.live="startFilter">
                             </div>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="">
-                                <input type="date" class="form-control" wire:model.live="endFilter">
+                                <input type="date" class="form-control form-control-sm" wire:model.live="endFilter">
                             </div>
                         </div>
                     </div>
@@ -24,7 +24,10 @@
                             let options = {
                                 chart: {
                                     type: 'bar',
-                                    height: 400
+                                    height: 300,
+                                    title: {
+                                        text: 'Fish Supply'
+                                    }
                                 },
                                 plotOptions: {
                                     bar: {

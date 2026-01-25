@@ -60,6 +60,8 @@ use App\Livewire\Vendor\Fee\MonthlyRentIndex;
 use App\Livewire\Vendor\Notifications\NotificationIndex;
 use App\Livewire\Vendor\PriceMonitoring\PriceMonitoringIndex as PriceMonitoringPriceMonitoringIndex;
 use App\Livewire\Vendor\Stall\AmbulantStallIndex as VendorAmbulantStallIndex;
+use App\Livewire\Vendor\Stall\StallsIndex;
+use App\Livewire\Vendor\Violations\ViolationIndex as ViolationsViolationIndex;
 use App\Models\Building;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
@@ -187,6 +189,9 @@ Route::group(["prefix" => "vendor", "as" => "vendor."], function () {
     Route::group(["prefix" => "ambulant-stalls", "as" => "ambulant-stalls."], function () {
         Route::get('/', VendorAmbulantStallIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
+    Route::group(["prefix" => "stalls", "as" => "stalls."], function () {
+        Route::get('/', StallsIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
     Route::group(["prefix" => "fees", "as" => "fees."], function () {
         Route::get('/', FeeIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
@@ -200,6 +205,10 @@ Route::group(["prefix" => "vendor", "as" => "vendor."], function () {
 
     Route::group(["prefix" => "price-monitoring", "as" => "price-monitoring."], function () {
         Route::get("/", PriceMonitoringPriceMonitoringIndex::class)->middleware(['auth', 'verified'])->name('index');
+    });
+
+    Route::group(["prefix" => "violations", "as" => "violations."], function () {
+        Route::get("/", ViolationsViolationIndex::class)->middleware(['auth', 'verified'])->name('index');
     });
 });
 
