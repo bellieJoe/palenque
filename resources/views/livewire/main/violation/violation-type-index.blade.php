@@ -27,7 +27,7 @@
                                 <td class="align-middle">
                                     @if (!$violationType->trashed())
                                         <a class="btn btn-outline-primary" href="{{ route('main.violations.types.view', $violationType->id) }}" wire:navigate>View</a>
-                                        <button class="btn btn-outline-danger" wire:click="deleteViolationType({{$violationType->id}})" wire:confirm="Are you sure you want to delete this Vaiolation?">Delete</button>
+                                        {{-- <button class="btn btn-outline-danger" wire:click="deleteViolationType({{$violationType->id}})" wire:confirm="Are you sure you want to delete this Vaiolation?">Delete</button> --}}
                                         <a class="btn btn-outline-primary" href="{{ route('main.violations.types.edit', $violationType->id) }}" wire:navigate>Edit</a>
                                     @endif
                                     @if ($violationType->trashed())
