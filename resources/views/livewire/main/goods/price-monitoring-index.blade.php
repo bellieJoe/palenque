@@ -3,15 +3,15 @@
     @livewire('main.goods.price-history-chart')
     <div class="card">
         <div class="card-body">
-            <ul class="nav nav-tabs mb-2">
+            {{-- <ul class="nav nav-tabs mb-2">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->get('status') == 'approve' ? '' : 'active' }}" href="?status=update">Update Prices</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->get('status') == 'approve' ? 'active' : '' }}" href="?status=approve" >Approve Prices</a>
                 </li>
-            </ul>
-            @if (request()->get('status') != 'approve')
+            </ul> --}}
+            {{-- @if (request()->get('status') != 'approve') --}}
                 <div class="">
                     <input type="text" class="form-control mb-3" wire:model.live.debounce.300ms="search" placeholder="Search Items...">
                     <div class="table-responsive">
@@ -50,7 +50,7 @@
                         {{ $items->links() }}
                     </div>
                 </div>
-            @endif
+            {{-- @endif
             @if (request()->get('status') == 'approve')
                 <table class="table">
                     <thead>
@@ -78,7 +78,7 @@
                         @endforelse
                     </tbody>
                 </table>
-            @endif
+            @endif --}}
         </div>
     </div>
 </div>
