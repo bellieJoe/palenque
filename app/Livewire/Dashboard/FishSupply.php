@@ -3,6 +3,7 @@
 namespace App\Livewire\Dashboard;
 
 use App\Models\Item;
+use App\Models\ItemCategory;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -15,31 +16,43 @@ class FishSupply extends Component
     
     public $startFilter;
     public $endFilter;
+    public $productFilter;
+    public $categories;
     public $data;
 
 
+    public function updatingProductFilter()
+    {
+        $this->resetPage();
+        $this->updateData();
+    }
+
     public function updatingStartFilter()
     {
-        $this->init();
+        // $this->init();
         $this->resetPage();
+        $this->updateData();
     }
 
     public function updatingEndFilter()
     {
-        $this->init();
+        // $this->init();
         $this->resetPage();
+        $this->updateData();
     }
 
     public function mount(){
         $this->startFilter = Carbon::parse(date('Y')."-01-01")->format('Y-m-d');
         $this->endFilter = Carbon::parse(date('Y')."-12-31")->format('Y-m-d');
+        $this->productFilter = 1;
+        $this->categories = ItemCategory::all();
     }
 
     private function init()
     {
         $this->data = Item::where('municipal_market_id', auth()->user()->marketDesignation()->id)
             ->whereHas("itemCategory", function($q) {
-                $q->where("name", "Fish");
+                $q->where("id", $this->productFilter);
             })
             // ✅ correct relationship path
             ->whereHas('delivery_items.delivery', function ($query) {
@@ -76,6 +89,9 @@ class FishSupply extends Component
 
     public function updateData(){
         $this->init();
+        $this->dispatch('updateData', [
+            'data' => $this->data
+        ]);
     }
 
     public function render()

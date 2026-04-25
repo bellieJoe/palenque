@@ -3,8 +3,17 @@
         <div class="card-body">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="text-center">Fish Supply</h5><br>
+                    <h5 class="text-center">Product Monitor</h5><br>
                     <div class="row mb-2 justify-content-center">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="">
+                                <select wire:model.live="productFilter" class="form-control form-control-sm">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="">
                                 <input type="date" class="form-control form-control-sm" wire:model.live="startFilter">
@@ -26,7 +35,7 @@
                                     type: 'bar',
                                     height: 300,
                                     title: {
-                                        text: 'Fish Supply'
+                                        text: 'Total Product'
                                     }
                                 },
                                 plotOptions: {
@@ -41,7 +50,7 @@
                             }
                             let chart = new ApexCharts($refs.chart, options);
                             chart.render();
-                            Livewire.on('updatData', (payload) => {
+                            Livewire.on('updateData', (payload) => {
                                 chart.updateSeries([{ data: payload[0].data }]);
                             });
                         "
