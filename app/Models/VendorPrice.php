@@ -8,6 +8,12 @@ class VendorPrice extends Model
 {
     //
     protected $guarded = [];
+
+    protected $casts = [
+        'price' => 'float',
+        'date' => 'date'
+    ];
+    
     public function vendor(){
         return $this->belongsTo(Vendor::class);
     }

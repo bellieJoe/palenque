@@ -52,6 +52,7 @@ class PriceMonitoringIndex extends Component
                 'item_id' => $itemId,
                 'date' => $this->date,
                 'municipal_market_id' => auth()->user()->marketDesignation()->id,
+                'status' => 'pending',
             ],
             [
                 'price' => $value ?? 0,

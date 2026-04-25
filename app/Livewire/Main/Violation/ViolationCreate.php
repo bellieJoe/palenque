@@ -39,7 +39,8 @@ class ViolationCreate extends Component
             "stall_occupant_id" => $stallOccupant->id,
             "municipal_market_id" => auth()->user()->marketDesignation()->id,
             "violation_count" => $violationCount,
-            "status" => $violationCount > auth()->user()->appSettings()->max_violation_warning ? "PENDING" : "WAIVED"
+            // "status" => $violationCount > auth()->user()->appSettings()->max_violation_warning ? "PENDING" : "WAIVED"
+            "status" => "PENDING"
         ]);
         Notification::send($this->vendor->user, new ViolationNotification($violation));
         notyf()->position('y', 'top')->success('Violation created successfully!');

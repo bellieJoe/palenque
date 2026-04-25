@@ -56,4 +56,10 @@ class StallOccupant extends Model
     {
         return $this->stallContracts()->where('to', '>=', now())->where('status', 'ACTIVE')->first();
     }
+
+    public function getViolationCountAttribute()
+    {
+        return Violation::where('stall_occupant_id', $this->id)
+        ->whereIn('status', ['PENDING', 'RESOLVED'])->count();
+    }
 }
