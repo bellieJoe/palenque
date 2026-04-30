@@ -165,7 +165,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
       </div>
 
       <div class="text-right">
-          <button type="submit" class="btn btn-primary btn-block" data-test="login-button">
+          <button type="submit" class="btn btn-primary-custom btn-block" data-test="login-button">
               {{ __('Log in') }}
           </button>
       </div>

@@ -65,6 +65,7 @@ use App\Livewire\Vendor\Violations\ViolationIndex as ViolationsViolationIndex;
 use App\Models\Building;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -73,6 +74,30 @@ use Livewire\Volt\Volt;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::post('login', function (Request $request) {
+
+    // 1. Validate input
+    $credentials = $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+
+    // 2. Attempt login
+    if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+
+        throw ValidationException::withMessages([
+            'email' => __('auth.failed'),
+        ]);
+    }
+
+    // 3. Regenerate session (security)
+    $request->session()->regenerate();
+
+    // 4. Redirect to dashboard
+    return redirect()->intended(route('dashboard'));
+
+})->name('login');
 
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
