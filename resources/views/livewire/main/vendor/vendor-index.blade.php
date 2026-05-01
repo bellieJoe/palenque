@@ -1,6 +1,18 @@
 <div>
     <x-page-header title="Vendors" />
     <div class="d-flex justify-content-end mb-3">
+        <div class="d-flex justify-content-end mr-2">
+            <div class="row">
+                <div class="col">
+                    <select name="buildingFilter" wire:model.live.debounce.300ms="buildingFilter" class="form-control" id="">
+                        <option value="">All Buildings</option>
+                        @foreach ($buildings as $building)
+                            <option value="{{ $building->id }}">{{ $building->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
         @livewire('main.vendor.vendor-create')
     </div>
     <div class="card">

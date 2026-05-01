@@ -2,6 +2,19 @@
     @livewire('main.stall.stall-edit')
     @livewire('main.stall.set-occupant')
     <x-page-header title="Stalls" />
+    
+    <div class="d-flex justify-content-end ">
+        <div class="row ">
+            <div class="col">
+                <select name="buildingFilter" wire:model.live.debounce.300ms="buildingFilter" class="form-control" id="">
+                    <option value="">All Buildings</option>
+                    @foreach ($buildings as $building)
+                        <option value="{{ $building->id }}">{{ $building->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-3 col-md-6">
             <div class="card">
@@ -28,6 +41,21 @@
                         </div>
                         <div class="col-5">
                             <h1 class="font-light text-right mb-0">{{ $counts["available_stalls"] }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>                        
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-7">
+                            <i class="fa-solid fa-store font-20 text-success"></i>
+                            <p class="font-16 m-b-5">Occupied Stalls</p>
+                        </div>
+                        <div class="col-5">
+                            <h1 class="font-light text-right mb-0">{{ $counts["occupied_stalls"] }}</h1>
                         </div>
                     </div>
                 </div>

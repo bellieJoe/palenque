@@ -25,7 +25,7 @@
             color: white;
             background-position: center center;
             background-size: cover;
-            padding: 2rem 1.5rem;
+            padding: 5rem 1.5rem;
             min-height: 350px;
         }
 

@@ -20,6 +20,7 @@ class DeliveryPerGoodChart extends Component
 
     public $series = [];
     public $seriesName = 'Price';
+    public $units;
     
     public function mount()
     {
@@ -99,11 +100,13 @@ class DeliveryPerGoodChart extends Component
                 'y' => $record->total_base_amount
             ];
         })->toArray();
-        Log::info($this->series);
+        $this->units = Item::where('id', $this->itemFilter)->first()->defaultUnit->name;
+
 
         // Dispatch to Alpine/ApexCharts
         $this->dispatch('updatePriceHistoryChart', [
-            'data' => $this->series
+            'data' => $this->series,
+            'units' => $this->units
         ]);
     }
     

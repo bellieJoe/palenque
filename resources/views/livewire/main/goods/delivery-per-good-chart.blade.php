@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="text-center mb-4">Market Price History</h5>
+                <h5 class="text-center mb-4">Delivery Overview</h5>
 
                 {{-- Filters --}}
                 <div class="d-flex justify-content-center mb-4 flex-wrap">
@@ -51,11 +51,17 @@
                                 data: @js($series)
                             }],
                             xaxis: {
-                                type: 'datetime'
+                                type: 'datetime',
+                                title: {
+                                    text: 'Date Delivered'
+                                }
                             },
                             yaxis: {
                                 tooltip: {
                                     enabled: true
+                                },
+                                title: {
+                                    text: @js($units)
                                 }
                             }
                         };

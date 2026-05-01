@@ -5,6 +5,7 @@ namespace App\Livewire\Main\Violation;
 use App\Models\StallOccupant;
 use App\Models\Vendor;
 use App\Models\Violation;
+use App\Models\ViolationType;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
@@ -16,6 +17,12 @@ class ViolationView extends Component
     public $stallOccupant;
     protected $listeners = ['refresh-violations' => 'refreshViolations'];
     public $search;
+    public $violationTypeFilter;
+
+    public function updatingViolationTypeFilter()
+    {
+        $this->resetPage();
+    }
 
     public function updatingSearch()
     {
@@ -56,13 +63,20 @@ class ViolationView extends Component
             $query->withTrashed();
             $query->where('name', 'like', '%' . $this->search . '%');
         })
+        ->where(function ($query) {
+            if($this->violationTypeFilter) {
+                $query->where('violation_type_id', $this->violationTypeFilter);
+            }
+        })
         ->with(['violationType' => function($query){
             $query->withTrashed();
         }])
         ->orderBy('status', 'desc')
         ->paginate(20);
+        $violationTypes = ViolationType::where('municipal_market_id', auth()->user()->marketDesignation()->id)->get();
         return view('livewire.main.violation.violation-view', [
-            'violations' => $violations
+            'violations' => $violations,
+            'violationTypes' => $violationTypes
         ]);
     }
 }

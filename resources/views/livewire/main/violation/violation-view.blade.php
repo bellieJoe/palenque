@@ -8,6 +8,18 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="d-flex justify-content-end mb-2">
+                <div class="row ">
+                    <div class="col">
+                        <select name="violationTypeFilter" wire:model.live.debounce.300ms="violationTypeFilter" class="form-control" id="">
+                            <option value="">All Violations</option>
+                            @foreach ($violationTypes as $type)
+                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div class="border p-3 mb-3">
                 <div class="row">
                     <div class="col-lg-4 mb-2">

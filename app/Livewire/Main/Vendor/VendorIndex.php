@@ -3,6 +3,7 @@
 namespace App\Livewire\Main\Vendor;
 
 use App\Models\AmbulantStall;
+use App\Models\Building;
 use App\Models\Role;
 use App\Models\StallOccupant;
 use App\Models\Vendor;
@@ -21,6 +22,12 @@ class VendorIndex extends Component
     protected $listeners = [
         "refresh-vendors"
     ];
+
+    public $buildingFilter;
+    public function updatingBuildingFilter()
+    {
+        $this->resetPage();
+    }
 
     public $search;
 
@@ -82,6 +89,7 @@ class VendorIndex extends Component
     public function render()
     {
         Gate::authorize('viewAny', Vendor::class);
+        $buildings = Building::where("municipal_market_id", auth()->user()->marketDesignation()->id)->get();
         $vendors = Vendor::query()
         ->withTrashed()
         ->where(function ($q) {
@@ -93,11 +101,23 @@ class VendorIndex extends Component
         })
         ->where("name", "like", "%{$this->search}%")
         ->where("municipal_market_id", auth()->user()->marketDesignation()->id)
+        ->where(function ($q) {
+            if($this->buildingFilter){
+                $q->whereHas("stallOccupants", function($q){
+                    $q->whereHas("stall", function($q){
+                        $q->where("building_id", $this->buildingFilter);
+                    });
+                    $q->whereHas("stallContract", function($q){
+                        $q->where("status", "ACTIVE");
+                    });
+                });
+            }
+        })
         ->with("user", function($q){
             $q->withTrashed();
         })
         ->orderBy('restore_date', 'asc')
         ->paginate(10);
-        return view('livewire.main.vendor.vendor-index', ["vendors" => $vendors]);
+        return view('livewire.main.vendor.vendor-index', ["vendors" => $vendors, "buildings" => $buildings]);
     }
 }

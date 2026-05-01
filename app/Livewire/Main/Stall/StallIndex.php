@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Main\Stall;
 
+use App\Models\Building;
 use App\Models\Stall;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
@@ -15,8 +16,15 @@ class StallIndex extends Component
         'refresh-stalls'
     ];
     
+    
     public $search;
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public $buildingFilter;
+    public function updatingBuildingFilter()
     {
         $this->resetPage();
     }
@@ -62,23 +70,55 @@ class StallIndex extends Component
                     ->whereDate('restore_date', '>', today());
             });
         })
+        ->where(function ($q) {
+            if ($this->buildingFilter) {
+                $q->where('building_id', $this->buildingFilter);
+            }
+            
+        })
         ->where('name', 'like', '%' . $this->search . '%')
         ->where('municipal_market_id', auth()->user()->marketDesignation()->id)
         ->paginate(10);
         $counts = [
-            "total_stalls" => Stall::where('municipal_market_id', auth()->user()->marketDesignation()->id)->count(),
+            "total_stalls" => Stall::where('municipal_market_id', auth()->user()->marketDesignation()->id)
+            ->where(function ($q) {
+                if ($this->buildingFilter) {
+                    $q->where('building_id', $this->buildingFilter);
+                }
+            })
+            ->count(),
             "available_stalls" => Stall::where('municipal_market_id', auth()->user()->marketDesignation()->id)
+            ->where(function ($q) {
+                if ($this->buildingFilter) {
+                    $q->where('building_id', $this->buildingFilter);
+                }
+            })
             ->whereDoesntHave('stallOccupants', function ($query) {
                 $query->whereHas('stallContracts', function ($query) {
                     $query->whereDate('from', '<=', now())
                         ->whereDate('to', '>=', now());
                 });
             })
-            ->count()
+            ->count(),
+            "occupied_stalls" => Stall::where('municipal_market_id', auth()->user()->marketDesignation()->id)
+            ->where(function ($q) {
+                if ($this->buildingFilter) {
+                    $q->where('building_id', $this->buildingFilter);
+                }
+            })
+            ->whereHas('stallOccupants', function ($query) {
+                $query->whereHas('stallContracts', function ($query) {
+                    $query->whereDate('from', '<=', now())
+                        ->whereDate('to', '>=', now());
+                });
+            })
+            ->count(),
         ];
+        $buildings = Building::where("municipal_market_id", auth()->user()->marketDesignation()->id)->get();
         return view('livewire.main.stall.stall-index', [
             'stalls' => $stalls,
-            'counts' => $counts
+            'counts' => $counts,
+            'buildings' => $buildings
         ]);
     }
 }
