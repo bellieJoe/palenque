@@ -30,6 +30,15 @@ class StallRateUpdate extends Component
         $this->rate = $stallRate->rate;
         $this->dispatch('show-edit-stall-rate-modal');
     }
+
+    public function deleteStallRate($stallRateId)
+    {
+        $stallRate = StallRate::find($stallRateId);
+        $stallRate->update(['restore_date' => now()->addDays(60)->format('Y-m-d')]);
+        $stallRate->delete();
+        notyf()->position('y', 'top')->success('Stall Rate deleted successfully!');
+        return redirect(route('main.stall-rates.index'));
+    }
     
     public function updateStallRate()
     {

@@ -55,6 +55,7 @@ class SupplierIndex extends Component
 
         Origin::find($id)->delete();
         notyf()->position('y', 'top')->success('Origin deleted successfully!');
+        return redirect(route('main.suppliers.index'));
         $this->dispatch('refresh-suppliers');
     }
 

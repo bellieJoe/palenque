@@ -29,7 +29,7 @@
                                 <td class="align-middle">
                                     @if (!$ambulantStall->trashed())
                                         @can('update', $ambulantStall)
-                                            <button class="btn btn-outline-danger" wire:click="deleteAmbulantStall({{$ambulantStall->id}})"  wire:confirm="Are you sure you want to delete this Ambulant Stall?.">Delete Stall</button>
+                                            {{-- <button class="btn btn-outline-danger" wire:click="deleteAmbulantStall({{$ambulantStall->id}})"  wire:confirm="Are you sure you want to delete this Ambulant Stall?.">Delete Stall</button> --}}
                                             <a class="btn btn-outline-primary" href="{{ route('main.ambulant-stalls.edit', $ambulantStall->id) }}" wire:navigate>Edit Stall</a>
                                         @endcan
                                         @can('create', \App\Models\Fee::class)

@@ -34,6 +34,7 @@ class StallRateIndex extends Component
         $stallRate->update(['restore_date' => now()->addDays(60)->format('Y-m-d')]);
         $stallRate->delete();
         notyf()->position('y', 'top')->success('Stall Rate deleted successfully!');
+        return redirect(route('main.stall-rates.index'));
     }
 
     public function editStallRate($stallRateId)

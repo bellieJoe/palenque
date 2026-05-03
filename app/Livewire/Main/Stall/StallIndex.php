@@ -43,6 +43,7 @@ class StallIndex extends Component
         $stall->update(['restore_date' => now()->addDays(60)->format('Y-m-d')]);
         $stall->delete();
         notyf()->position('y', 'top')->success('Stall deleted successfully!');
+        return redirect(route('main.stalls.index')); 
     }
 
     public function editStall($id)

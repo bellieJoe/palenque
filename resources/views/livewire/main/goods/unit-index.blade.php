@@ -22,7 +22,7 @@
                                 <td class="align-middle">{{ $unit->is_base_unit ? 'N/A' : $unit->conversion_factor }}</td>
                                 <td class="align-middle">
                                     @if (!$unit->trashed())
-                                        <button class="btn btn-outline-danger" wire:click="deleteUnit('{{ $unit->id }}')" wire:confirm="Are you sure you want to delete this unit? ">Delete Unit</button>
+                                        {{-- <button class="btn btn-outline-danger" wire:click="deleteUnit('{{ $unit->id }}')" wire:confirm="Are you sure you want to delete this unit? ">Delete Unit</button> --}}
                                         <a class="btn btn-outline-primary" href="{{ route('main.units.edit', $unit->id) }}" wire:navigate>Edit Unit</a>
                                     @endif
                                     @if($unit->trashed())

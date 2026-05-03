@@ -28,7 +28,7 @@
                                 <td>{{ $item->units->pluck('name')->implode(', ') }}</td>
                                 <td>
                                     @if (!$item->trashed())
-                                        <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Delete</button>
+                                        {{-- <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Delete</button> --}}
                                         <button class="btn btn-outline-primary" wire:click="editItem({{$item->id}})">Edit</button>
                                         <a class="btn btn-outline-primary" href="{{ route('main.goods.edit-tax-rate', $item->id) }}" wire:navigate>Edit Tax Rates</a>
                                     @endif
@@ -61,7 +61,7 @@
                                 <td>{{ $item->units->pluck('name')->implode(', ') }}</td>
                                 <td>
                                     @if (!$item->trashed())
-                                        <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Delete</button>
+                                        {{-- <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Delete</button> --}}
                                         <button class="btn btn-outline-primary" wire:click="editItem({{$item->id}})">Edit</button>
                                         <a class="btn btn-outline-primary" href="{{ route('main.goods.edit-tax-rate', $item->id) }}" wire:navigate>Edit Tax Rates</a>
                                     @endif

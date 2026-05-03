@@ -1,8 +1,8 @@
 <div>
-    <x-page-header title="Units" />
+    <x-page-header title="Origins" />
     <div class="card" style="max-width: 800px">
         <div class="card-header">
-            <h6 class="card-title">Edit Unit</h6>
+            <h6 class="card-title">Edit Origin</h6>
         </div>
         <div class="card-body">
             <div class="row">
@@ -22,7 +22,10 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end ">
-                <a type="button" class="btn btn-secondary" href="{{ route('main.units.index') }}" wire:navigate>Cancel</a>
+                <a type="button" class="btn btn-secondary mr-2" href="{{ route('main.units.index') }}" wire:navigate>Cancel</a>
+                @if ($origin->restore_date == null && $origin->deleted_at == null)
+                    <button class="btn btn-outline-danger" wire:click="deleteOrigin({{$origin->id}})" wire:confirm="Are you sure you want to delete this origin?">Remove</button>
+                @endif
                 <button type="button" class="btn btn-primary ml-2" wire:click="saveOrigin" wire:loading.attr="disabled">Save Origin</button>
             </div>
         </div>

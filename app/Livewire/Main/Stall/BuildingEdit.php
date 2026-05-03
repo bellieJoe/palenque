@@ -31,6 +31,17 @@ class BuildingEdit extends Component
         notyf()->position('y', 'top')->success('Building updated successfully!');
     }
 
+    public function deleteBuilding($id)
+    {
+        $building = Building::find($id);
+        $building->update([
+            "restore_date" => now()->addDays(60)->format("Y-m-d")
+        ]);
+        $building->delete();
+        notyf()->position('y', 'top')->success('Building deleted successfully!');
+        return redirect(route('main.buildings.index'));
+    }
+
     public function render()
     {
         return view('livewire.main.stall.building-edit');

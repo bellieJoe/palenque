@@ -13,12 +13,14 @@ class OriginEdit extends Component
     #[Validate("required")]
     public $is_local;
     public $origin_id;
+    public $origin;
 
     public function mount($id) {
         $origin = Origin::find($id);
         $this->address = $origin->name;
         $this->is_local = $origin->is_local ? true : false;
         $this->origin_id = $id;
+        $this->origin = $origin;
     }
 
     public function saveOrigin(){
@@ -28,7 +30,24 @@ class OriginEdit extends Component
         $origin->is_local = $this->is_local;
         $origin->save();
         notyf()->position('y', 'top')->success('Origin updated successfully!');
+        
+    }
+
+    public function deleteOrigin($id)
+    {
+        // if(Supplier::where('origin_id', $id)->exists()){
+        //     notyf()->position('y', 'top')->error('Cannot delete origin with existing suppliers!');
+        //     return;
+        // }
+        Origin::find($id)
+        ->update([
+            'restore_date' => now()->addDays(60)->format('Y-m-d')
+        ]);
+
+        Origin::find($id)->delete();
+        notyf()->position('y', 'top')->success('Origin deleted successfully!');
         return $this->redirectRoute('main.suppliers.index', navigate: true);
+        $this->dispatch('refresh-suppliers');
     }
 
     public function render()

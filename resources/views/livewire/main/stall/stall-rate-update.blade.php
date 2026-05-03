@@ -26,6 +26,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    @if($stallRate && !$stallRate->trashed())
+                        <button class="btn btn-outline-danger mr-2" wire:click="deleteStallRate({{$stallRate->id}})" wire:confirm="Are you sure you want to delete this stall Rate?">Remove</button>
+                        {{-- <button class="btn btn-outline-primary" wire:click="editStallRate({{$stallRate->id}})">Edit</button> --}}
+                    @endif
                     <button class="btn btn-primary" type="button" wire:loading.attr="disabled" wire:click="updateStallRate">Save</button>
                 </div>
             </form>

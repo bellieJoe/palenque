@@ -37,7 +37,10 @@
                 @endif
             </div>
             <div class="d-flex justify-content-end ">
-                <a type="button" class="btn btn-secondary" href="{{ route('main.units.index') }}" wire:navigate>Cancel</a>
+                <a type="button" class="btn btn-secondary mr-2" href="{{ route('main.units.index') }}" wire:navigate>Cancel</a>
+                @if (!$unit->trashed())
+                    <button class="btn btn-outline-danger" wire:click="deleteUnit('{{ $unit->id }}')" wire:confirm="Are you sure you want to delete this unit? ">Remove</button>
+                @endif
                 <button type="button" class="btn btn-primary ml-2" wire:click="updateUnit" wire:loading.attr="disabled">Save Unit</button>
             </div>
         </div>

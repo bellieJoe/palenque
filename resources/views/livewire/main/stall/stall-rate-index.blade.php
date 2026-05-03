@@ -26,7 +26,7 @@
                                 <td>
                                     <!-- Example actions -->
                                     @if (!$stallRate->trashed())
-                                        <button class="btn btn-outline-danger" wire:click="deleteStallRate({{$stallRate->id}})" wire:confirm="Are you sure you want to delete this stall Rate?">Delete</button>
+                                        {{-- <button class="btn btn-outline-danger" wire:click="deleteStallRate({{$stallRate->id}})" wire:confirm="Are you sure you want to delete this stall Rate?">Delete</button> --}}
                                         <button class="btn btn-outline-primary" wire:click="editStallRate({{$stallRate->id}})">Edit</button>
                                     @endif
                                     @if ($stallRate->trashed())

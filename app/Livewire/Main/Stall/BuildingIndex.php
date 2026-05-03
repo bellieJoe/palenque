@@ -47,6 +47,7 @@ class BuildingIndex extends Component
         ]);
         $building->delete();
         notyf()->position('y', 'top')->success('Building deleted successfully!');
+        return redirect(route('main.buildings.index'));
     }
 
     public function restoreBuilding($id)

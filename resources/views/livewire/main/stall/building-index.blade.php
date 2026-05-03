@@ -20,7 +20,7 @@
                                 <td class="align-middle">{{ $building->stalls->count() }}</td>
                                 <td class="align-middle">
                                     @if (!$building->trashed())
-                                        <button class="btn btn-outline-danger " wire:confirm="Are you sure you want to delete this building?" wire:click="deleteBuilding({{$building->id}})">Delete</button>
+                                        {{-- <button class="btn btn-outline-danger " wire:confirm="Are you sure you want to delete this building?" wire:click="deleteBuilding({{$building->id}})">Delete</button> --}}
                                         <a href="{{ route('main.buildings.edit', $building->id) }}" wire:navigate class="btn btn-outline-primary">Edit</a>
                                     @endif
                                     @if ($building->trashed())

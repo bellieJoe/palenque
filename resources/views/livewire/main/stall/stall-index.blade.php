@@ -93,7 +93,7 @@
                                 </td>
                                 <td>
                                     @if (!$stall->trashed())
-                                        <button class="btn btn-outline-danger" wire:click="deleteStall({{$stall->id}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
+                                        {{-- <button class="btn btn-outline-danger" wire:click="deleteStall({{$stall->id}})" wire:confirm="Are you sure you want to delete this post?">Delete</button> --}}
                                         <button class="btn btn-outline-primary" wire:click="editStall({{$stall->id}})">Edit</button>
                                     @endif
                                     @if ($stall->trashed())

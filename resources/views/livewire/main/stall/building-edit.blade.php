@@ -22,6 +22,14 @@
                        <button class="btn btn-primary" wire:loading.attr="disabled" wire:click="save">Save</button>
                     </div>
                 </div>
+                <div class="col-12 col-md-6 col-lg-4 align-self-end">
+                    <div class="mb-2">
+                       @if (!$building->trashed())
+                            <button class="btn btn-outline-danger " wire:confirm="Are you sure you want to delete this building?" wire:click="deleteBuilding({{$building->id}})">Remove</button>
+                            {{-- <a href="{{ route('main.buildings.edit', $building->id) }}" wire:navigate class="btn btn-outline-primary">Edit</a> --}}
+                        @endif
+                    </div>
+                </div>
 
             </div>
         </div>

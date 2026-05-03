@@ -2,6 +2,9 @@
 
 namespace App\Livewire\Main\Goods;
 
+use App\Models\DeliveryItem;
+use App\Models\Item;
+use App\Models\ItemTaxRate;
 use App\Models\Unit;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -27,6 +30,27 @@ class UnitEdit extends Component
         $this->base_unit =  $this->unit->base_unit_id;
         $this->conversion_factor =  $this->unit->conversion_factor;
         $this->base_units = Unit::where('is_base_unit', true)->where('municipal_market_id', auth()->user()->marketDesignation()->id)->whereNot("id", $this->unit->id)->get();
+    }
+
+    public function deleteUnit($id)
+    {
+        $unit = Unit::find($id);
+        if(
+            DeliveryItem::where("unit_id", $unit->id)->count() > 0
+            || Item::where("default_unit_id", $unit->id)->count() > 0
+            || ItemTaxRate::where("unit_id", $unit->id)->count() > 0
+            // add other validations or relation
+        )
+        {
+            notyf()->position('y', 'top')->warning('Unit is in use and cannot be deleted!');
+            return;
+        }
+        $unit->update([
+            "restore_date" => now()->addDays(60)->format("Y-m-d")
+        ]);
+        $unit->delete();
+        notyf()->position('y', 'top')->success('Unit deleted successfully!');
+        return $this->redirectRoute('main.units.index', navigate: true);
     }
 
     public function updateUnit()

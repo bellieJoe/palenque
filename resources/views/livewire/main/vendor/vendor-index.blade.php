@@ -41,7 +41,7 @@
                                 <td class="align-middle">
                                     @if (!$vendor->trashed())
                                         <a class="btn btn-outline-primary" href="{{ route('main.vendors.view', $vendor->id)}}" wire:navigate>View</a>
-                                        <button class="btn btn-outline-danger" wire:click="deleteVendor({{$vendor->id}})" wire:confirm="Are you sure you want to delete this post?">Delete</button>
+                                        {{-- <button class="btn btn-outline-danger" wire:click="deleteVendor({{$vendor->id}})" wire:confirm="Are you sure you want to delete this post?">Delete</button> --}}
                                     @endif
                                     @if ($vendor->trashed())
                                         <button class="btn btn-outline-danger" wire:click="restoreVendor({{$vendor->id}})" wire:confirm="Are you sure you want to restore this post?">Restore ({{ number_format(now()->diffInDays($vendor->restore_date), 0) }} days left)</button>

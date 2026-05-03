@@ -32,6 +32,7 @@ class GoodsIndex extends Component
         ]);
         $item->delete();
         notyf()->position('y', 'top')->success('Item deleted successfully!');
+        return redirect(route('main.goods.index'));
     }
 
     public function restoreItem($id)
@@ -49,13 +50,13 @@ class GoodsIndex extends Component
         Gate::authorize('viewAny', Item::class);
         $items = Item::query()
         ->withTrashed()
-        ->where(function ($q) {
-            $q->whereNull('deleted_at') // active records (ignore restore_date)
-            ->orWhere(function ($q) {
-                $q->whereNotNull('deleted_at') // deleted records
-                    ->whereDate('restore_date', '>', today());
-            });
-        })
+        // ->where(function ($q) {
+        //     $q->whereNull('deleted_at') // active records (ignore restore_date)
+        //     ->orWhere(function ($q) {
+        //         $q->whereNotNull('deleted_at') // deleted records
+        //             ->whereDate('restore_date', '>', today());
+        //     });
+        // })
         ->where('municipal_market_id', auth()->user()->marketDesignation()->id)
         ->where('name', 'like', '%' . $this->search . '%')
         ->orderBy('restore_date', 'asc')

@@ -55,6 +55,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    @if ($stall && !$stall->trashed())
+                        <button class="btn btn-outline-danger mr-2" wire:click="deleteStall({{$stall->id}})" wire:confirm="Are you sure you want to delete this post?">Remove</button>
+                    @endif
                     <button class="btn btn-primary" type="button" wire:loading.attr="disabled" wire:click="updateStall">Save</button>
                 </div>
             </form>

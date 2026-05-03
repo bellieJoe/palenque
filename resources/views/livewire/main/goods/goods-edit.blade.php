@@ -45,6 +45,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    @if (!$item->trashed())
+                    <button class="btn btn-outline-danger" wire:click="deleteItem({{$item->id}})" wire:confirm="Are you sure you want to delete this item?">Remove</button>
+                    @endif
                     <button class="btn btn-primary" type="button" wire:loading.attr="disabled" wire:click="updateItem">Save</button>
                 </div>
             </form>

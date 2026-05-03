@@ -42,6 +42,7 @@ class UnitIndex extends Component
         ]);
         $unit->delete();
         notyf()->position('y', 'top')->success('Unit deleted successfully!');
+        return $this->redirectRoute('main.units.index', navigate: true);
     }
 
     public function render()

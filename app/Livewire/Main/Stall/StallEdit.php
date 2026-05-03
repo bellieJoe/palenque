@@ -41,6 +41,15 @@ class StallEdit extends Component
         $this->building = $stall->building_id;
         $this->dispatch('show-edit-stall-modal');
     }
+
+    public function deleteStall($id)
+    {
+        $stall = Stall::find($id);
+        $stall->update(['restore_date' => now()->addDays(60)->format('Y-m-d')]);
+        $stall->delete();
+        notyf()->position('y', 'top')->success('Stall deleted successfully!');
+        return redirect(route('main.stalls.index'));    
+    }
     
     public function updateStall()
     {

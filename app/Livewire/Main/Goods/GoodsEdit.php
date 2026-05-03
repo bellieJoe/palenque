@@ -45,6 +45,20 @@ class GoodsEdit extends Component
         $this->dispatch('refresh-goods');
     }
 
+    public function deleteItem($id){
+        $item = Item::find($id);
+        // if(PriceMonitoringRecord::where('item_id', $item->id)->count() > 0){
+        //     notyf()->position('y', 'top')->error('Cannot delete item with associated price monitoring records.');
+        //     return;
+        // }
+        $item->update([
+            "restore_date" =>  now()->addDays(60)->format("Y-m-d")
+        ]);
+        $item->delete();
+        notyf()->position('y', 'top')->success('Item deleted successfully!');
+        return redirect()->route('main.goods.index');
+    }
+
     public function render()
     {
         $categories = ItemCategory::where('municipal_market_id', auth()->user()->marketDesignation()->id)->get();
